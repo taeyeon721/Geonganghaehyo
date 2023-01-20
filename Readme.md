@@ -70,4 +70,7 @@
 ## Req5. 노인 사고 감지 기능
 [치매 예방 노인 사고 감지 기능 명세서](https://www.notion.so/9e2548d472c34675997c96ce733c8c4b)
 
-23/01/19 -> figma 작업중
+
+---
+# UI/UX 디자인(figma)
+https://www.figma.com/file/2QnOImdFaDOV5Izne4TGds/pjt?node-id=2%3A2&t=2DeA1b3N82nVlxuP-0
