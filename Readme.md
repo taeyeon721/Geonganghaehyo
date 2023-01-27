@@ -17,6 +17,9 @@
 - 어르신을 위한 노래/영상 재생 목록
 - 노래방 기능
 
+## ERD
+<img src="https://lab.ssafy.com/s08-webmobile3-sub2/S08P12A202/uploads/d12806aaaf54843e1e03e53d8740e08d/%EC%88%98%EC%A0%95_erd.png">
+
 ## 기술 스택
 ### FE
 - React.js
