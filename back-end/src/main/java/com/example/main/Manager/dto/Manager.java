@@ -21,4 +21,18 @@ public class Manager {
     private String telNo;
 
     private ROLE role;
+
+    public Manager(String email, String password, String name) {
+        super();
+        this.email = email;
+        this.password = password;
+        this.name = name;
+    }
+    public Manager(String email, String password, String name, ROLE role) {
+        super();
+        this.email = email;
+        this.password = password;
+        this.name = name;
+        this.role = role;
+    }
 }

@@ -4,5 +4,5 @@
 <configuration>
     <mappers>
         <mapper resource="mappers/manager.xml" />
-    </mappers>1
+    </mappers>
 </configuration>

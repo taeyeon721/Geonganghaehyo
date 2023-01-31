@@ -31,6 +31,11 @@ public class ManagerService {
     }
 
     @Transactional
+    public int delete(String email) {
+        return managerMapper.delete(email);
+    }
+
+    @Transactional
     public TokensDto login(LoginManagerRequest loginManager){
         ManagerDto manager = managerMapper.login(loginManager.getEmail());
         try{
@@ -46,7 +51,7 @@ public class ManagerService {
         }
     }
 
-    public int idCheck(String email){ return managerMapper.idCheck(email);}
+    public int emailCheck(String email){ return managerMapper.idCheck(email);}
 
     public Manager get(String email){ return managerMapper.get(email);}
 

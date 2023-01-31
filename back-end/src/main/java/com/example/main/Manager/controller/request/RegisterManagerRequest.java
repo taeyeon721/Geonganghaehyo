@@ -33,11 +33,11 @@ public class RegisterManagerRequest {
 		this.password = password;
 	}
 
-	public RegisterManagerRequest(String email, String name, String password) {
+	public RegisterManagerRequest(String email, String password, String name) {
 		super();
 		this.email = email;
-		this.name = name;
 		this.password = password;
+		this.name = name;
 	}
 
 }
