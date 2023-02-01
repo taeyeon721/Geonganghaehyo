@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Book from "../assets/img/book_orange2.png";
 import "../assets/font/font.css";
+import { useLocation } from "react-router-dom";
 
 const MainBlock = styled.div`
   h3 {
@@ -75,6 +76,10 @@ const MainBlock = styled.div`
 
 
 function GameResult() {
+
+  const location = useLocation()
+  const score = location.state.score;
+
   return (
     <>
       <MainBlock>
@@ -84,7 +89,7 @@ function GameResult() {
           </div>
           <div className="result">
             <div className="score">
-              {/* <p>{score}</p> */}
+              <p>{score}</p>
             </div>
             <div className="btn">
               <button className="replay">다시하기</button>

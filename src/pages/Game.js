@@ -134,8 +134,7 @@ const myData = [
 
 */
 const Game = () => {
-  
-  const navigate = useNavigate()
+  const navigate = useNavigate(); // useNavigate를 사용하기 위한 할당
 
   // 컴포넌트 렌더링 시 변수 초기화: useEffect hook 사용
 
@@ -150,17 +149,17 @@ const Game = () => {
   useEffect(() => {
     console.log("컴포넌트 마운트 됨");
     setQuestionnumber(1);
-    
-    const _ = require('lodash')
-    const numbers = _.range(0, 2)
-    let randomanswer = []; //randomanswer: 0 또는 1이 10개 담긴 배열, 0일 경우 왼쪽이 정답, 1일 경우 오른쪽이 정답 
+
+    const _ = require("lodash");
+    const numbers = _.range(0, 2);
+    let randomanswer = []; //randomanswer: 0 또는 1이 10개 담긴 배열, 0일 경우 왼쪽이 정답, 1일 경우 오른쪽이 정답
     // 해당 코드는 컴포넌트 마운트 시 실행됨.
-    
+
     for (let index = 0; index < 10; index++) {
-      randomanswer.push(_.sampleSize(numbers, 1)[0])
+      randomanswer.push(_.sampleSize(numbers, 1)[0]);
     }
 
-    console.log(randomanswer)
+    console.log(randomanswer);
   }, []);
 
   function currect() {
@@ -173,8 +172,8 @@ const Game = () => {
     // 만약 카운트 10 이상인 경우, 결과창 출력
     if (questionnumber === 9) {
       console.log("모든 문제 소모");
-      navigate(`/GameResult`);
-      // 이후 정답 페이지로 렌더링, 이것도 useEffect 훅 쓰면 될듯?
+      console.log({ score });
+      navigate(`/GameResult`, { state: { score } }); // 
     }
   }
 
@@ -201,7 +200,7 @@ const Game = () => {
         <div className="book">
           <div className="question">
             <p>{questionnumber} / 10</p>
-            <h3>{gamedata['question']}</h3>
+            <h3>{gamedata["question"]}</h3>
           </div>
           <div className="btn">
             <button
@@ -210,7 +209,7 @@ const Game = () => {
                 currect();
               }}
             >
-              {gamedata["answer"]} 
+              {gamedata["answer"]}
             </button>
             <button
               className="right"
