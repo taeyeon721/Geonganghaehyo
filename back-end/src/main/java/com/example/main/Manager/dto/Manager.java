@@ -35,4 +35,17 @@ public class Manager {
         this.name = name;
         this.role = role;
     }
+
+    @Override
+    public String toString() {
+        return "Manager{" +
+                "email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
+                ", gender='" + gender + '\'' +
+                ", age=" + age +
+                ", telNo='" + telNo + '\'' +
+                ", role=" + role +
+                '}';
+    }
 }

@@ -8,6 +8,9 @@ import com.example.main.Manager.dto.ManagerDto;
 import com.example.main.Manager.dto.TokenDto;
 import com.example.main.Manager.dto.TokensDto;
 import com.example.main.jwt.JwtTokenProvider;
+import lombok.RequiredArgsConstructor;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -16,17 +19,25 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @Service
+@RequiredArgsConstructor
 @Transactional(readOnly=true)
 public class ManagerService {
 
-    private ManagerMapper managerMapper;
+    private final ManagerMapper managerMapper;
 
-    private PasswordEncoder passwordEncoder;
-    private JwtTokenProvider authTokenProvider = new JwtTokenProvider();
+    private final PasswordEncoder passwordEncoder;
+    private final JwtTokenProvider authTokenProvider = new JwtTokenProvider();
+    final static Logger logger = LogManager.getLogger(ManagerService.class);
 
     @Transactional
     public int register(Manager manager){
-        manager.setPassword(passwordEncoder.encode(manager.getPassword()));
+//        System.out.println(manager.getPassword());
+//        System.out.println(manager.toString());
+//        System.out.println(passwordEncoder.encode(manager.getPassword()));
+//        System.out.println(pw);
+        String pw = passwordEncoder.encode(manager.getPassword());
+        logger.info(pw);
+        manager.setPassword(pw);
         return managerMapper.register(manager);
     }
 

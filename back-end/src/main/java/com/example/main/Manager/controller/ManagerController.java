@@ -18,6 +18,8 @@ import com.example.main.Manager.dto.Manager;
 import com.example.main.Manager.dto.ROLE;
 import com.example.main.Manager.dto.TokensDto;
 import com.example.main.Manager.service.ManagerService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
@@ -33,7 +35,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("manager")
 public class ManagerController {
-	
+	final static Logger logger = LogManager.getLogger(ManagerController.class);
 	@Autowired
 	private ManagerService managerService;
 //	@Autowired
@@ -57,6 +59,7 @@ public class ManagerController {
 	// 값 입력할 때 꼭 @RequestBody 붙이기 !!!!!
 	@PostMapping("register")
 	public ResponseEntity<String> register(@RequestBody RegisterManagerRequest manager) throws Exception {
+		logger.info("ManagerController called");
 		// 아이디 확인 
 //		Pattern idPattern = Pattern.compile("^[A-Za-z[0-9]]{5,15}$");
 	    Pattern emPattern = Pattern.compile("^[_a-z0-9-]+(.[_a-z0-9-]+)*@(?:\\w+\\.)+\\w+$");
@@ -67,13 +70,14 @@ public class ManagerController {
 	    if (!emMatcher.find() || !pwMatcher.find()) {
 	    	return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("양식에 맞지 않습니다.");
 	    }
-	    
-	    int check = managerService.register(new Manager(manager.getEmail(), manager.getName(), manager.getPassword(), ROLE.MANAGER));
+
+	    int check = managerService.register(new Manager(manager.getEmail(), manager.getPassword(), manager.getName(), ROLE.MANAGER));
 	    if (check > 0) {
 	    	return ResponseEntity.ok("회원가입을 성공하였습니다.");
 	    } else {
 	    	return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("회원가입을 실패하였습니다.");
 	    }
+
 	}
 	
 	@PostMapping("idCheck")
