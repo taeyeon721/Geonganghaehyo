@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 import Book from "../assets/img/book_orange2.png";
 import "../assets/font/font.css";
 
@@ -63,7 +64,7 @@ function Game() {
             <h3>게임을 선택해주세요</h3>
           </div>
           <div className="btn">
-            <button className="left">게임 1</button>
+            <Link to="/GameLobby"><button className="left">게임 1</button></Link>
             <button className="right">게임 2</button>
           </div>
         </div>

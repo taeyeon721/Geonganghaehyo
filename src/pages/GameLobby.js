@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 import Book from "../assets/img/book_orange2.png";
 import "../assets/font/font.css";
 
@@ -72,7 +73,7 @@ const GameLobby = () => {
           </div>
           <div className="btn">
             <button className="explain">게임설명</button>
-            <button className="start">시작하기</button>
+            <Link to='/Game'><button className="start">시작하기</button></Link>
             <button className="goback">이전으로</button>
           </div>
         </div>

@@ -73,6 +73,7 @@ const MainBlock = styled.div`
   justify-content: center;
 `;
 
+
 function GameResult() {
   return (
     <>
@@ -83,7 +84,7 @@ function GameResult() {
           </div>
           <div className="result">
             <div className="score">
-              <p>100점</p>
+              {/* <p>{score}</p> */}
             </div>
             <div className="btn">
               <button className="replay">다시하기</button>

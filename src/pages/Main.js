@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from 'react-router-dom'
 import styled from "styled-components";
 import Book from "../assets/img/book_green.png";
 import "../assets/font/font.css";
@@ -91,7 +92,7 @@ const Main = (props) => {
           </div>
           <div className="btn">
             <button className="call">통화</button>
-            <button className="game">게임</button>
+            <Link to='/SelectGame'><button className="game" >게임</button></Link>
             <button className="gym">체조</button>
           </div>
         </div>
