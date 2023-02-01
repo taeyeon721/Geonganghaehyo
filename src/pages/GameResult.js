@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Book from "../assets/img/book_orange2.png";
 import "../assets/font/font.css";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 
 const MainBlock = styled.div`
   h3 {
@@ -92,8 +92,8 @@ function GameResult() {
               <p>{score}</p>
             </div>
             <div className="btn">
-              <button className="replay">다시하기</button>
-              <button className="goback">뒤로가기</button>
+              <Link to='/Game'><button className="replay">다시하기</button></Link>
+              <Link to='/Selectgame'><button className="goback">뒤로가기</button></Link>
             </div>
           </div>
         </div>

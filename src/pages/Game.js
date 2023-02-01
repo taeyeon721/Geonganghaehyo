@@ -134,21 +134,25 @@ const myData = [
 
 */
 const Game = () => {
+
   const navigate = useNavigate(); // useNavigate를 사용하기 위한 할당
 
   // 컴포넌트 렌더링 시 변수 초기화: useEffect hook 사용
 
   const [gamedata, setGamedata] = useState(myData[0]);
   let [questionnumber, setQuestionnumber] = useState(1);
-  const [score, setScore] = useState(0);
+  let [score, setScore] = useState(0);
 
-  const onIncrease = () => {
-    setScore(score + 10); //정답 시 onIncrease 함수 호출, 점수 증가
-  };
+  // const onIncrease = () => {
+  //   console.log('실행 전', score)
+  //   setScore(score + 10); 
+  //   console.log('현재 스코어는' ,  score) //정답 시 onIncrease 함수 호출, 점수 증가
+  // };
 
   useEffect(() => {
-    console.log("컴포넌트 마운트 됨");
+    console.log("컴포넌트 마운트 됨")
     setQuestionnumber(1);
+    setScore(0);
 
     const _ = require("lodash");
     const numbers = _.range(0, 2);
@@ -159,30 +163,48 @@ const Game = () => {
       randomanswer.push(_.sampleSize(numbers, 1)[0]);
     }
 
+    
+
     console.log(randomanswer);
   }, []);
 
+  useEffect( ()=> {
+    if (questionnumber === 10) {
+      console.log('실행됨')
+    }
+  }, [questionnumber] )
+
   function currect() {
     //정답을 골랐을 때
-    onIncrease();
+    // onIncrease();
+    setScore(score + 10)
     setQuestionnumber(questionnumber + 1);
     setGamedata(myData[questionnumber]);
+    
     console.log("정답 눌림");
-    console.log(questionnumber, "문제번호");
-    // 만약 카운트 10 이상인 경우, 결과창 출력
-    if (questionnumber === 9) {
+    console.log(questionnumber, "문제번호", score);
+    if (questionnumber === 10) {
       console.log("모든 문제 소모");
-      console.log({ score });
-      navigate(`/GameResult`, { state: { score } }); // 
+      console.log(questionnumber, "문제번호", score);
+      score += 10
+      navigate(`/GameResult`, { state: { score } }); 
     }
+    
+    // 만약 카운트 10 이상인 경우, 결과창 출력
+    // if (questionnumber === 10) {
+    //   // console.log("모든 문제 소모");
+    //   // console.log({ score });
+    //   ; 
+    // }
   }
 
   function miss() {
     //오답을 골랐을 때
     setQuestionnumber(questionnumber + 1);
     setGamedata(myData[questionnumber]);
-    if (questionnumber === 9) {
+    if (questionnumber === 10) {
       console.log("모든 문제 소모");
+      navigate(`/GameResult`, { state: { score } }); 
     }
   }
 
