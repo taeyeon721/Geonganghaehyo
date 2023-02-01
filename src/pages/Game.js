@@ -134,8 +134,17 @@ const myData = [
 
 */
 const Game = () => {
-
   const navigate = useNavigate(); // useNavigate를 사용하기 위한 할당
+  const _ = require("lodash");
+  const numbers = _.range(0, 2);
+  const randomanswer = []; //randomanswer: 0 또는 1이 10개 담긴 배열, 0일 경우 왼쪽이 정답, 1일 경우 오른쪽이 정답
+  // 해당 코드는 컴포넌트 마운트 시 실행됨.
+
+  for (let index = 0; index < 10; index++) {
+    randomanswer.push(_.sampleSize(numbers, 1)[0]);
+  }
+
+  console.log(randomanswer);
 
   // 컴포넌트 렌더링 시 변수 초기화: useEffect hook 사용
 
@@ -145,66 +154,55 @@ const Game = () => {
 
   // const onIncrease = () => {
   //   console.log('실행 전', score)
-  //   setScore(score + 10); 
+  //   setScore(score + 10);
   //   console.log('현재 스코어는' ,  score) //정답 시 onIncrease 함수 호출, 점수 증가
   // };
 
   useEffect(() => {
-    console.log("컴포넌트 마운트 됨")
+    console.log("컴포넌트 마운트 됨");
+    
     setQuestionnumber(1);
     setScore(0);
-
-    const _ = require("lodash");
-    const numbers = _.range(0, 2);
-    let randomanswer = []; //randomanswer: 0 또는 1이 10개 담긴 배열, 0일 경우 왼쪽이 정답, 1일 경우 오른쪽이 정답
-    // 해당 코드는 컴포넌트 마운트 시 실행됨.
-
-    for (let index = 0; index < 10; index++) {
-      randomanswer.push(_.sampleSize(numbers, 1)[0]);
-    }
-
     
-
-    console.log(randomanswer);
   }, []);
 
-  useEffect( ()=> {
+  useEffect(() => {
     if (questionnumber === 10) {
-      console.log('실행됨')
+      console.log("실행됨");
     }
-  }, [questionnumber] )
+  }, [questionnumber]);
 
-  function currect() {
+  function correct() {
     //정답을 골랐을 때
     // onIncrease();
-    setScore(score + 10)
+    setScore(score + 10);
     setQuestionnumber(questionnumber + 1);
     setGamedata(myData[questionnumber]);
-    
+
     console.log("정답 눌림");
     console.log(questionnumber, "문제번호", score);
     if (questionnumber === 10) {
       console.log("모든 문제 소모");
       console.log(questionnumber, "문제번호", score);
-      score += 10
-      navigate(`/GameResult`, { state: { score } }); 
+      score += 10;
+      navigate(`/GameResult`, { state: { score } });
     }
-    
+
     // 만약 카운트 10 이상인 경우, 결과창 출력
     // if (questionnumber === 10) {
     //   // console.log("모든 문제 소모");
     //   // console.log({ score });
-    //   ; 
+    //   ;
     // }
   }
 
-  function miss() {
+  function incorrect() {
     //오답을 골랐을 때
     setQuestionnumber(questionnumber + 1);
     setGamedata(myData[questionnumber]);
     if (questionnumber === 10) {
       console.log("모든 문제 소모");
-      navigate(`/GameResult`, { state: { score } }); 
+      navigate(`/GameResult`, { state: { score } });
     }
   }
 
@@ -222,24 +220,33 @@ const Game = () => {
         <div className="book">
           <div className="question">
             <p>{questionnumber} / 10</p>
+            <p>{score}</p>
             <h3>{gamedata["question"]}</h3>
           </div>
           <div className="btn">
             <button
               className="left"
               onClick={() => {
-                currect();
+                if (randomanswer[questionnumber - 1] === 0) {
+                  correct();
+                } else {
+                  incorrect();
+                }
               }}
             >
-              {gamedata["answer"]}
+              {randomanswer[questionnumber - 1] === 0 ? gamedata["answer"] : gamedata["notanswer"]}
             </button>
             <button
               className="right"
               onClick={() => {
-                miss();
+                if (randomanswer[questionnumber - 1] === 1) {
+                  correct();
+                } else {
+                  incorrect();
+                }
               }}
             >
-              {gamedata["notanswer"]}
+              {randomanswer[questionnumber - 1] === 0 ? gamedata["notanswer"] : gamedata["answer"]}
             </button>
           </div>
         </div>
