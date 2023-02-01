@@ -42,8 +42,8 @@ public class SecurityConfig {
 
         return http
                 .authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/user/**").permitAll()
-                .antMatchers(HttpMethod.POST, "/user/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/member/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/member/**").permitAll()
 				.antMatchers(HttpMethod.POST, "/notice/write").hasAnyRole(ROLE.ADMIN.toString())
 				.antMatchers(HttpMethod.POST, "/notice/modify").hasAnyRole(ROLE.ADMIN.toString())
 				.antMatchers(HttpMethod.POST, "/notice/delete").hasAnyRole(ROLE.ADMIN.toString())
@@ -51,7 +51,7 @@ public class SecurityConfig {
                 .and()
                 .formLogin().disable()
                 .logout()
-                .logoutUrl("/user/logout")
+                .logoutUrl("/member/logout")
                 .logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler(HttpStatus.OK))
                 .invalidateHttpSession(true)
                 .deleteCookies("refreshToken")

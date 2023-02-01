@@ -23,7 +23,8 @@ public class Auth {
 	}
 	
     public Auth(Claims claims) {
-        this.id = claims.get("id").toString();
+//		System.out.println("claims : " + claims);
+        this.email = claims.get("email").toString();
         this.setEmail(claims.get("email").toString());
         this.role = ROLE.valueOf(claims.get("role").toString());
     }

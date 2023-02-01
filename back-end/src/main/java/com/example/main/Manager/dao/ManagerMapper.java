@@ -12,6 +12,7 @@ public interface ManagerMapper {
     int idCheck(String email);
     Manager get(String email);
     int update(Manager manager);
+
     int delete(String email);
     String getPassword(String email);
     void updateRefreshToken(TokenDto token);
