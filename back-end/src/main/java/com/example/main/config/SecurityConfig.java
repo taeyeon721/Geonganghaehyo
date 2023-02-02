@@ -42,8 +42,8 @@ public class SecurityConfig {
 
         return http
                 .authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/member/**").permitAll()
-                .antMatchers(HttpMethod.POST, "/member/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/manager/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/manager/**").permitAll()
 				.antMatchers(HttpMethod.POST, "/notice/write").hasAnyRole(ROLE.ADMIN.toString())
 				.antMatchers(HttpMethod.POST, "/notice/modify").hasAnyRole(ROLE.ADMIN.toString())
 				.antMatchers(HttpMethod.POST, "/notice/delete").hasAnyRole(ROLE.ADMIN.toString())

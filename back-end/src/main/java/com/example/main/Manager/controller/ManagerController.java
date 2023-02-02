@@ -71,7 +71,7 @@ public class ManagerController {
 	    	return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("양식에 맞지 않습니다.");
 	    }
 
-	    int check = managerService.register(new Manager(manager.getEmail(), manager.getPassword(), manager.getName(), ROLE.MANAGER));
+	    int check = managerService.register(new Manager(manager.getEmail(), manager.getPassword(), manager.getName(), manager.getUserName(), ROLE.MANAGER));
 	    if (check > 0) {
 	    	return ResponseEntity.ok("회원가입을 성공하였습니다.");
 	    } else {
@@ -149,12 +149,12 @@ public class ManagerController {
 	@GetMapping("mypage")
 	public ResponseEntity<?> info(@AuthenticationPrincipal Auth auth) {
 		Manager manager = managerService.get(auth.getId());
-		return ResponseEntity.ok(new InfoManagerRequest(manager.getEmail(), manager.getPassword(), manager.getName()));
+		return ResponseEntity.ok(new InfoManagerRequest(manager.getEmail(), manager.getPassword(), manager.getName(), manager.getUserName()));
 	}
 	
 	@PostMapping("update")
 	public ResponseEntity<?> update(@AuthenticationPrincipal Auth auth, @RequestBody RegisterManagerRequest manager) {
-		int check = managerService.update(new Manager(auth.getEmail(), manager.getPassword(), manager.getName()));
+		int check = managerService.update(new Manager(auth.getEmail(), manager.getPassword(), manager.getName(), manager.getUserName()));
 		System.out.println(check);
 		if (check == 1) return ResponseEntity.ok("회원 정보를 수정하였습니다.");
 		else return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("회원 정보 수정에 실패하였습니다.");

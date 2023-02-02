@@ -5,7 +5,7 @@
 
 <mapper namespace="com.example.main.Manager.dao.ManagerMapper">
     <insert id="register" parameterType="Manager">
-        insert into manager(email,name,password,role) values(#{email},#{name},#{password},#{role})
+        insert into manager(email,name,password, user_name, role) values(#{email},#{name},#{password}, #{userName},#{role})
     </insert>
 
     <select id="login" resultType="ManagerDto" parameterType="String">
@@ -21,7 +21,7 @@
     </select>
 
     <update id="update" parameterType="Manager">
-        update manager set age=#{age}, name=#{name}, password=#{password} where email=#{email}
+        update manager set age=#{age}, name=#{name}, password=#{password}, user_name=#{userName} where email=#{email}
     </update>
 
     <delete id="delete" parameterType="String">

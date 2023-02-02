@@ -20,19 +20,23 @@ public class Manager {
 
     private String telNo;
 
+    private String userName;
+
     private ROLE role;
 
-    public Manager(String email, String password, String name) {
+    public Manager(String email, String password, String name, String userName) {
         super();
         this.email = email;
         this.password = password;
         this.name = name;
+        this.userName = userName;
     }
-    public Manager(String email, String password, String name, ROLE role) {
+    public Manager(String email, String password, String name, String userName, ROLE role) {
         super();
         this.email = email;
         this.password = password;
         this.name = name;
+        this.userName = userName;
         this.role = role;
     }
 
@@ -45,6 +49,7 @@ public class Manager {
                 ", gender='" + gender + '\'' +
                 ", age=" + age +
                 ", telNo='" + telNo + '\'' +
+                ", userName='" + userName + '\'' +
                 ", role=" + role +
                 '}';
     }

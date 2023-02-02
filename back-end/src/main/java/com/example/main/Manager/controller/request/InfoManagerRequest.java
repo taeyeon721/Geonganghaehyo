@@ -7,6 +7,8 @@ public class InfoManagerRequest {
 
 	private String name;
 
+	private String userName;
+
 	public InfoManagerRequest() {
 		super();
 	}
@@ -35,10 +37,19 @@ public class InfoManagerRequest {
 		this.name = name;
 	}
 
-	public InfoManagerRequest(String email, String password, String name) {
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public InfoManagerRequest(String email, String password, String name, String userName) {
 		super();
 		this.email = email;
 		this.password = password;
 		this.name = name;
+		this.userName = userName;
 	}
 }

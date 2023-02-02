@@ -22,5 +22,7 @@ public class ManagerDto {
 
     private String telNo;
 
+    private String userName;
+
     private ROLE role;
 }
