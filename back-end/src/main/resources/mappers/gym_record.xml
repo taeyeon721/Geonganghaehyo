@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.main.GymRecord.dao.GymRecordMapper">
+
+    <insert id="insertWorkout" parameterType="GymRecordDto">
+        insert into gym_record(email, gym_name, time) values(#{email}, #{gymName}, #{time})
+    </insert>
+
+    <select id="dailyWorkout" parameterMap="int">
+        select count(date) from gym_record where date=#{date}
+    </select>
+</mapper>

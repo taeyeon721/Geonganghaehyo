@@ -1,4 +1,4 @@
-package com.example.main.User.dao;
+package com.example.main.UserQuiz.dao;
 
 import org.mapstruct.Mapper;
 

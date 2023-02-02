@@ -7,5 +7,6 @@ import org.mapstruct.Mapper;
 @Mapper
 public interface GameRecordMapper {
 
-    int insertScore(GameRecordDto gameRecordDto);
+    int insertScore(GameRecordDto gameRecordDto); // 점수 기록 저장
+    GameRecordDto lastScore(String email, String userName); // 최근 점수 기록 조회
 }

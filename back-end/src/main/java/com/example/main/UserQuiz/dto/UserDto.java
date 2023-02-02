@@ -1,6 +1,5 @@
-package com.example.main.User.dto;
+package com.example.main.UserQuiz.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

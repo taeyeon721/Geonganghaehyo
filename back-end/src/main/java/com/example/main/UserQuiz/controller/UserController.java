@@ -1,6 +1,5 @@
-package com.example.main.User.controller;
+package com.example.main.UserQuiz.controller;
 
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController

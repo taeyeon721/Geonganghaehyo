@@ -1,6 +1,12 @@
 package com.example.main.GameRecord.controller;
 
+import com.example.main.GameRecord.dao.GameRecordMapper;
+import com.example.main.GameRecord.dto.GameRecordDto;
+import com.example.main.GameRecord.service.GameRecordService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -8,6 +14,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/game")
 public class GameRecordController {
 
-    @PostMapping("")
-    public
+    @Autowired
+    private GameRecordService gameRecordService;
+
+    @PostMapping("/score")
+    public ResponseEntity<String> insertScore(@RequestBody GameRecordDto gameRecordDto){
+
+    }
+
 }
