@@ -5,7 +5,11 @@
 
 <mapper namespace="com.example.main.Manager.dao.ManagerMapper">
     <insert id="register" parameterType="Manager">
+<<<<<<< HEAD
         insert into manager(email,name,password, user_name, role) values(#{email},#{name},#{password}, #{userName},#{role})
+=======
+        insert into manager(email,name,password,role) values(#{email},#{name},#{password},#{role})
+>>>>>>> back-end-yja
     </insert>
 
     <select id="login" resultType="ManagerDto" parameterType="String">

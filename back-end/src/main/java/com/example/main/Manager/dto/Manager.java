@@ -37,6 +37,7 @@ public class Manager {
         this.password = password;
         this.name = name;
         this.userName = userName;
+
         this.role = role;
     }
 
