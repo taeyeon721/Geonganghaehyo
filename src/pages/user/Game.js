@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import Book from "../assets/img/book_orange2.png";
-import "../assets/font/font.css";
+import Book from "assets/img/book_orange2.png";
+import "assets/font/font.css";
 import { useState, useEffect } from "react"; // react hook 을 사용하기 위한 import
 import { useNavigate } from "react-router-dom";
 

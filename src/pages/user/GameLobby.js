@@ -1,13 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import Book from "../assets/img/book_orange2.png";
-import "../assets/font/font.css";
+import Book from "assets/img/book_orange2.png";
+import "assets/font/font.css";
 
 const MainBlock = styled.div`
   h3 {
     margin: 0;
-    color: #1f3995;
+    color: #1F3995;
     font-size: 5rem;
     font-family: "BMEULJIRO";
   }
@@ -17,29 +17,33 @@ const MainBlock = styled.div`
     background-image: url(${Book});
     background-size: 100% 100%;
     background-repeat: no-repeat;
+    margin-left: 10px;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
   }
-  .question {
-    margin-left: 100px;
-    margin-top: 30px;
-  }
-  .left {
-    background-color: #FFFFFF;
-    border: 5px solid #FF0000;
+  .explain {
+    background-color: #CECECE;
     border-radius: 10px;
-    width: 550px;
-    height: 350px;
+    width: 300px;
+    height: 400px;
     font-size: 3rem;
     font-family: "BMEULJIRO";
   }
-  .right {
-    background-color: #FFFFFF;
+  .start {
+    background-color: #FD6262;
     border-radius: 10px;
-    width: 550px;
-    height: 350px;
+    width: 300px;
+    height: 400px;
+    font-size: 3rem;
+    font-family: "BMEULJIRO";
+  }
+  .goback {
+    background-color: #CECECE;
+    border-radius: 10px;
+    width: 300px;
+    height: 400px;
     font-size: 3rem;
     font-family: "BMEULJIRO";
   }
@@ -50,27 +54,32 @@ const MainBlock = styled.div`
     justify-content: space-evenly;
     margin-bottom: 30px;
   }
+  .game_title {
+    margin-left: 100px;
+    margin-top: 30px;
+  }
   display: flex;
   align-items: center;
   justify-content: center;
 `;
 
-function Game() {
+const GameLobby = () => {
   return (
     <>
       <MainBlock>
         <div className="book">
-          <div className="question">
-            <h3>게임을 선택해주세요</h3>
+          <div className="game_title">
+            <h3>게임 제목</h3>
           </div>
           <div className="btn">
-            <Link to="/GameLobby"><button className="left">게임 1</button></Link>
-            <button className="right">게임 2</button>
+            <button className="explain">게임설명</button>
+            <Link to='/Game'><button className="start">시작하기</button></Link>
+            <button className="goback">이전으로</button>
           </div>
         </div>
       </MainBlock>
     </>
   );
-}
+};
 
-export default Game;
+export default GameLobby;

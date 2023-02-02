@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import Book from "../assets/img/book_orange2.png";
-import "../assets/font/font.css";
+import Book from "assets/img/book_orange2.png";
+import "assets/font/font.css";
 import { useLocation, Link } from "react-router-dom";
 
 const MainBlock = styled.div`

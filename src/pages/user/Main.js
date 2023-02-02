@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from 'react-router-dom'
 import styled from "styled-components";
-import Book from "../assets/img/book_green.png";
-import "../assets/font/font.css";
+import Book from "assets/img/book_green.png";
+import "assets/font/font.css";
 
 const MainBlock = styled.div`
   h3 {
