@@ -11,8 +11,8 @@ import java.time.LocalDateTime;
 @Builder
 public class MessageDto {
     private int msgId;
-    private int email;
-    private int userId;
+    private String email;
+    private String userId;
     private boolean isSound;
     private String content;
     private LocalDateTime time;
