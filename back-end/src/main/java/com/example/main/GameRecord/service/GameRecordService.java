@@ -2,6 +2,7 @@ package com.example.main.GameRecord.service;
 
 import com.example.main.GameRecord.dao.GameRecordMapper;
 import com.example.main.GameRecord.dto.GameRecord;
+import io.swagger.models.auth.In;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -18,11 +19,12 @@ public class GameRecordService {
 
     @Transactional
     public int recordScore(GameRecord gameRecord){
-        System.out.println("readScore called");
+//        System.out.println("readScore called");
         return gameRecordMapper.recordScore(gameRecord);
     }
 
-    public int lastScore(String gameName, String email){
+    public Integer lastScore(String gameName, String email){
+        System.out.println("lastScore result : " + gameRecordMapper.lastScore(gameName, email));
         return gameRecordMapper.lastScore(gameName, email);
     }
 }

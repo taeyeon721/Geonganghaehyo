@@ -95,7 +95,8 @@ ALTER TABLE `gym` ADD CONSTRAINT `PK_GYM` PRIMARY KEY (
 
 ALTER TABLE `gym_record` ADD CONSTRAINT `PK_GYM_RECORD` PRIMARY KEY (
                                                                      `email`,
-                                                                     `gym_name`
+                                                                     `gym_name`,
+                                                                     `gym_time`
     );
 
 ALTER TABLE `accident_archive` ADD CONSTRAINT `PK_ACCIDENT_ARCHIVE` PRIMARY KEY (
@@ -104,7 +105,8 @@ ALTER TABLE `accident_archive` ADD CONSTRAINT `PK_ACCIDENT_ARCHIVE` PRIMARY KEY 
 
 ALTER TABLE `game_record` ADD CONSTRAINT `PK_GAME_RECORD` PRIMARY KEY (
                                                                        `email`,
-                                                                       `game_name`
+                                                                       `game_name`,
+                                                                       `game_time`
     );
 
 ALTER TABLE `game_list` ADD CONSTRAINT `PK_GAME_LIST` PRIMARY KEY (
@@ -184,3 +186,7 @@ ALTER TABLE `token` ADD CONSTRAINT `FK_manager_TO_token_1` FOREIGN KEY (
                           `email`
         );
 
+# test data dump
+insert into manager(email,name,password, user_name, role) values('test@naver.com', 'test', 'test', 'test', 'MANAGER');
+insert into game_list(game_name) values('rsp');
+insert into game_record(email, game_name, game_score, game_time) values('test@naver.com', 'rsp', '100', now());

@@ -18,9 +18,9 @@ import com.example.main.Manager.dto.Manager;
 import com.example.main.Manager.dto.ROLE;
 import com.example.main.Manager.dto.TokensDto;
 import com.example.main.Manager.service.ManagerService;
+import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
@@ -29,15 +29,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("manager")
 public class ManagerController {
 	final static Logger logger = LogManager.getLogger(ManagerController.class);
-	@Autowired
-	private ManagerService managerService;
+
+	private final ManagerService managerService;
 //	@Autowired
 //	private MailService mailService;
 
