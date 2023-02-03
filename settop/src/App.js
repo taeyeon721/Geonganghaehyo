@@ -17,6 +17,7 @@ function App() {
             <Route path="/selectgame" element={<SelectGame />}></Route>
             <Route path="/game" element={<Game />}></Route>
             <Route path="/selectgym" element={<SelectGym />}></Route>
+            <Route path="/gym" element={<Gym />}></Route>
             <Route path="/*" element={<Notfound />}></Route>
           </Routes>
         </BrowserRouter>

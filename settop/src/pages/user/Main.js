@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Book from "assets/img/book_green.png";
 import "assets/font/font.css";
@@ -17,7 +17,8 @@ const MainBlock = styled.div`
     text-align: center;
   }
   img {
-    border: 2px solid black;
+    border: 3px solid black;
+    border-radius: 5px;
     height: 400px;
     width: 300px;
   }
@@ -27,13 +28,13 @@ const MainBlock = styled.div`
     background-image: url(${Book});
     background-size: 100% 100%;
     background-repeat: no-repeat;
-    margin-left: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
   }
   .call {
-    background-color: #ff7b7b;
+    border: 15px solid #ff7b7b;
+    background-color: #ffffff;
     border-radius: 10px;
     width: 800px;
     height: 190px;
@@ -41,7 +42,8 @@ const MainBlock = styled.div`
     font-family: "BMEULJIRO";
   }
   .game {
-    background-color: #ffba7b;
+    border: 15px solid #ffba7b;
+    background-color: #ffffff;
     border-radius: 10px;
     width: 800px;
     height: 190px;
@@ -49,7 +51,8 @@ const MainBlock = styled.div`
     font-family: "BMEULJIRO";
   }
   .gym {
-    background-color: #ffe27b;
+    border: 15px solid #ffe27b;
+    background-color: #ffffff;
     border-radius: 10px;
     width: 800px;
     height: 190px;
@@ -78,7 +81,7 @@ const MainBlock = styled.div`
   }
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: center;
 `;
 
 const Main = (props) => {
@@ -92,8 +95,12 @@ const Main = (props) => {
           </div>
           <div className="btn">
             <button className="call">통화</button>
-            <Link to='/SelectGame'><button className="game" >게임</button></Link>
+            <Link to="/selectgame">
+              <button className="game">게임</button>
+            </Link >
+            <Link to="/selectgym">
             <button className="gym">체조</button>
+            </Link>
           </div>
         </div>
       </MainBlock>

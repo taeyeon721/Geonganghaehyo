@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Book from "assets/img/book_yellow.png";
 import "assets/font/font.css";
 
@@ -15,6 +15,23 @@ const MainBlock = styled.div`
     margin: 0;
     font-size: 3rem;
     font-family: "BMEULJIRO";
+  }
+  a {
+    text-decoration: none;
+    color: black;
+  }
+  a:visited {
+    text-decoration: none;
+  }
+  a:hover {
+    text-decoration: none;
+  }
+  a:focus {
+    text-decoration: none;
+  }
+  a:hover,
+  a:active {
+    text-decoration: none;
   }
   .book {
     width: 1500px;
@@ -55,28 +72,44 @@ const MainBlock = styled.div`
   justify-content: center;
 `;
 
+const gymData = [{ name: "몸튼튼 체조" }, { name: "뇌튼튼 체조" }];
+
 function SelectGym() {
+  const gymBody = gymData[0].name;
+  const gymBrain = gymData[1].name;
   return (
     <>
       <MainBlock>
         <div className="book">
           <div className="title">
-            <h3>체조~~</h3>
+            <h3>체조를 선택해주세요</h3>
           </div>
           <div className="btn">
-            <div className="selection">
-              <img src="#" alt="#" />
-              <p>몸튼튼 체조</p>
-            </div>
-            <div className="selection">
-              <img src="#" alt="#" />
-              <p>뇌튼튼 체조</p>
-            </div>
+            <Link
+              to="/gym"
+              state={{ gymName: gymBody }}
+              style={{ textDecoration: "none" }}
+            >
+              <div className="selection">
+                <img src="#" alt="#" />
+                <p>{gymBody}</p>
+              </div>
+            </Link>
+            <Link
+              to="/gym"
+              state={{ gymName: gymBrain }}
+              style={{ textDecoration: "none" }}
+            >
+              <div className="selection">
+                <img src="#" alt="#" />
+                <p>{gymBrain}</p>
+              </div>
+            </Link>
           </div>
         </div>
       </MainBlock>
     </>
   );
-};
+}
 
 export default SelectGym;

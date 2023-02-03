@@ -27,8 +27,8 @@ const MainBlock = styled.div`
     margin-top: 30px;
   }
   .left {
-    background-color: #FFFFFF;
-    border: 5px solid #FF0000;
+    background-color: #ffffff;
+    border: 5px solid black;
     border-radius: 10px;
     width: 550px;
     height: 350px;
@@ -36,7 +36,8 @@ const MainBlock = styled.div`
     font-family: "BMEULJIRO";
   }
   .right {
-    background-color: #FFFFFF;
+    background-color: #ffffff;
+    border: 5px solid black;
     border-radius: 10px;
     width: 550px;
     height: 350px;
@@ -55,7 +56,11 @@ const MainBlock = styled.div`
   justify-content: center;
 `;
 
-function Game() {
+const gameData = [{ name: "첫번째 게임" }, { name: "두번째 게임" }];
+
+function SelectGame() {
+  const game1 = gameData[0].name
+  const game2 = gameData[1].name
   return (
     <>
       <MainBlock>
@@ -64,8 +69,12 @@ function Game() {
             <h3>게임을 선택해주세요</h3>
           </div>
           <div className="btn">
-            <Link to="/GameLobby"><button className="left">게임 1</button></Link>
-            <button className="right">게임 2</button>
+            <Link to="/gamelobby" state = {{ gameName: game1 }}>
+              <button className="left">{ game1 }</button>
+            </Link>
+            <Link to="/gamelobby" state={{ gameName: game2 }}>
+            <button className="right">{ game2 }</button>
+            </Link>
           </div>
         </div>
       </MainBlock>
@@ -73,4 +82,4 @@ function Game() {
   );
 }
 
-export default Game;
+export default SelectGame;

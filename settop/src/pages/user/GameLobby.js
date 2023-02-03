@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
+import Modal from "react-modal";
+import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import Book from "assets/img/book_orange2.png";
@@ -7,7 +9,7 @@ import "assets/font/font.css";
 const MainBlock = styled.div`
   h3 {
     margin: 0;
-    color: #1F3995;
+    color: #1f3995;
     font-size: 5rem;
     font-family: "BMEULJIRO";
   }
@@ -17,14 +19,14 @@ const MainBlock = styled.div`
     background-image: url(${Book});
     background-size: 100% 100%;
     background-repeat: no-repeat;
-    margin-left: 10px;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
   }
   .explain {
-    background-color: #CECECE;
+    border: 20px solid #ffe27b;
+    background-color: #ffffff;
     border-radius: 10px;
     width: 300px;
     height: 400px;
@@ -32,7 +34,8 @@ const MainBlock = styled.div`
     font-family: "BMEULJIRO";
   }
   .start {
-    background-color: #FD6262;
+    border: 20px solid #73d388;
+    background-color: #ffffff;
     border-radius: 10px;
     width: 300px;
     height: 400px;
@@ -40,7 +43,8 @@ const MainBlock = styled.div`
     font-family: "BMEULJIRO";
   }
   .goback {
-    background-color: #CECECE;
+    border: 20px solid #fd6262;
+    background-color: #ffffff;
     border-radius: 10px;
     width: 300px;
     height: 400px;
@@ -64,17 +68,28 @@ const MainBlock = styled.div`
 `;
 
 const GameLobby = () => {
+  const location = useLocation();
+  const gameName = location.state.gameName;
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
   return (
     <>
       <MainBlock>
         <div className="book">
           <div className="game_title">
-            <h3>게임 제목</h3>
+            <h3>{ gameName }</h3>
           </div>
           <div className="btn">
-            <button className="explain">게임설명</button>
-            <Link to='/Game'><button className="start">시작하기</button></Link>
-            <button className="goback">이전으로</button>
+            <button className="explain" onClick={()=> setModalIsOpen(true)}>게임설명</button>
+            <Modal isOpen={modalIsOpen}>
+              <video src="/videos/cat.mp4" autoPlay onEnded={() => setModalIsOpen(false)}></video>
+            </Modal>
+            <Link to="/Game">
+              <button className="start">시작하기</button>
+            </Link>
+            <Link to="/SelectGame">
+              <button className="goback">이전으로</button>
+            </Link>
           </div>
         </div>
       </MainBlock>
