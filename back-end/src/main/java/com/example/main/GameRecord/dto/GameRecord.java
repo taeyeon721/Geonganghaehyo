@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class GameRecordDto {
+public class GameRecord {
     private String email;
     private String gameName;
     private int gameScore;

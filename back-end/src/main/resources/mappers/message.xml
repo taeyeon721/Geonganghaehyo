@@ -13,7 +13,7 @@
     </select>
 
     <select id="msgList" resultType="MessageDto">
-        select * from from message where email=#{email} and userId=#{userId}
+        select * from message where email=#{email} and userId=#{userId}
     </select>
 
     <insert id="insertMsg" parameterType="MessageDto"> <!-- uuid 설정 필요 -->

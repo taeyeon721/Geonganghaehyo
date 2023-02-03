@@ -42,11 +42,12 @@ public class RegisterManagerRequest {
 		this.userName = userName;
 	}
 
-	public RegisterManagerRequest(String email, String password, String name) {
+	public RegisterManagerRequest(String email, String password, String name, String userName) {
 		super();
 		this.email = email;
 		this.password = password;
 		this.name = name;
+		this.userName = userName;
 	}
 
 }
