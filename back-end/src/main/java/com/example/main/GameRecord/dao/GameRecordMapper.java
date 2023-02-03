@@ -1,12 +1,13 @@
 package com.example.main.GameRecord.dao;
 
 
-import com.example.main.GameRecord.dto.GameRecordDto;
-import org.mapstruct.Mapper;
+import com.example.main.GameRecord.dto.GameRecord;
+import org.apache.ibatis.annotations.Mapper;
+
 
 @Mapper
 public interface GameRecordMapper {
 
-    int insertScore(GameRecordDto gameRecordDto); // 점수 기록 저장
-    int lastScore(String email, String userName); // 최근 점수 기록 조회
+    int recordScore(GameRecord gameRecord); // 점수 기록 저장
+    int lastScore(String gameName, String email); // 최근 점수 기록 조회
 }

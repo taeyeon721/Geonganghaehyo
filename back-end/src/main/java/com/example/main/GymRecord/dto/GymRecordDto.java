@@ -2,7 +2,7 @@ package com.example.main.GymRecord.dto;
 
 import lombok.*;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
@@ -10,5 +10,5 @@ import java.time.LocalDate;
 public class GymRecordDto {
     private String email;
     private String gymName;
-    private LocalDatetime time;
+    private LocalDateTime time;
 }

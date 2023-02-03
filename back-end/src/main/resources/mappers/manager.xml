@@ -32,7 +32,7 @@
         select password from manager where email=#{email}
     </select>
 
-    <insert id="updateRefreshToken" parameterType="tokenDto">
+    <insert id="updateRefreshToken" parameterType="TokenDto">
         insert into token(email, refreshtoken) values(#{email},#{refreshToken}) on duplicate key update refreshtoken = #{refreshToken}
     </insert>
 </mapper>
