@@ -1,4 +1,5 @@
 import React from "react";
+import Webcam from "react-webcam";
 import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import Book from "assets/img/book_yellow.png";
@@ -17,7 +18,6 @@ const MainBlock = styled.div`
     background-image: url(${Book});
     background-size: 100% 100%;
     background-repeat: no-repeat;
-    margin-left: 10px;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -38,7 +38,7 @@ const MainBlock = styled.div`
   .title {
     width: 1100px;
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     margin-left: 100px;
     margin-top: 30px;
   }
@@ -50,6 +50,7 @@ const MainBlock = styled.div`
 function Gym() {
   const location = useLocation();
   const gymName = location.state.gymName;
+
   return (
     <>
       <MainBlock>
@@ -58,8 +59,8 @@ function Gym() {
             <h3>{ gymName }</h3>
           </div>
           <div className="video_frame">
-            <video src="#"></video>
-            <video src="#"></video>
+            <video autoPlay muted loop src="/videos/cat.mp4"></video>
+            <Webcam />
           </div>
         </div>
       </MainBlock>

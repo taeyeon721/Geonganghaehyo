@@ -28,7 +28,6 @@ const MainBlock = styled.div`
     background-image: url(${Book});
     background-size: 100% 100%;
     background-repeat: no-repeat;
-    margin-left: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
