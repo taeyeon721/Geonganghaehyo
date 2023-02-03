@@ -1,4 +1,5 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import Book from "assets/img/book_yellow.png";
 import "assets/font/font.css";
@@ -47,12 +48,14 @@ const MainBlock = styled.div`
 `;
 
 function Gym() {
+  const location = useLocation();
+  const gymName = location.state.gymName;
   return (
     <>
       <MainBlock>
         <div className="book">
           <div className="title">
-            <h3>체조이름</h3>
+            <h3>{ gymName }</h3>
           </div>
           <div className="video_frame">
             <video src="#"></video>

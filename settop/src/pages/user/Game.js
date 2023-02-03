@@ -3,6 +3,7 @@ import Book from "assets/img/book_orange2.png";
 import "assets/font/font.css";
 import { useState, useEffect } from "react"; // react hook 을 사용하기 위한 import
 import { useNavigate } from "react-router-dom";
+import Timer from 'components/Timer/index.js'
 
 const MainBlock = styled.div`
   h3 {
@@ -11,13 +12,14 @@ const MainBlock = styled.div`
     font-size: 5rem;
     font-family: "BMEULJIRO";
     text-align: center;
+    margin-top: 50px;
   }
   p {
     margin: 0;
     font-family: "BMEULJIRO";
     text-align: end;
-    font-size: 2rem;
-    margin-right: 50px;
+    font-size: 3rem;
+    margin-top: 70px;
   }
   .book {
     width: 1500px;
@@ -31,7 +33,10 @@ const MainBlock = styled.div`
     align-items: center;
   }
   .question {
+    display: flex;
+    justify-content: space-around;
     width: 1300px;
+    margin-top: 30px;
     margin-left: 100px;
   }
   .left {
@@ -219,9 +224,9 @@ const Game = () => {
       <MainBlock>
         <div className="book">
           <div className="question">
-            <p>{questionnumber} / 10</p>
-            <p>{score}</p>
+            <Timer />
             <h3>{gamedata["question"]}</h3>
+            <p>{questionnumber} / 10</p>
           </div>
           <div className="btn">
             <button
