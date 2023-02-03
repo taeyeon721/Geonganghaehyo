@@ -8,7 +8,7 @@
         insert into game_record(email, game_name, game_score, time) values(#{email}, #{gameName}, #{gameScore}, #{time})
     </insert>
 
-    <select id="lastScore" resultMap="GameRecordDto">
-        select * from game_record where email=#{email} and user_name=#{userName} order by time desc limit 1
+    <select id="lastScore" resultMap="int">
+        select game_score from game_record where email=#{email} and user_name=#{userName} order by time desc limit 1
     </select>
 </mapper>

@@ -9,6 +9,6 @@
     </insert>
 
     <select id="dailyWorkout" parameterMap="int">
-        select count(date) from gym_record where date=#{date}
+        select count(date) from gym_record where date_format(date, '%Y-%m-%d') = date_format(#{date}, '%Y-%m-%d')
     </select>
 </mapper>

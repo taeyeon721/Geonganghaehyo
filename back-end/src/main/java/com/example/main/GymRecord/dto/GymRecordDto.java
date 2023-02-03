@@ -10,5 +10,5 @@ import java.time.LocalDate;
 public class GymRecordDto {
     private String email;
     private String gymName;
-    private LocalDate date;
+    private LocalDatetime time;
 }

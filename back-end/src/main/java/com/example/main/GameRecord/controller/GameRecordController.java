@@ -17,8 +17,8 @@ public class GameRecordController {
     @Autowired
     private GameRecordService gameRecordService;
 
-    @PostMapping("/score")
-    public ResponseEntity<String> insertScore(@RequestBody GameRecordDto gameRecordDto){
+    @PostMapping("/score/{gameName}")
+    public ResponseEntity<String> insertScore(@AuthenticationPrincipal Auth auth, @RequestBody GameRecordDto gameRecordDto){
 
     }
 

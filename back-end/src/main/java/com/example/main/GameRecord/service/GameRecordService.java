@@ -19,7 +19,7 @@ public class GameRecordService {
         return gameRecordMapper.insertScore(gameRecordDto);
     }
 
-    public GameRecordDto lastScore(String email, String userName){
+    public int lastScore(String email, String userName){
         return gameRecordMapper.lastScore(email, userName);
     }
 }
