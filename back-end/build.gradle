@@ -1,0 +1,58 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '2.7.8'
+    id 'io.spring.dependency-management' version '1.1.0'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+configurations {
+    // -- logging
+    all {
+        exclude  group: "org.springframework.boot", module : "spring-boot-starter-logging"
+    }
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    //-- swagger
+    implementation 'io.springfox:springfox-swagger2:2.9.2'
+    implementation 'io.springfox:springfox-swagger-ui:2.9.2'
+    //-- log4j
+    implementation 'org.springframework.boot:spring-boot-starter-log4j2'
+    implementation 'org.apache.logging.log4j:log4j-core'
+    implementation 'org.apache.logging.log4j:log4j-api'
+    // --lombok
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    // --springBoot
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    //--mariadb
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.3.0'
+    runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
+    //--security
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security'
+    testImplementation 'org.springframework.security:spring-security-test'
+    //--jsonwebtoken
+    implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
+    implementation 'io.jsonwebtoken:jjwt-jackson:0.11.2'
+    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.2'
+    // https://mvnrepository.com/artifact/org.mybatis/mybatis-typehandlers-jsr310
+    implementation group: 'org.mybatis', name: 'mybatis-typehandlers-jsr310', version: '1.0.2'
+
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
