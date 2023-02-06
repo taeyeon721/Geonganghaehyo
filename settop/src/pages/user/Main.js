@@ -94,7 +94,9 @@ const Main = (props) => {
             <p>사용자</p>
           </div>
           <div className="btn">
+            <Link to="/message">
             <button className="call">통화</button>
+            </Link>
             <Link to="/selectgame">
               <button className="game">게임</button>
             </Link >
