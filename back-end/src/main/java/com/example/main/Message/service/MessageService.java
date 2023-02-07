@@ -18,11 +18,11 @@ public class MessageService {
 
     private final MessageMapper messageMapper;
 
-    public int userLastMsg(String email){
+    public Message userLastMsg(String email){
         return messageMapper.userLastMsg(email);
     }
 
-    public int managerLastMsg(String email){
+    public Message managerLastMsg(String email){
         return messageMapper.managerLastMsg(email);
     }
 

@@ -52,7 +52,7 @@ CREATE TABLE `game_list` (
 DROP TABLE IF EXISTS `message`;
 
 CREATE TABLE `message` (
-                           `msg_id`	varbinary(36)	NOT NULL,
+                           `msg_id`	varchar(50)	NOT NULL,
                            `email`	varchar(50)	NOT NULL,
                            `is_sound`	boolean	NULL,
                            `content`	text	NULL,
@@ -62,14 +62,13 @@ CREATE TABLE `message` (
 DROP TABLE IF EXISTS `user_quiz`;
 
 CREATE TABLE `user_quiz` (
-                             `quiz_id` varchar(36)	NOT NULL,
+                             `quiz_id`	varchar(50)	NOT NULL,
                              `email`	varchar(50)	NOT NULL,
                              `question`	varchar(50)	NOT NULL,
                              `answer`	varchar(50)	NOT NULL,
                              `decoy`	varchar(50)	NOT NULL,
                              `is_image`	boolean	NULL
 );
-
 DROP TABLE IF EXISTS `normal_quiz`;
 
 CREATE TABLE `normal_quiz` (
@@ -188,6 +187,7 @@ ALTER TABLE `token` ADD CONSTRAINT `FK_manager_TO_token_1` FOREIGN KEY (
     REFERENCES `manager` (
                           `email`
         );
+
 
 
 

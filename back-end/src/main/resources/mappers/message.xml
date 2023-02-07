@@ -13,7 +13,7 @@
     </select>
 
     <select id="msgList" resultType="Message">
-        select * from from message where email=#{email}
+        select * from message where email=#{email} order by created_date desc
     </select>
 
     <insert id="insertMsg" parameterType="Message">

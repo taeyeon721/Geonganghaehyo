@@ -24,14 +24,14 @@ public class MessageController {
     private final MessageService messageService;
 
     @PostMapping("manager") // 보호자가 최신 메시지 확인할 때
-    public int userLastMsg(@AuthenticationPrincipal Auth auth){
-        int message = messageService.userLastMsg(auth.getEmail());
+    public Message userLastMsg(@AuthenticationPrincipal Auth auth){
+        Message message = messageService.userLastMsg(auth.getEmail());
         return message;
     }
 
     @PostMapping("user") // 유저가 최신 메세지 확인할 때
-    public int managerLastMsg(@AuthenticationPrincipal Auth auth){
-        int message =  messageService.managerLastMsg(auth.getEmail());
+    public Message managerLastMsg(@AuthenticationPrincipal Auth auth){
+        Message message =  messageService.managerLastMsg(auth.getEmail());
         return message;
     }
 
