@@ -2,7 +2,6 @@ package com.example.main.GymRecord.dao;
 
 import com.example.main.GymRecord.dto.GymRecord;
 import org.apache.ibatis.annotations.Mapper;
-
 import java.time.LocalDateTime;
 
 @Mapper

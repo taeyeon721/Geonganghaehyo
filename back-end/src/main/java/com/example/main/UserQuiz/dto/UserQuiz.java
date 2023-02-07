@@ -1,17 +1,16 @@
 package com.example.main.UserQuiz.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.UUID;
 
-@Data
-@NoArgsConstructor
+@Getter
+@Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class UserQuiz {
 
-    private UUID quizId;
+    private String quizId;
     private String email;
     private String question;
     private String answer;

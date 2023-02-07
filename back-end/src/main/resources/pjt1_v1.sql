@@ -11,18 +11,19 @@ CREATE TABLE `manager` (
                            `role`	varchar(20)	NOT NULL
 );
 
-DROP TABLE IF EXISTS `gym`;
+DROP TABLE IF EXISTS `gym_list`;
 
-CREATE TABLE `gym` (
+CREATE TABLE `gym_list` (
     `gym_name`	varchar(20)	NOT NULL
 );
+
 
 DROP TABLE IF EXISTS `gym_record`;
 
 CREATE TABLE `gym_record` (
+                              `gym_time`	DateTime	NOT NULL,
                               `email`	varchar(50)	NOT NULL,
-                              `gym_name`	varchar(20)	NOT NULL,
-                              `gym_time`	DateTime	NULL
+                              `gym_name`	varchar(20)	NOT NULL
 );
 
 DROP TABLE IF EXISTS `accident_archive`;
@@ -36,10 +37,10 @@ CREATE TABLE `accident_archive` (
 DROP TABLE IF EXISTS `game_record`;
 
 CREATE TABLE `game_record` (
+                               `game_time`	DateTime	NOT NULL,
                                `email`	varchar(50)	NOT NULL,
                                `game_name`	varchar(20)	NOT NULL,
-                               `game_score`	int(100)	NULL,
-                               `game_time`	DateTime	NULL
+                               `game_score`	int(100)	NULL
 );
 
 DROP TABLE IF EXISTS `game_list`;
@@ -51,9 +52,9 @@ CREATE TABLE `game_list` (
 DROP TABLE IF EXISTS `message`;
 
 CREATE TABLE `message` (
-                           `msg_id`	varchar(16)	NOT NULL,
+                           `msg_id`	varbinary(36)	NOT NULL,
                            `email`	varchar(50)	NOT NULL,
-                           `isSound`	boolean	NULL,
+                           `is_sound`	boolean	NULL,
                            `content`	text	NULL,
                            `created_date`	datetime	NULL
 );
@@ -61,11 +62,12 @@ CREATE TABLE `message` (
 DROP TABLE IF EXISTS `user_quiz`;
 
 CREATE TABLE `user_quiz` (
+                             `quiz_id` varchar(36)	NOT NULL,
                              `email`	varchar(50)	NOT NULL,
                              `question`	varchar(50)	NOT NULL,
                              `answer`	varchar(50)	NOT NULL,
                              `decoy`	varchar(50)	NOT NULL,
-                             `isImage`	boolean	NULL
+                             `is_image`	boolean	NULL
 );
 
 DROP TABLE IF EXISTS `normal_quiz`;
@@ -89,14 +91,14 @@ ALTER TABLE `manager` ADD CONSTRAINT `PK_MANAGER` PRIMARY KEY (
                                                                `email`
     );
 
-ALTER TABLE `gym` ADD CONSTRAINT `PK_GYM` PRIMARY KEY (
-                                                       `gym_name`
+ALTER TABLE `gym_list` ADD CONSTRAINT `PK_GYM_LIST` PRIMARY KEY (
+                                                                 `gym_name`
     );
 
 ALTER TABLE `gym_record` ADD CONSTRAINT `PK_GYM_RECORD` PRIMARY KEY (
+                                                                     `gym_time`,
                                                                      `email`,
-                                                                     `gym_name`,
-                                                                     `gym_time`
+                                                                     `gym_name`
     );
 
 ALTER TABLE `accident_archive` ADD CONSTRAINT `PK_ACCIDENT_ARCHIVE` PRIMARY KEY (
@@ -104,9 +106,9 @@ ALTER TABLE `accident_archive` ADD CONSTRAINT `PK_ACCIDENT_ARCHIVE` PRIMARY KEY 
     );
 
 ALTER TABLE `game_record` ADD CONSTRAINT `PK_GAME_RECORD` PRIMARY KEY (
+                                                                       `game_time`,
                                                                        `email`,
-                                                                       `game_name`,
-                                                                       `game_time`
+                                                                       `game_name`
     );
 
 ALTER TABLE `game_list` ADD CONSTRAINT `PK_GAME_LIST` PRIMARY KEY (
@@ -119,6 +121,7 @@ ALTER TABLE `message` ADD CONSTRAINT `PK_MESSAGE` PRIMARY KEY (
     );
 
 ALTER TABLE `user_quiz` ADD CONSTRAINT `PK_USER_QUIZ` PRIMARY KEY (
+                                                                   `quiz_id`,
                                                                    `email`
     );
 
@@ -137,11 +140,11 @@ ALTER TABLE `gym_record` ADD CONSTRAINT `FK_manager_TO_gym_record_1` FOREIGN KEY
                           `email`
         );
 
-ALTER TABLE `gym_record` ADD CONSTRAINT `FK_gym_TO_gym_record_1` FOREIGN KEY (
-                                                                              `gym_name`
+ALTER TABLE `gym_record` ADD CONSTRAINT `FK_gym_list_TO_gym_record_1` FOREIGN KEY (
+                                                                                   `gym_name`
     )
-    REFERENCES `gym` (
-                      `gym_name`
+    REFERENCES `gym_list` (
+                           `gym_name`
         );
 
 ALTER TABLE `accident_archive` ADD CONSTRAINT `FK_manager_TO_accident_archive_1` FOREIGN KEY (
@@ -185,6 +188,8 @@ ALTER TABLE `token` ADD CONSTRAINT `FK_manager_TO_token_1` FOREIGN KEY (
     REFERENCES `manager` (
                           `email`
         );
+
+
 
 # test data dump
 insert into manager(email,name,password, user_name, role) values('test@naver.com', 'test', 'test', 'test', 'MANAGER');

@@ -1,16 +1,15 @@
 package com.example.main.UserQuiz.dao;
 
 import com.example.main.UserQuiz.dto.UserQuiz;
-import org.apache.ibatis.annotations.Mapper;
-import org.springframework.stereotype.Repository;
+import org.apache.ibatis.annotations.*;
+
+import java.util.List;
 
 @Mapper
-@Repository
 public interface UserQuizMapper {
 
     //유저 퀴즈 생성
     int insertQuiz(UserQuiz userQuiz);
-
     //유저 퀴즈 조회
-//    int quizList(String email);
+    List<UserQuiz> quizList(String email);
 }

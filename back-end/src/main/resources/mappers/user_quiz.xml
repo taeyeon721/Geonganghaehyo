@@ -8,7 +8,7 @@
         insert into user_quiz(quiz_id, email, question, answer, decoy, is_image) values(#{quizId}, #{email}, #{question}, #{answer}, #{decoy}, #{isImage})
     </insert>
 
-<!--    <select id="quizList" resultType="UserQuiz">-->
-<!--        select * from user_quiz where email=#{email}-->
-<!--    </select>-->
+    <select id="quizList" resultType="UserQuiz">
+        select * from user_quiz where email=#{email}
+    </select>
 </mapper>

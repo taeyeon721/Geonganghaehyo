@@ -5,10 +5,10 @@
 
 <mapper namespace="com.example.main.GameRecord.dao.GameRecordMapper">
     <insert id="recordScore" parameterType="GameRecord">
-        insert into game_record(email, game_name, game_score, game_time) values(#{email}, #{gameName}, #{gameScore}, #{time})
+        insert into game_record(email, game_name, game_score, game_time) values(#{email}, #{gameName}, #{gameScore}, #{gameTime})
     </insert>
 
-    <select id="lastScore" resultType="Integer">
+    <select id="lastScore" resultType="int">
         select game_score from game_record where game_name=#{gameName} and email=#{email} order by game_time desc limit 1
     </select>
 </mapper>

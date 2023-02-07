@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.main.Message.dao.MessageMapper">
+
+    <select id="userLastMsg" resultType="Message">
+        select * from message where email=#{email} and is_sound is false order by created_date desc limit 1
+    </select>
+
+    <select id="managerLastMsg" resultType="Message">
+        select * from message where email=#{email} and is_sound is true order by created_date desc limit 1
+    </select>
+
+    <select id="msgList" resultType="Message">
+        select * from from message where email=#{email}
+    </select>
+
+    <insert id="insertMsg" parameterType="Message">
+        insert into message(msg_id, email, is_sound, content, created_date) values(#{msgId}, #{email}, #{isSound}, #{content}, #{time})
+    </insert>
+
+</mapper>

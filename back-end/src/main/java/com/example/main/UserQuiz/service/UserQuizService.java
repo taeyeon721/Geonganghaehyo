@@ -7,11 +7,13 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 
 @Service
-@RequiredArgsConstructor
+@Transactional(readOnly=true)
 @Component
-@Transactional(readOnly = true)
+@RequiredArgsConstructor
 public class UserQuizService {
 
     private final UserQuizMapper userQuizMapper;
@@ -21,8 +23,8 @@ public class UserQuizService {
         return userQuizMapper.insertQuiz(userQuiz);
     }
 
-//    public int quizList(String email){
-//        return userQuizMapper.quizList(email);
-//    }
+    public List<UserQuiz> quizList(String email){
+        return userQuizMapper.quizList(email);
+    }
 
 }
