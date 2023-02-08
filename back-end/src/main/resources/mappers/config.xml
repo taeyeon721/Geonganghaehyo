@@ -4,7 +4,9 @@
 <configuration>
     <mappers>
         <mapper resource="mappers/manager.xml" />
+        <mapper resource="mappers/user_quiz.xml" />
         <mapper resource="mappers/game_record.xml" />
-<!--        <mapper resource="mappers/gym_record.xml" />-->
+        <mapper resource="mappers/gym_record.xml" />
+        <mapper resource="mappers/message.xml" />
     </mappers>
 </configuration>

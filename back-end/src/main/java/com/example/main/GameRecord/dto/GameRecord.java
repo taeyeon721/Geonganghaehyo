@@ -1,18 +1,16 @@
 package com.example.main.GameRecord.dto;
 
-
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class GameRecord {
     private String email;
     private String gameName;
     private int gameScore;
-    private LocalDateTime time;
+    private LocalDateTime gameTime;
 }

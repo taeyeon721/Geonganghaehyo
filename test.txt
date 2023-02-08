@@ -1,0 +1,47 @@
+{
+    "email": "test@naver.com",
+    "password" : "ssafyTest2!",
+    "name" : "ssafy",
+    "userName" : "yoo"
+}
+http://localhost:9999/manager/register
+http://localhost:9999/manager/login
+
+{
+    "email": "test@naver.com",
+    "password" : "ssafyTest2!"
+}
+
+
+
+
+{
+    "gameScore" : "100"
+}
+http://localhost:9999/game/rsp/record
+http://localhost:9999/gym/rsp/record
+http://localhost:9999/gym/rsp/daily
+
+
+
+{
+    "question" : "누가 더 잘생겼나요?",
+    "answer" : "왼쪽",
+    "decoy" : "오른쪽"
+}
+
+http://localhost:9999/quiz/create
+
+
+
+
+{
+    "content" : "밥 잘 드셨나요?"
+}
+
+http://localhost:9999/message/save
+http://localhost:9999/message/list
+
+
+
+Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InRlc3RAbmF2ZXIuY29tIiwicm9sZSI6Ik1BTkFHRVIiLCJpYXQiOjE2NzU4MzY2NjQsImV4cCI6MTY3NTg1ODI2NH0.OXoJkgd_nTe4sj6nG--HnFM0INvP_BPcPzyqgL7g6Mo"
