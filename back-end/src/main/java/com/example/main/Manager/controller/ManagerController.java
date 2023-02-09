@@ -80,7 +80,7 @@ public class ManagerController {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("가입하지 않은 회원입니다");
 		} else if (count > 1){
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("이미 존재하는 회원입니다.");
-		} if (count == 0 && check > 0) {
+		} if (count == 1 && check > 0) {
 	    	return ResponseEntity.ok("회원가입을 성공하였습니다.");
 	    } else {
 	    	return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("회원가입을 실패하였습니다.");
