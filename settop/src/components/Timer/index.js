@@ -44,7 +44,8 @@ const RenderTime = ({ remainingTime }) => {
   );
 };
 
-function App() {
+function App(props) {
+  const correct = props.correct
   return (
     <div className="App">
       <div className="timer-wrapper">
@@ -52,6 +53,13 @@ function App() {
           isPlaying
           duration={15}
           colors={["#E91616"]}
+          onComplete={()=> {
+            correct()
+            return {
+              shouldRepeat: true, delay: 1.5
+            }
+          }
+          }
         >
           {RenderTime}
         </CountdownCircleTimer>

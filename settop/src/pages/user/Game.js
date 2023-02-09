@@ -172,7 +172,7 @@ const Game = () => {
   }, []);
 
   useEffect(() => {
-    if (questionnumber === 10) {
+    if (questionnumber === 5) {
       console.log("실행됨");
     }
   }, [questionnumber]);
@@ -180,7 +180,7 @@ const Game = () => {
   function correct() {
     //정답을 골랐을 때
     // onIncrease();
-    setScore(score + 10);
+    setScore(score + 20);
     setQuestionnumber(questionnumber + 1);
     setGamedata(myData[questionnumber]);
 
@@ -211,6 +211,7 @@ const Game = () => {
     }
   }
 
+
   // 변한 state에 대해 렌더링
   // 이하 게임 UI 제공
   // 1. 랜덤으로 정답, 오답 제시
@@ -224,9 +225,9 @@ const Game = () => {
       <MainBlock>
         <div className="book">
           <div className="question">
-            <Timer />
+            <Timer correct={correct}/>
             <h3>{gamedata["question"]}</h3>
-            <p>{questionnumber} / 10</p>
+            <p>{questionnumber} / 5</p>
           </div>
           <div className="btn">
             <button
