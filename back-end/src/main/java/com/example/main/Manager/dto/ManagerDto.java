@@ -11,18 +11,11 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ManagerDto {
     private String email;
-
-    private String name;
-
     private String password;
-
-    private String gender;
-
-    private Integer age;
-
-    private String telNo;
-
     private String userName;
-
+    private String name;
+    private String telNo;
+    private String gender;
+    private Integer age;
     private ROLE role;
 }

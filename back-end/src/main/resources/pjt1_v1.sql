@@ -1,3 +1,8 @@
+DROP DATABASE IF EXISTS springboot;
+
+CREATE DATABASE springboot;
+USE springboot;
+
 DROP TABLE IF EXISTS `manager`;
 
 CREATE TABLE `manager` (
@@ -77,6 +82,14 @@ CREATE TABLE `normal_quiz` (
                                `answer`	varchar(50)	NULL,
                                `decoy`	varchar(50)	NULL,
                                `isImage`	boolean	NULL
+);
+
+DROP TABLE IF EXISTS `set_top`;
+
+CREATE TABLE set_top (
+    `set_top_id` varchar(50) NOT NULL,
+    `name` varchar(20) NOT NULL,
+    `tel_no` varchar(30) NOT NULL
 );
 
 DROP TABLE IF EXISTS `token`;
@@ -186,6 +199,10 @@ ALTER TABLE `token` ADD CONSTRAINT `FK_manager_TO_token_1` FOREIGN KEY (
     REFERENCES `manager` (
                           `email`
         );
+
+ALTER TABLE `set_top` ADD CONSTRAINT `PK_SET_TOP` PRIMARY KEY (
+                                                                   `set_top_id`
+    );
 
 # test data dump
 insert into manager(email,name,password, user_name, role) values('test@naver.com', 'test', 'test', 'test', 'MANAGER');
