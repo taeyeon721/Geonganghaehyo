@@ -3,7 +3,7 @@ package com.example.main.SetTop.dto;
 public class SetTop {
     private String setTopID;
     private String name;
-    private String tel_no;
+    private String telNo;
 
     public String getSetTopID() {
         return setTopID;
@@ -22,16 +22,16 @@ public class SetTop {
     }
 
     public String getTel_no() {
-        return tel_no;
+        return telNo;
     }
 
     public void setTel_no(String tel_no) {
-        this.tel_no = tel_no;
+        this.telNo = telNo;
     }
 
-    public SetTop(String setTopID, String name, String tel_no) {
+    public SetTop(String setTopID, String name, String telNo) {
         this.setTopID = setTopID;
         this.name = name;
-        this.tel_no = tel_no;
+        this.telNo = telNo;
     }
 }

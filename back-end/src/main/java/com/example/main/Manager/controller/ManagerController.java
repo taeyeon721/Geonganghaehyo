@@ -18,6 +18,7 @@ import com.example.main.Manager.dto.Manager;
 import com.example.main.Manager.dto.ROLE;
 import com.example.main.Manager.dto.TokensDto;
 import com.example.main.Manager.service.ManagerService;
+import com.example.main.SetTop.service.SetTopService;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -38,6 +39,7 @@ public class ManagerController {
 	final static Logger logger = LogManager.getLogger(ManagerController.class);
 
 	private final ManagerService managerService;
+	private final SetTopService setTopService;
 //	@Autowired
 //	private MailService mailService;
 
@@ -71,8 +73,14 @@ public class ManagerController {
 	    	return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("양식에 맞지 않습니다.");
 	    }
 
-	    int check = managerService.register(new Manager(manager.getEmail(), manager.getPassword(), manager.getName(), manager.getUserName(), ROLE.MANAGER));
-	    if (check > 0) {
+		Manager newManager = new Manager(manager.getEmail(), manager.getPassword(), manager.getName(), manager.getUserName(), ROLE.MANAGER);
+	    int check = managerService.register(newManager);
+		int count = setTopService.isExist(newManager);
+		if (count == 0){
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("가입하지 않은 회원입니다");
+		} else if (count > 1){
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("이미 존재하는 회원입니다.");
+		} if (count == 0 && check > 0) {
 	    	return ResponseEntity.ok("회원가입을 성공하였습니다.");
 	    } else {
 	    	return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("회원가입을 실패하였습니다.");
@@ -158,7 +166,6 @@ public class ManagerController {
 		System.out.println(check);
 		if (check == 1) return ResponseEntity.ok("회원 정보를 수정하였습니다.");
 		else return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("회원 정보 수정에 실패하였습니다.");
-
 	}
 	
 	@GetMapping("withdraw")
