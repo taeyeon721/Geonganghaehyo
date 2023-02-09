@@ -1,8 +1,5 @@
 package com.example.main.GymRecord.controller;
 
-<<<<<<< HEAD
-public class GymRecordController {
-=======
 import com.example.main.GymRecord.dto.GymRecord;
 import com.example.main.GymRecord.service.GymRecordService;
 import com.example.main.Manager.dto.Auth;
@@ -44,5 +41,4 @@ public class GymRecordController {
         int res = gymRecordService.dailyWorkout(auth.getEmail(), gymName, LocalDateTime.now());
         return res;
     }
->>>>>>> feature/back-end/user_quiz
 }
