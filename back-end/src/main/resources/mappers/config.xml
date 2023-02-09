@@ -8,5 +8,6 @@
         <mapper resource="mappers/game_record.xml" />
         <mapper resource="mappers/gym_record.xml" />
         <mapper resource="mappers/message.xml" />
+        <mapper resource="mappers/settop.xml" />
     </mappers>
 </configuration>
