@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Login, LoginSelect, MainPage, Signup, UserProfile } from "./pages";
+import { Login, LoginSelect, MainPage, Signup, UserProfile, Quizmanage, MakeQuiz, Notfound, Messagepage } from "./pages";
 import styled from "styled-components";
 import BackgroundImage from "assets/img/background.png";
 
@@ -24,6 +24,10 @@ function App() {
             <Route path="/loginselect" element={<LoginSelect />}></Route>
             <Route path="/signup" element={<Signup />}></Route>
             <Route path="/userprofile" element={<UserProfile />}></Route>
+            <Route path="/quizmanage" element={<Quizmanage />}></Route>
+            <Route path="/makequiz" element={<MakeQuiz />}></Route>
+            <Route path="/messagepage" element={<Messagepage />}></Route>
+            <Route path="/*" element={<Notfound />}></Route>
           </Routes>
         </BrowserRouter>
       </Container>
