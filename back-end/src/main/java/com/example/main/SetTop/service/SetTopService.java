@@ -3,6 +3,7 @@ package com.example.main.SetTop.service;
 import com.example.main.Manager.dto.Manager;
 import com.example.main.SetTop.controller.request.RegisterSetTopRequest;
 import com.example.main.SetTop.dao.SetTopMapper;
+import com.example.main.SetTop.dto.SetTop;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -18,5 +19,5 @@ public class SetTopService {
     public int isExist(Manager manager){
         return setTopMapper.isExist(manager);
     }
-    public int register(RegisterSetTopRequest registerSetTopRequest) { return setTopMapper.register(registerSetTopRequest); };
+    public int register(SetTop setTop) { return setTopMapper.register(setTop); };
 }

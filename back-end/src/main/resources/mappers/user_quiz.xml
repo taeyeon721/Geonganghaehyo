@@ -11,4 +11,16 @@
     <select id="quizList" resultType="UserQuiz">
         select * from user_quiz where email=#{email}
     </select>
+
+    <select id="randExt" resultType="UserQuiz">
+        select * from user_quiz order by rand() limit #{num};
+    </select>
+
+    <select id="quizCount" resultType="int">
+        select count(*) from user_quiz where email=#{email}
+    </select>
+
+    <delete id="deleteQuiz">
+        delete from user_quiz where quiz_id=#{quizId}
+    </delete>
 </mapper>

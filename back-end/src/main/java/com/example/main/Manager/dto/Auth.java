@@ -3,19 +3,13 @@ package com.example.main.Manager.dto;
 import io.jsonwebtoken.Claims;
 
 public class Auth {
-	private String id;
 	private String email;
 	private ROLE role;
 
-	public Auth(String id, String email, ROLE role) {
+	public Auth(String email, ROLE role) {
 		super();
-		this.id = id;
 		this.setEmail(email);
 		this.role = role;
-	}
-
-	public String getId() {
-		return id;
 	}
 
 	public ROLE getRole() {

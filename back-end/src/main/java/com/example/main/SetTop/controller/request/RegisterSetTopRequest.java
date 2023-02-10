@@ -3,7 +3,7 @@ package com.example.main.SetTop.controller.request;
 public class RegisterSetTopRequest {
     private String setTopID;
     private String name;
-    private String tel_no;
+    private String telNo;
 
     public String getSetTopID() {
         return setTopID;
@@ -21,18 +21,17 @@ public class RegisterSetTopRequest {
         this.name = name;
     }
 
-    public String getTel_no() {
-        return tel_no;
+    public String getTelNo() {
+        return telNo;
     }
 
-    public void setTel_no(String tel_no) {
-        this.tel_no = tel_no;
+    public void setTelNo(String telNo) {
+        this.telNo = telNo;
     }
 
-    public RegisterSetTopRequest(String setTopID, String name, String tel_no) {
-        super();
+    public RegisterSetTopRequest(String setTopID, String name, String telNo) {
         this.setTopID = setTopID;
         this.name = name;
-        this.tel_no = tel_no;
+        this.telNo = telNo;
     }
 }

@@ -18,6 +18,7 @@ import com.example.main.Manager.dto.Manager;
 import com.example.main.Manager.dto.ROLE;
 import com.example.main.Manager.dto.TokensDto;
 import com.example.main.Manager.service.ManagerService;
+import com.example.main.SetTop.service.SetTopService;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -38,6 +39,7 @@ public class ManagerController {
 	final static Logger logger = LogManager.getLogger(ManagerController.class);
 
 	private final ManagerService managerService;
+	private final SetTopService setTopService;
 //	@Autowired
 //	private MailService mailService;
 
@@ -71,8 +73,14 @@ public class ManagerController {
 	    	return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("양식에 맞지 않습니다.");
 	    }
 
-	    int check = managerService.register(new Manager(manager.getEmail(), manager.getPassword(), manager.getName(), manager.getUserName(), ROLE.MANAGER));
-	    if (check > 0) {
+		Manager newManager = new Manager(manager.getEmail(), manager.getPassword(), manager.getName(), manager.getUserName(), ROLE.MANAGER);
+	    int check = managerService.register(newManager);
+		int count = setTopService.isExist(newManager);
+		if (count == 0){
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("가입하지 않은 회원입니다");
+		} else if (count > 1){
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("이미 존재하는 회원입니다.");
+		} if (count == 1 && check > 0) {
 	    	return ResponseEntity.ok("회원가입을 성공하였습니다.");
 	    } else {
 	    	return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("회원가입을 실패하였습니다.");
@@ -135,9 +143,9 @@ public class ManagerController {
     
 	@GetMapping("logout")
 	public ResponseEntity<?> logout(HttpServletRequest request) {
-		System.out.println("logout called");
+		logger.info("ManagerController/logout called");
 		HttpSession session = request.getSession(false);
-		System.out.println(session);
+		logger.info("session info : " + session);
 		if (session != null) {
 			session.invalidate();
 			return ResponseEntity.noContent().build();
@@ -148,7 +156,7 @@ public class ManagerController {
 	
 	@GetMapping("mypage")
 	public ResponseEntity<?> info(@AuthenticationPrincipal Auth auth) {
-		Manager manager = managerService.get(auth.getId());
+		Manager manager = managerService.get(auth.getEmail());
 		return ResponseEntity.ok(new InfoManagerRequest(manager.getEmail(), manager.getPassword(), manager.getName(), manager.getUserName()));
 	}
 	
@@ -158,7 +166,6 @@ public class ManagerController {
 		System.out.println(check);
 		if (check == 1) return ResponseEntity.ok("회원 정보를 수정하였습니다.");
 		else return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("회원 정보 수정에 실패하였습니다.");
-
 	}
 	
 	@GetMapping("withdraw")
@@ -176,7 +183,7 @@ public class ManagerController {
 	
 	@PostMapping("checkPassword")
 	public ResponseEntity<?> checkPassword(@AuthenticationPrincipal Auth auth, @RequestBody Map<String, String> password) {
-		boolean check = managerService.checkPassword(password.get("password"), auth.getId());
+		boolean check = managerService.checkPassword(password.get("password"), auth.getEmail());
 		if (check) return ResponseEntity.ok("비밀번호가 일치합니다.");
 		else return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("비밀번호가 일치하지 않습니다.");
 	}
@@ -205,7 +212,6 @@ public class ManagerController {
 	/* 권한 */
 	@GetMapping("isAdmin")
 	public boolean isAdmin(@AuthenticationPrincipal Auth auth) throws Exception {
-		System.out.println(auth.getId() + " ");
 		if (auth.getRole() == ROLE.ADMIN) return true;
 		else return false;
 	}

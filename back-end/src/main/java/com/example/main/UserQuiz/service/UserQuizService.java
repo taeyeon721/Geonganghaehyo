@@ -1,5 +1,6 @@
 package com.example.main.UserQuiz.service;
 
+import com.example.main.Manager.dto.Auth;
 import com.example.main.UserQuiz.dao.UserQuizMapper;
 import com.example.main.UserQuiz.dto.UserQuiz;
 import lombok.RequiredArgsConstructor;
@@ -23,8 +24,11 @@ public class UserQuizService {
         return userQuizMapper.insertQuiz(userQuiz);
     }
 
-    public List<UserQuiz> quizList(String email){
-        return userQuizMapper.quizList(email);
-    }
+    public int quizCount(String email) { return userQuizMapper.quizCount(email); }
 
+    public List<UserQuiz> randExt(int num){ return userQuizMapper.randExt(num); }
+
+    public List<UserQuiz> quizList(String email){ return userQuizMapper.quizList(email); }
+
+    public int deleteQuiz(String quizId) { return userQuizMapper.deleteQuiz(quizId); }
 }
