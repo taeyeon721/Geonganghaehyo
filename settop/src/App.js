@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useSpeechRecognition } from "react-speech-kit"
 import { Welcome, Main, Message, GameLobby, GameResult, SelectGame, Game, SelectGym, Gym, Login, Notfound } from "./pages";
 import styled from "styled-components";
@@ -8,7 +8,6 @@ import BackgroundImage from "assets/img/background.png";
 
  function App() {
   const [value, setValue] = useState("");
-  const navigate = useNavigate();
   const { listen, listening, stop } = useSpeechRecognition({
     onResult: (result) => {
       // STT 결과를 value 상태값으로 저장
@@ -28,9 +27,7 @@ import BackgroundImage from "assets/img/background.png";
     // return setInterval(() =>realListen, 5000);
   }, [value]);
 
-  if (value.includes("취소")) {
-    navigate('/selectgame');
-  };
+
 
   return (
     <div className="App">
@@ -39,7 +36,7 @@ import BackgroundImage from "assets/img/background.png";
           <Routes>
             <Route path="/" element={<Welcome />}></Route>
             <Route path="/login" element={<Login />}></Route>
-            <Route path="/main" element={<Main />}></Route>
+            <Route path="/main" element={<Main value={value}/>}></Route>
             <Route path="/gamelobby" element={<GameLobby />}></Route>
             <Route path="/gameresult" element={<GameResult />}></Route>
             <Route path="/selectgame" element={<SelectGame />}></Route>
