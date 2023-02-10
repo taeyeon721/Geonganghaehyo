@@ -190,7 +190,7 @@ const Game = () => {
       console.log("모든 문제 소모");
       console.log(questionnumber, "문제번호", score);
       score += 10;
-      navigate(`/GameResult`, { state: { score } });
+      navigate(`/QuizResult`, { state: { score } });
     }
 
     // 만약 카운트 10 이상인 경우, 결과창 출력

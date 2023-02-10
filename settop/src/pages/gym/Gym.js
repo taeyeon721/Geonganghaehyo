@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Webcam from "react-webcam";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Book from "assets/img/book_yellow.png";
 import "assets/font/font.css";
+import { useSpeechRecognition } from "react-speech-kit";
 
 const MainBlock = styled.div`
   h3 {
@@ -48,8 +49,31 @@ const MainBlock = styled.div`
 `;
 
 function Gym() {
+
   const location = useLocation();
   const gymName = location.state.gymName;
+  const [value, setValue] = useState('');
+  const navigate = useNavigate();
+  const { listen, stop } = useSpeechRecognition({
+    onResult: (result) => {
+      setValue(result);
+      console.log(result);
+    },
+  }); 
+
+  function realListen() {
+    listen({ interimResults: false});
+    console.log("start recognition");
+    if (value.includes("그만 할래")) {
+      navigate('/main');
+      stop();
+    }
+  }
+
+  useEffect(() => {
+    realListen();
+    setInterval(() =>realListen, 5000);
+  });
 
   return (
     <>

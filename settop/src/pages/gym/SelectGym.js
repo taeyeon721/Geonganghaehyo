@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Book from "assets/img/book_yellow.png";
 import "assets/font/font.css";
+import { useSpeechRecognition } from "react-speech-kit";
+
 
 const MainBlock = styled.div`
   h3 {
@@ -75,8 +77,36 @@ const MainBlock = styled.div`
 const gymData = [{ name: "몸튼튼 체조" }, { name: "뇌튼튼 체조" }];
 
 function SelectGym() {
+
   const gymBody = gymData[0].name;
   const gymBrain = gymData[1].name;
+  const [value, setValue] = useState('');
+  const navigate = useNavigate();
+  const { listen, stop } = useSpeechRecognition({
+    onResult: (result) => {
+      setValue(result);
+      console.log(result);
+    },
+  }); 
+
+  function realListen() {
+    listen({ interimResults: false});
+    console.log("start recognition");
+    if (value.includes("몸튼튼")) {
+      navigate('/gym',{state:{gymBody}});
+      stop();
+    }
+    if (value.includes("뇌튼튼")) {
+      navigate('/gym',{state:{gymBrain}});
+      stop();
+    }
+  }
+
+  useEffect(() => {
+    realListen();
+    setInterval(() =>realListen, 5000);
+  });
+
   return (
     <>
       <MainBlock>

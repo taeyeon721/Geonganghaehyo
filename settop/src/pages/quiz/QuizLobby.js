@@ -1,13 +1,36 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Book from "assets/img/book_orange2.png";
 import "assets/font/font.css";
+import { useSpeechRecognition } from "react-speech-kit";
 
 
 const GameLobby = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [value, setValue] = useState('');
+  const navigate = useNavigate();
+  const { listen, stop } = useSpeechRecognition({
+    onResult: (result) => {
+      setValue(result);
+      console.log(result);
+    },
+  }); 
+
+  function realListen() {
+    listen({ interimResults: false});
+    console.log("start recognition");
+    if (value.includes("넘어가")) {
+      navigate('/quiz');
+      stop();
+    }
+  }
+
+  useEffect(() => {
+    realListen();
+    setInterval(() =>realListen, 5000);
+  });
 
   return (
     <>
@@ -22,7 +45,7 @@ const GameLobby = () => {
               <video src="/videos/cat.mp4" autoPlay onEnded={() => setModalIsOpen(false)}></video>
             </Modal>
             <Link to="/quiz">
-              <button className="start">시작하기</button>
+              <button className="start">넘어가</button>
             </Link>
             <Link to="/main">
               <button className="goback">이전으로</button>

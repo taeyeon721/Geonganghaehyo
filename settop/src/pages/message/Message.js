@@ -1,11 +1,44 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Book from "assets/img/book_red.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "assets/font/font.css";
+import { useSpeechRecognition } from "react-speech-kit";
 
 
 function Message() {
+
+  const [value, setValue] = useState('');
+  const navigate = useNavigate();
+  const { listen, stop } = useSpeechRecognition({
+    onResult: (result) => {
+      setValue(result);
+      console.log(result);
+    },
+  }); 
+
+  function realListen() {
+    listen({ interimResults: false});
+    console.log("start recognition");
+    if (value.includes("편지 쓸래")) {
+// 녹음 기능 추가하기
+      stop();
+    }
+    if (value.includes("편지 보낼래")) {
+// 서버랑 연동하기
+      stop();
+    }
+    if (value.includes("다 썼어")) {
+      navigate('/main');
+            stop();
+          }
+  }
+
+  useEffect(() => {
+    realListen();
+    setInterval(() =>realListen, 5000);
+  });
+  
   return (
     <>
       <MainBlock>
@@ -22,10 +55,10 @@ function Message() {
             </div>
           </div>
           <div className="btn">
-            <button>녹음하기</button>
-            <button>보내기</button>
+            <button>편지 쓸래</button>
+            <button>편지 보낼래</button>
             <Link to="/main">
-            <button>뒤로가기</button>
+            <button>다 썼어</button>
             </Link>
           </div>
         </div>

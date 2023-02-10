@@ -1,30 +1,68 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useSpeechRecognition } from "react-speech-kit"
 import styled from "styled-components";
 import Book from "assets/img/book_green.png";
 import "assets/font/font.css";
 
 
 const Main = (props) => {
+
+  // 음성인식 기능
+
+  const [value, setValue] = useState('');
+  const navigate = useNavigate();
+  const { listen, stop } = useSpeechRecognition({
+    onResult: (result) => {
+      setValue(result);
+      console.log(result);
+    },
+  });  
+
+  function realListen() {
+    listen({ interimResults: false});
+    console.log("start recognition");
+    if (value.includes("노래방")) {
+      stop();
+    }
+    if (value.includes("퀴즈")) {
+      navigate('/quizlobby');
+      stop();
+    }
+    if (value.includes("체조")) {
+      navigate('/selectgym');
+      stop();
+    }
+    if (value.includes("편지")) {
+      navigate('/message');
+      stop();
+    }
+  }
+
+  useEffect(() => {
+    console.log("rendered");
+    realListen();
+    //setInterval(() =>realListen, 5000);
+  });
   
   return (
     <>
       <MainBlock>
         <div className="book">
           <div className="info_video">
-            <video src="/videos/cat.mp4" autoPlay></video>
+            <video src="/videos/cat.mp4" autoPlay muted loop></video>
           </div>
           <div className="btn">
             <Link to="#">
               <button className="call">노래방</button>
             </Link>
-            <Link to="/quizlobby">
-              <button className="game">게임</button>
+            <Link to="/quiz/quizlobby">
+              <button className="game">퀴즈</button>
             </Link>
-            <Link to="/selectgym">
+            <Link to="/gym/selectgym">
               <button className="gym">체조</button>
             </Link>
-            <Link to="/message">
+            <Link to="/message/message">
               <button className="call">편지</button>
             </Link>
           </div>
