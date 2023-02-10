@@ -156,7 +156,7 @@ public class ManagerController {
 	
 	@GetMapping("mypage")
 	public ResponseEntity<?> info(@AuthenticationPrincipal Auth auth) {
-		Manager manager = managerService.get(auth.getId());
+		Manager manager = managerService.get(auth.getEmail());
 		return ResponseEntity.ok(new InfoManagerRequest(manager.getEmail(), manager.getPassword(), manager.getName(), manager.getUserName()));
 	}
 	
@@ -183,7 +183,7 @@ public class ManagerController {
 	
 	@PostMapping("checkPassword")
 	public ResponseEntity<?> checkPassword(@AuthenticationPrincipal Auth auth, @RequestBody Map<String, String> password) {
-		boolean check = managerService.checkPassword(password.get("password"), auth.getId());
+		boolean check = managerService.checkPassword(password.get("password"), auth.getEmail());
 		if (check) return ResponseEntity.ok("비밀번호가 일치합니다.");
 		else return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("비밀번호가 일치하지 않습니다.");
 	}
@@ -212,7 +212,6 @@ public class ManagerController {
 	/* 권한 */
 	@GetMapping("isAdmin")
 	public boolean isAdmin(@AuthenticationPrincipal Auth auth) throws Exception {
-		System.out.println(auth.getId() + " ");
 		if (auth.getRole() == ROLE.ADMIN) return true;
 		else return false;
 	}
