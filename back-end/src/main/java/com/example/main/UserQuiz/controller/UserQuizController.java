@@ -27,7 +27,7 @@ public class UserQuizController {
 
     @PostMapping("create")
     public int insertQuiz(@AuthenticationPrincipal Auth auth, @RequestBody RegisterUserQuizRequest userQuiz){
-        UUID quizid = UUID.randomUUID();
+        UUID quizId = UUID.randomUUID();
         boolean isImage;
 
 
@@ -37,7 +37,7 @@ public class UserQuizController {
             isImage = false;
         }
 
-        UserQuiz rec = new UserQuiz(quizid.toString(), auth.getEmail(), userQuiz.getQuestion(), userQuiz.getAnswer(), userQuiz.getDecoy(), isImage);
+        UserQuiz rec = new UserQuiz(quizId.toString(), auth.getEmail(), userQuiz.getQuestion(), userQuiz.getAnswer(), userQuiz.getDecoy(), isImage);
         logger.info("create/rec\n" + rec.toString());
         int check = userQuizService.insertQuiz(rec);
         return check;

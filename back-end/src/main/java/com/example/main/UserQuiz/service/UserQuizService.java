@@ -23,12 +23,6 @@ public class UserQuizService {
         return userQuizMapper.insertQuiz(userQuiz);
     }
 
-    public List<UserQuiz> quizList(String email){
-        List<UserQuiz> res = userQuizMapper.quizList(email);
-        for (UserQuiz userQuiz:res) {
-            System.out.println(userQuiz.toString());
-        }
-        return userQuizMapper.quizList(email);
-    }
+    public List<UserQuiz> quizList(String email){ return userQuizMapper.quizList(email); }
 
 }
