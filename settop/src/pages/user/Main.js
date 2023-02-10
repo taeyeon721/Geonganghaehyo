@@ -1,11 +1,71 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useSpeechRecognition } from "react-speech-kit"
 import styled from "styled-components";
 import Book from "assets/img/book_green.png";
 import "assets/font/font.css";
 
+// function STT() {
+//   const [value, setValue] = useState('');
+//   const { listen, listening, stop } = useSpeechRecognition({
+//     onResult: (result) => {
+//       // 음성인식 결과가 value 상태값으로 할당됩니다.
+//       setValue(result);
+//       console.log(result);
+//     },
+//   });
+// }
 
 const Main = (props) => {
+
+  const [value, setValue] = useState('');
+  const navigate = useNavigate();
+  const { listen, listening, stop } = useSpeechRecognition({
+    onResult: (result) => {
+      // 음성인식 결과가 value 상태값으로 할당됩니다.
+      setValue(result);
+      console.log(result);
+    },
+  });
+
+  
+  function realListen() {
+    listen({ interimResults: false});
+    console.log("start recognition");
+    //{listening}\
+
+    // 노래방 이동
+    if (value.includes("노래방")) {
+      navigate('/ChooseMusic');
+      stop();
+    }
+
+    // 놀이 이동
+    if (value.includes("놀이")) {
+      navigate('/SelectGame');
+      stop();
+    }
+
+    // 체조 이동
+    if (value.includes("체조")) {
+      navigate('/selectgym');
+      stop();
+    }
+
+    // 편지 이동
+    if (value.includes("편지")) {
+      navigate('/message');
+      stop();
+    }
+  }
+  
+
+  useEffect(() => {
+    console.log("rendered");
+    realListen();
+    //STT();
+    setInterval(() =>realListen, 5000);
+  });
   
   return (
     <>
@@ -15,10 +75,10 @@ const Main = (props) => {
             <video src="/videos/cat.mp4" autoPlay></video>
           </div>
           <div className="btn">
-            <Link to="#">
+            <Link to="/choosemusic">
               <button className="call">노래방</button>
             </Link>
-            <Link to="/quizlobby">
+            <Link to="/selectgame">
               <button className="game">게임</button>
             </Link>
             <Link to="/selectgym">

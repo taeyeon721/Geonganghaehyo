@@ -41,5 +41,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "description": "- 서비스에서 제공하는 기능들에 대한 api 구조\r - axios에 대한 interceptor와 객체를 만드는 함수 정의",
+  "main": "index.js",
+  "author": "",
+  "license": "ISC"
 }
