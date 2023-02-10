@@ -1,17 +1,11 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Book from "assets/img/book_green.png";
 import "assets/font/font.css";
 
 
 const Main = (props) => {
-  // const navigate = useNavigate();
-  // const value = props.value;
-
-  // if (value.includes("취소")) {
-  //   navigate('/selectgame');
-  // };
   
   return (
     <>
