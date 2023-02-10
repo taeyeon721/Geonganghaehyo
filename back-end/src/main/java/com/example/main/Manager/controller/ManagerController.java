@@ -143,9 +143,9 @@ public class ManagerController {
     
 	@GetMapping("logout")
 	public ResponseEntity<?> logout(HttpServletRequest request) {
-		System.out.println("logout called");
+		logger.info("ManagerController/logout called");
 		HttpSession session = request.getSession(false);
-		System.out.println(session);
+		logger.info("session info : " + session);
 		if (session != null) {
 			session.invalidate();
 			return ResponseEntity.noContent().build();

@@ -10,11 +10,22 @@ import java.util.UUID;
 @NoArgsConstructor
 public class UserQuiz {
 
-    private String quizId;
+    private String quizid;
     private String email;
     private String question;
     private String answer;
     private String decoy;
     private boolean isImage;
 
+    @Override
+    public String toString() {
+        return "UserQuiz{" +
+                "quizid='" + quizid + '\'' +
+                ", email='" + email + '\'' +
+                ", question='" + question + '\'' +
+                ", answer='" + answer + '\'' +
+                ", decoy='" + decoy + '\'' +
+                ", isImage=" + isImage +
+                '}';
+    }
 }
