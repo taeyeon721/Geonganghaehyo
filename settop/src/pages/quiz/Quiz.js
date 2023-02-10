@@ -207,7 +207,7 @@ const Game = () => {
     setGamedata(myData[questionnumber]);
     if (questionnumber === 10) {
       console.log("모든 문제 소모");
-      navigate(`/GameResult`, { state: { score } });
+      navigate(`/quizresult`, { state: { score } });
     }
   }
 

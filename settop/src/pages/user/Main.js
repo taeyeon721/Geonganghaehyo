@@ -18,7 +18,7 @@ const Main = (props) => {
             <Link to="#">
               <button className="call">노래방</button>
             </Link>
-            <Link to="/selectgame">
+            <Link to="/quizlobby">
               <button className="game">게임</button>
             </Link>
             <Link to="/selectgym">

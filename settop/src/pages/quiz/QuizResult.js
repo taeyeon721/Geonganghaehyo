@@ -92,8 +92,8 @@ function GameResult() {
               <p>{score}</p>
             </div>
             <div className="btn">
-              <Link to='/Game'><button className="replay">다시하기</button></Link>
-              <Link to='/Selectgame'><button className="goback">뒤로가기</button></Link>
+              <Link to='/quiz'><button className="replay">다시하기</button></Link>
+              <Link to='/main'><button className="goback">뒤로가기</button></Link>
             </div>
           </div>
         </div>

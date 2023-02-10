@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Welcome, Main, Message, GameLobby, GameResult, Game, SelectGym, Gym, Login, Notfound } from "./pages";
+import { Welcome, Login, Main, Quiz, QuizLobby, QuizResult, SelectGym, Gym, Message,  Notfound } from "./pages";
 import styled from "styled-components";
 import BackgroundImage from "assets/img/background.png";
 // import GameResult from "./pages/GameResult";
@@ -16,9 +16,9 @@ import BackgroundImage from "assets/img/background.png";
             <Route path="/" element={<Welcome />}></Route>
             <Route path="/login" element={<Login />}></Route>
             <Route path="/main" element={<Main />}></Route>
-            <Route path="/gamelobby" element={<GameLobby />}></Route>
-            <Route path="/gameresult" element={<GameResult />}></Route>
-            <Route path="/game" element={<Game />}></Route>
+            <Route path="/quizlobby" element={<QuizLobby />}></Route>
+            <Route path="/quizresult" element={<QuizResult />}></Route>
+            <Route path="/quiz" element={<Quiz />}></Route>
             <Route path="/selectgym" element={<SelectGym />}></Route>
             <Route path="/gym" element={<Gym />}></Route>
             <Route path="/message" element={<Message />}></Route>
