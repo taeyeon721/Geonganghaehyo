@@ -22,7 +22,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/pose@0.8/dist/teachablemachine-pose.min.js"></script>
     <script type="text/javascript">
       const url = "./my_model/"; // 모델이 들어있는 파일 이름
-      let model, webcam, ctx, labelContainer, maxPredictions;
+      let model, webcam, ctx, labelContainer, maxPredictions, result;
 
       async function init() {
         const modelURL = url + "model.json"; 
@@ -86,7 +86,7 @@
     async function calcValue(prediction) {
 
         let maxval = -1;
-        let result = "";
+        // let result = "";
 
         for(let i = 0; i < maxPredictions; i++) {
             if (maxval < prediction[i].probability.toFixed(2)) {
