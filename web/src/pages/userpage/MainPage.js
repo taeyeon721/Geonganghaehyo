@@ -40,11 +40,14 @@ const MainPage = () => {
             <Link to="/UserProfile">
               <h3>유저프로필</h3>
             </Link>
-            <Link to="">
-              <h3>로그인 페이지</h3>
+            <Link to="/Makequiz">
+              <h3>퀴즈 페이지</h3>
             </Link>
-            <Link to="">
-              <h3>로그인 페이지</h3>
+            <Link to="/Quizmanage">
+              <h3>퀴즈 관리 페이지</h3>
+            </Link>
+            <Link to="/Messagepage">
+              <h3>메시지 페이지</h3>
             </Link>
           </div>
         </div>

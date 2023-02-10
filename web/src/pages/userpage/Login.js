@@ -3,11 +3,16 @@
 // 추후 내 MM으로 보낸 링크 활용하여 로그인 기능 있는 페이지 구현,
 // css 손볼 것.
 
+// localstorage
+
 import Note from "components/note";
 import { useState } from "react";
+import { useNavigate } from 'react-router-dom'; 
 import axios from "axios";
 
 const Login = () => {
+const navigate = useNavigate()
+
   const [Id, setId] = useState("");
   const [Password, setPassword] = useState("");
 
@@ -30,23 +35,32 @@ const Login = () => {
     } else if (!Password) {
       return alert("Password를 입력하세요.");
     } else {
-      let account = {
-        Id,
-        Password,
+      const test = {
+        email: "test@naver.com",
+        password: "test",
       };
-      axios.post("보낼 곳", account)
-      .then(function (res) {
-        console.log(res.data); //응답 코드별 결과
-        if (res.accessToken) {
-          localStorage.setItem("login-token", res.accessToken);
-        }})
-        .catch(function (error) {
-          console.log(error)
-          console.log('에러가 나버렸습니다.')
-          localStorage.setItem("에러코드", 123)
-          console.log(localStorage)
+      const testjson = JSON.stringify(test);
+      console.log(testjson);
+      axios
+        .post("http://localhost:9999/manager/login", JSON.stringify(test), {
+          headers: {
+            "Content-Type": "application/json",
+          },
         })
-      ;
+        .then(function (res) {
+          console.log(res.data); //응답 코드별 결과
+          console.log(res.data.accessToken);
+          if (res.data.accessToken) {
+            localStorage.setItem("jwt", res.data.accessToken);
+            console.log(localStorage);
+            navigate("/")
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+          console.log("에러가 나버렸습니다.");
+          console.log(localStorage);
+        });
     }
   };
 

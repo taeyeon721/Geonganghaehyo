@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import profilepic from "../../assets/img/profilepic.png"; 
 import "../../assets/font/font.css"
+// import axios from "axios";
 
 const Container = styled.div`
   .welcome {
@@ -92,6 +93,8 @@ const Container = styled.div`
 `;
 
 const UserProfile = () => {
+  
+
   return (
     <Note>
       <Container>
