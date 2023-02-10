@@ -27,6 +27,7 @@ public class UserQuizController {
 
     @PostMapping("create")
     public int insertQuiz(@AuthenticationPrincipal Auth auth, @RequestBody RegisterUserQuizRequest userQuiz){
+        logger.info("userQuiz/insertQuiz called");
         UUID quizId = UUID.randomUUID();
         boolean isImage;
 
@@ -38,21 +39,23 @@ public class UserQuizController {
         }
 
         UserQuiz rec = new UserQuiz(quizId.toString(), auth.getEmail(), userQuiz.getQuestion(), userQuiz.getAnswer(), userQuiz.getDecoy(), isImage);
-        logger.info("create/rec\n" + rec.toString());
+//        logger.info("create/rec\n" + rec.toString());
         int check = userQuizService.insertQuiz(rec);
         return check;
     }
 
+    // 전채 quiz 갯수 새기
     @PostMapping("count")
     public int quizCount(@AuthenticationPrincipal Auth auth){
-        logger.info("quizCount called");
+        logger.info("userQuiz/quizCount called");
         int res = userQuizService.quizCount(auth.getEmail());
         return res;
     }
 
+    //num 개수만큼 무작위 추출하기
     @PostMapping("randExt/{num}")
     public ResponseEntity<?> randExt(@AuthenticationPrincipal Auth auth, @PathVariable(value="num") int num){
-        logger.info("randExt called");
+        logger.info("userQuiz/randExt called");
         num = userQuizService.quizCount(auth.getEmail()) >= num ? num : userQuizService.quizCount(auth.getEmail());
         logger.info("num : " + num);
         if(num > userQuizService.quizCount(auth.getEmail())){
@@ -60,6 +63,15 @@ public class UserQuizController {
         } else {
             return ResponseEntity.ok( new UserQuizResponse(num, userQuizService.randExt( num )) );
         }
+    }
+
+    @PostMapping("delete")
+    public int deleteQuiz(@AuthenticationPrincipal Auth auth,  @RequestBody UserQuiz userQuiz){
+        logger.info("userQuiz/delete called");
+        userQuiz.setEmail(auth.getEmail());
+        logger.info("userQuiz/delete quizId : " + userQuiz.getQuizId());
+        return userQuizService.deleteQuiz(userQuiz.getQuizId());
+
     }
 
     @PostMapping("list")

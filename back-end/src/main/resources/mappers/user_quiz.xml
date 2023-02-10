@@ -5,7 +5,7 @@
 
 <mapper namespace="com.example.main.UserQuiz.dao.UserQuizMapper">
     <insert id="insertQuiz" parameterType="UserQuiz">
-        insert into user_quiz(quizid, email, question, answer, decoy, is_image) values(#{quizId}, #{email}, #{question}, #{answer}, #{decoy}, #{isImage})
+        insert into user_quiz(quiz_id, email, question, answer, decoy, is_image) values(#{quizId}, #{email}, #{question}, #{answer}, #{decoy}, #{isImage})
     </insert>
 
     <select id="quizList" resultType="UserQuiz">
@@ -19,4 +19,8 @@
     <select id="quizCount" resultType="int">
         select count(*) from user_quiz where email=#{email}
     </select>
+
+    <delete id="deleteQuiz">
+        delete from user_quiz where quiz_id=#{quizId}
+    </delete>
 </mapper>

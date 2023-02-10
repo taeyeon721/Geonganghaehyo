@@ -20,4 +20,6 @@ public interface UserQuizMapper {
 
     //유저 퀴즈 조회
     List<UserQuiz> quizList(String email);
+
+    int deleteQuiz(String quizId);
 }
