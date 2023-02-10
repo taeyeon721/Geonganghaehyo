@@ -4,16 +4,18 @@
 
 // 없는 페이지 들어가면 404 출력 > 추후 추가 예정
 
-import Game from "./user/Game.js" 
-import Main from "./user/Main.js" 
-import GameLobby from "./user/GameLobby.js"
-import GameResult from "./user/GameResult.js"
-import SelectGame from "./user/SelectGame.js"
-import SelectGym from "./user/SelectGym.js"
-import Gym from "./user/Gym.js"
+import Welcome from "./user/Welcome.js"
+import Login from "./user/Login.js" 
+import Main from "./user/Main.js"
+import Quiz from "./quiz/Quiz.js" 
+import QuizLobby from "./quiz/QuizLobby.js"
+import QuizResult from "./quiz/QuizResult.js"
+import SelectGym from "./gym/SelectGym.js"
+import Gym from "./gym/Gym.js"
+import Message from "./message/Message.js"
 import Notfound from "./user/Notfound.js"
 
-export { Main, GameLobby, GameResult, SelectGame, Game, SelectGym, Gym, Notfound } ;
+export { Welcome, Login, Main, Quiz, QuizLobby, QuizResult, SelectGym, Gym, Message,  Notfound } ;
 // object 형식으로 export 한다.
 
 
