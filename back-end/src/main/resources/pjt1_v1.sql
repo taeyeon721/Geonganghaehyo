@@ -207,5 +207,5 @@ ALTER TABLE `set_top` ADD CONSTRAINT `PK_SET_TOP` PRIMARY KEY (
 # test data dump
 insert into manager(email,name,password, user_name, role) values('admin@ssafy.com', 'ssafy', 'team2', '0215883082', 'ADMIN');
 insert into manager(email,name,password, user_name, role) values('test@naver.com', 'test', 'test', 'test', 'MANAGER');
-insert into game_list(game_name) values('rsp');s
+insert into game_list(game_name) values('rsp');
 insert into game_record(email, game_name, game_score, game_time) values('test@naver.com', 'rsp', '100', now());
