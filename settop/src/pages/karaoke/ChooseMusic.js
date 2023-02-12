@@ -8,7 +8,6 @@ import "assets/font/font.css";
 import PlayMusic from "./PlayMusic.js"
 
 function ChooseMusic() {
-
     // STT
     const [isValue, setValue] = useState("");
     const navigate = useNavigate();
@@ -22,10 +21,10 @@ function ChooseMusic() {
     function realListen () {
         listen({interimResults: false});
         console.log("start recognition");
-        if (isValue.includes("재생")) {
+        if (isValue.includes("노래")) {
             navigate('/playmusic');
             stop();
-          }
+        }
     }
 
     useEffect(() => {
@@ -34,13 +33,11 @@ function ChooseMusic() {
         setInterval(() => realListen, 5000);
     })
 
-
     return(
         <>
         <Container>
             <Book>
-                < CharacterBox/>
-                <PlayMusic musicName={isValue}/>
+                {(isValue.includes("노래") ? (<PlayMusic musicName={isValue}/>) : < CharacterBox/>)}
             </Book>
         </Container>
         </>
