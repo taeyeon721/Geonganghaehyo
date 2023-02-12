@@ -75,14 +75,14 @@ const Main = (props) => {
             <video src="/videos/cat.mp4" autoPlay></video>
           </div>
           <div className="btn">
-            <Link to="/choosemusic">
-              <button className="call">노래방</button>
+            <Link to="/selectgym">
+              <button className="gym">체조</button>
             </Link>
             <Link to="/selectgame">
               <button className="game">게임</button>
             </Link>
-            <Link to="/selectgym">
-              <button className="gym">체조</button>
+            <Link to="/choosemusic">
+              <button className="sing">노래방</button>
             </Link>
             <Link to="/message">
               <button className="call">편지</button>
@@ -122,25 +122,34 @@ const MainBlock = styled.div`
     border: 15px solid #ff7b7b;
     background-color: #ffffff;
     border-radius: 10px;
-    width: 80%;
+    width: 70%;
     height: 100%;
     font-size: 5rem;
     font-family: "BMEULJIRO";
   }
+  .sing {
+      border: 15px solid #ffba7b;
+      background-color: #ffffff;
+      border-radius: 10px;
+      width: 70%;
+      height: 100%;
+      font-size: 5rem;
+      font-family: "BMEULJIRO";
+    }
   .game {
-    border: 15px solid #ffba7b;
+    border: 15px solid #ffe27b;
     background-color: #ffffff;
     border-radius: 10px;
-    width: 80%;
+    width: 70%;
     height: 100%;
     font-size: 5rem;
     font-family: "BMEULJIRO";
   }
   .gym {
-    border: 15px solid #ffe27b;
+    border: 15px solid #00FFFF;
     background-color: #ffffff;
     border-radius: 10px;
-    width: 80%;
+    width: 70%;
     height: 100%;
     font-size: 5rem;
     font-family: "BMEULJIRO";
