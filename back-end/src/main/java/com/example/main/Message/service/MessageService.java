@@ -2,6 +2,7 @@ package com.example.main.Message.service;
 
 import com.example.main.Message.dao.MessageMapper;
 import com.example.main.Message.dto.Message;
+import com.example.main.Message.dto.MsgType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,12 @@ public class MessageService {
 
     public Message managerLastMsg(String email){
         return messageMapper.managerLastMsg(email);
+    }
+
+    public int msgCount(String email, MsgType msgType){ return messageMapper.msgCount(email, msgType); }
+
+    public List<Message> latestList(int num, MsgType msgType ){
+        return messageMapper.latestList(num, msgType);
     }
 
     public List<Message> msgList(String email){

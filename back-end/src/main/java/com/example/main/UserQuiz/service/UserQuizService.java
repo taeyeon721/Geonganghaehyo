@@ -28,6 +28,7 @@ public class UserQuizService {
 
     public List<UserQuiz> randExt(int num){ return userQuizMapper.randExt(num); }
 
+
     public List<UserQuiz> quizList(String email){ return userQuizMapper.quizList(email); }
 
     public int deleteQuiz(String quizId) { return userQuizMapper.deleteQuiz(quizId); }

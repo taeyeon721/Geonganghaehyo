@@ -3,11 +3,15 @@ package com.example.main.Message.controller;
 import com.example.main.Manager.dto.Auth;
 import com.example.main.Message.controller.request.RegisterMsg;
 import com.example.main.Message.dto.Message;
+import com.example.main.Message.dto.MsgType;
 import com.example.main.Message.service.MessageService;
 import com.example.main.UserQuiz.controller.UserQuizController;
+import com.example.main.UserQuiz.controller.response.UserQuizResponse;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +24,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class MessageController {
 
+    final static Logger logger = LogManager.getLogger(MessageController.class);
 
     private final MessageService messageService;
 
@@ -33,6 +38,25 @@ public class MessageController {
     public Message managerLastMsg(@AuthenticationPrincipal Auth auth){
         Message message =  messageService.managerLastMsg(auth.getEmail());
         return message;
+    }
+
+    @PostMapping("count")
+    public int msgCount(@AuthenticationPrincipal Auth auth, MsgType msgType){
+        logger.info("message/count called");
+        logger.info("msgType : " + msgType);
+        return messageService.msgCount(auth.getEmail(), msgType);
+    }
+
+    @PostMapping("latestList/{num}")
+    public ResponseEntity<?> latestList(@PathVariable(value="num") int num){
+        logger.info("userQuiz/randExt called");
+
+        logger.info("num : " + num);
+        if(num > userQuizService.quizCount(auth.getEmail())){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new UserQuizResponse(num, userQuizService.randExt(num)) );
+        } else {
+            return ResponseEntity.ok( new UserQuizResponse(num, userQuizService.randExt( num )) );
+        }
     }
 
     // 보호자와 유저가 메세지함 확인할 때

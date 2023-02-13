@@ -18,6 +18,7 @@ public interface UserQuizMapper {
     // 지정받은 개수만큼 랜덤 추출하기
     List<UserQuiz> randExt(int num);
 
+
     //유저 퀴즈 조회
     List<UserQuiz> quizList(String email);
 
