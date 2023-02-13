@@ -2,6 +2,7 @@ package com.example.main.Message.controller;
 
 import com.example.main.Manager.dto.Auth;
 import com.example.main.Message.controller.request.RegisterMsg;
+import com.example.main.Message.controller.response.MessageResponse;
 import com.example.main.Message.dto.Message;
 import com.example.main.Message.dto.MsgType;
 import com.example.main.Message.service.MessageService;
@@ -48,14 +49,14 @@ public class MessageController {
     }
 
     @PostMapping("latestList/{num}")
-    public ResponseEntity<?> latestList(@PathVariable(value="num") int num){
+    public ResponseEntity<?> latestList(@AuthenticationPrincipal Auth auth, @PathVariable(value="num") int num, @RequestBody MsgType msgType){
         logger.info("userQuiz/randExt called");
-
         logger.info("num : " + num);
-        if(num > userQuizService.quizCount(auth.getEmail())){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new UserQuizResponse(num, userQuizService.randExt(num)) );
+        num = messageService.msgCount(auth.getEmail(), msgType) >= num ? num : messageService.msgCount(auth.getEmail(), msgType);
+        if(num > messageService.msgCount(auth.getEmail(), msgType)){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageResponse(num, messageService.latestList(num, msgType)) );
         } else {
-            return ResponseEntity.ok( new UserQuizResponse(num, userQuizService.randExt( num )) );
+            return ResponseEntity.ok( new MessageResponse(num, messageService.latestList(num, msgType)));
         }
     }
 
