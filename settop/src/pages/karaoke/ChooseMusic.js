@@ -15,13 +15,14 @@ function ChooseMusic() {
         onResult: (result) => {
             // 음성인식 결과가 isValue 상태 값으로 할당
             setValue(result);
+            console.log(result);
         }
     })
 
     function realListen () {
         listen({interimResults: false});
         console.log("start recognition");
-        if (isValue.includes("노래")) {
+        if (isValue.includes("틀어 줘")) {
             navigate('/playmusic');
             stop();
         }
@@ -37,7 +38,7 @@ function ChooseMusic() {
         <>
         <Container>
             <Book>
-                {(isValue.includes("노래") ? (<PlayMusic musicName={isValue}/>) : < CharacterBox/>)}
+                {(isValue.includes("틀어 줘") ? (<PlayMusic musicName={isValue}/>) : < CharacterBox/>)}
             </Book>
         </Container>
         </>

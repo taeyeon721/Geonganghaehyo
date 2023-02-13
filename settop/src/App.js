@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Welcome, Login, Main, Quiz, QuizLobby, QuizResult, SelectGym, Gym, Message, ChooseMusic, Notfound } from "./pages";
+import { Welcome, Login, Main, Quiz, PlayMusic, QuizLobby, QuizResult, SelectGym, Gym, Message, ChooseMusic, Notfound } from "./pages";
 import styled from "styled-components";
 import BackgroundImage from "assets/img/background.png";
 // import GameResult from "./pages/GameResult";
@@ -23,6 +23,7 @@ import BackgroundImage from "assets/img/background.png";
             <Route path="/gym" element={<Gym />}></Route>
             <Route path="/message" element={<Message />}></Route>
             <Route path="/choosemusic" element={<ChooseMusic />}></Route>
+            <Route path="/playmusic" element={<PlayMusic />}></Route>
             <Route path="/*" element={<Notfound />}></Route>
           </Routes>
         </BrowserRouter>
