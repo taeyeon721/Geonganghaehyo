@@ -7,12 +7,15 @@ import axios from 'axios';
 import YouTube from 'react-youtube';
 
 const KEY = 'AIzaSyCJTS3iS4ItVUdnhpTkoi_-CC-WPFLtJeQ';
-let keyword, videoId;
+let keyword;
 
 function PlayMusic(props) {
 
     // props 데이터 가공
-    if (props.musicName !== '' && props.musicName !== undefined && props.musicName.includes("틀어")) {
+    if (props.musicName !== '' && props.musicName !== undefined && props.musicName.includes("노래방 틀어")) {
+        keyword = props.musicName.replace('노래방 틀어 줘', ' LaLaKaraoke Kpop');
+    }
+    else if (props.musicName !== '' && props.musicName !== undefined && props.musicName.includes("틀어")) {
         keyword = props.musicName.replace('틀어 줘', '');
     }
 
@@ -25,17 +28,25 @@ function PlayMusic(props) {
         q: keyword,
         maxResults: 1,
         type: 'video',
-        contentDetails: {
-            licensedContent: true,
-        }
     })
+
+    const opts = {
+        height: '660',
+        width: '840',
+        playerVars: {
+            autoplay: 1,
+        },
+    }
+
+
+    const [videoId, setVideoId] = useState('');
 
     useEffect(() => {
         axios.get('https://www.googleapis.com/youtube/v3/search', {params})
         .then((response) => {
             const data = response.data;
             console.log(data);
-            videoId = data.items[0].id.videoId; // 검색한 영상 videoId
+            setVideoId(data.items[0].id.videoId); // 검색한 영상 videoId
             console.log(videoId);
         })
         .catch((e) => {
@@ -48,15 +59,8 @@ function PlayMusic(props) {
         <Container>
             <Book>
                 <Header>건강해효 노래방</Header>
-                <YouTube videoId={videoId} opts={{
-                    height: '660',
-                    width: '840',
-                    playerVars: {
-                        autoplay: 0,
-                        rel: 0,
-                        modestbranding: 1,   
-                    },
-                }} style={{
+                <YouTube videoId={videoId} opts={opts} 
+                style={{
                     width: '80%',
                     height: '70%',
                     display: 'flex',
