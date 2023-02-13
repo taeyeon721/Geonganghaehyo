@@ -14,8 +14,10 @@
     "react-modal": "^3.16.1",
     "react-router-dom": "^6.8.0",
     "react-scripts": "5.0.1",
+    "react-slick": "^0.29.0",
     "react-speech-kit": "^3.0.1",
     "react-webcam": "^7.0.1",
+    "slick-carousel": "^1.8.1",
     "styled-components": "^5.3.6",
     "web-vitals": "^2.1.4"
   },
@@ -42,9 +44,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "description": "- 서비스에서 제공하는 기능들에 대한 api 구조\r - axios에 대한 interceptor와 객체를 만드는 함수 정의",
-  "main": "index.js",
-  "author": "",
-  "license": "ISC"
+  }
 }

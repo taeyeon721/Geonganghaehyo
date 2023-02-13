@@ -1,13 +1,35 @@
-import React, { useState } from "react";
-import Modal from "react-modal";
+import React, { useState, useEffect } from "react";
+//import Modal from "react-modal";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Book from "assets/img/book_orange2.png";
 import "assets/font/font.css";
-
+import { useSpeechRecognition } from "react-speech-kit";
 
 const GameLobby = () => {
-  const [modalIsOpen, setModalIsOpen] = useState(false);
+  //const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [value, setValue] = useState("");
+  const navigate = useNavigate();
+  const { listen, stop } = useSpeechRecognition({
+    onResult: (result) => {
+      setValue(result);
+      console.log(result);
+    },
+  });
+
+  function realListen() {
+    listen({ interimResults: false });
+    console.log("start recognition");
+    if (value.includes("넘어가")) {
+      navigate("/quiz");
+      stop();
+    }
+  }
+
+  useEffect(() => {
+    realListen();
+    setInterval(() => realListen, 5000);
+  });
 
   return (
     <>
@@ -16,17 +38,14 @@ const GameLobby = () => {
           <div className="game_title">
             <h3>퀴즈</h3>
           </div>
-          <div className="btn">
-            <button className="explain" onClick={()=> setModalIsOpen(true)}>게임설명</button>
-            <Modal isOpen={modalIsOpen}>
-              <video src="/videos/cat.mp4" autoPlay onEnded={() => setModalIsOpen(false)}></video>
-            </Modal>
-            <Link to="/quiz">
-              <button className="start">시작하기</button>
-            </Link>
-            <Link to="/main">
-              <button className="goback">이전으로</button>
-            </Link>
+          <div className="content">
+            <video src="/videos/sample.mp4" autoPlay muted loop></video>
+            <div className="explain">
+            <br></br><br></br>
+              바로 시작하려면<br></br><br></br>
+              "넘어가"라고<br></br><br></br>
+              말씀해주세요!
+              </div>
           </div>
         </div>
       </MainBlock>
@@ -36,63 +55,48 @@ const GameLobby = () => {
 
 export default GameLobby;
 
-  const MainBlock = styled.div`
-    h3 {
-      margin: 0;
-      color: #1f3995;
-      font-size: 5rem;
-      font-family: "BMEULJIRO";
-    }
-    .book {
-      width: 1500px;
-      height: 650px;
-      background-image: url(${Book});
-      background-size: 100% 100%;
-      background-repeat: no-repeat;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-evenly;
-      align-items: center;
-    }
-    .explain {
-      border: 20px solid #ffe27b;
-      background-color: #ffffff;
-      border-radius: 10px;
-      width: 300px;
-      height: 400px;
-      font-size: 3rem;
-      font-family: "BMEULJIRO";
-    }
-    .start {
-      border: 20px solid #73d388;
-      background-color: #ffffff;
-      border-radius: 10px;
-      width: 300px;
-      height: 400px;
-      font-size: 3rem;
-      font-family: "BMEULJIRO";
-    }
-    .goback {
-      border: 20px solid #fd6262;
-      background-color: #ffffff;
-      border-radius: 10px;
-      width: 300px;
-      height: 400px;
-      font-size: 3rem;
-      font-family: "BMEULJIRO";
-    }
-    .btn {
-      margin-left: 100px;
-      width: 1300px;
-      display: flex;
-      justify-content: space-evenly;
-      margin-bottom: 30px;
-    }
-    .game_title {
-      margin-left: 100px;
-      margin-top: 30px;
-    }
+const MainBlock = styled.div`
+  h3 {
+    margin: 0;
+    color: #1f3995;
+    font-size: 5rem;
+    font-family: "BMEULJIRO";
+  }
+  .book {
+    width: 95%;
+    height: 95%;
+    background-image: url(${Book});
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
     display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
     align-items: center;
-    justify-content: center;
-  `;
+  }
+  .content {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    width: 95%;
+    margin: 0%
+  }
+  video {
+    display: flex;
+    flex-direction: column;
+    width: 55%;
+    margin-right: 15%;
+  }
+  .explain {
+    width: 30%;
+    margin-left: -15%;
+    font-family: "BMEULJIRO";
+    font-size: 3rem;
+    text-align: center;
+  }
+  .game_title {
+    margin-left: 3%;
+  }
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;

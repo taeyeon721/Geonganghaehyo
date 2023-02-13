@@ -1,92 +1,74 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useSpeechRecognition } from "react-speech-kit"
+import { useNavigate } from "react-router-dom";
+import { useSpeechRecognition } from "react-speech-kit";
 import styled from "styled-components";
 import Book from "assets/img/book_green.png";
 import "assets/font/font.css";
 
-// function STT() {
-//   const [value, setValue] = useState('');
-//   const { listen, listening, stop } = useSpeechRecognition({
-//     onResult: (result) => {
-//       // 음성인식 결과가 value 상태값으로 할당됩니다.
-//       setValue(result);
-//       console.log(result);
-//     },
-//   });
-// }
-
 const Main = (props) => {
+  // 음성인식 기능
 
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState("");
   const navigate = useNavigate();
-  const { listen, listening, stop } = useSpeechRecognition({
+  const { listen, stop } = useSpeechRecognition({
     onResult: (result) => {
-      // 음성인식 결과가 value 상태값으로 할당됩니다.
       setValue(result);
       console.log(result);
     },
   });
 
-  
   function realListen() {
-    listen({ interimResults: false});
+    listen({ interimResults: false });
     console.log("start recognition");
-    //{listening}\
-
-    // 노래방 이동
     if (value.includes("노래방")) {
       navigate('/ChooseMusic');
       stop();
     }
-
-    // 놀이 이동
-    if (value.includes("놀이")) {
-      navigate('/SelectGame');
+    if (value.includes("퀴즈")) {
+      navigate("/quizlobby");
       stop();
     }
-
-    // 체조 이동
     if (value.includes("체조")) {
-      navigate('/selectgym');
+      navigate("/selectgym");
       stop();
     }
-
-    // 편지 이동
     if (value.includes("편지")) {
-      navigate('/message');
+      navigate("/message");
       stop();
     }
   }
-  
 
   useEffect(() => {
     console.log("rendered");
     realListen();
-    //STT();
-    setInterval(() =>realListen, 5000);
+    //setInterval(() =>realListen, 5000);
   });
-  
+
   return (
     <>
       <MainBlock>
         <div className="book">
-          <div className="info_video">
-            <video src="/videos/cat.mp4" autoPlay></video>
+          <div className="info">
+            <div className="info_video">
+              <video src="/videos/sample.mp4" autoPlay muted loop></video>
+            </div>
+            <div className="info_ment">
+              <p className="ment">하고싶으신 것을 말씀해주세요</p>
+            </div>
           </div>
-          <div className="btn">
-            <Link to="/selectgym">
-              <button className="gym">체조</button>
-            </Link>
-            <Link to="/selectgame">
-              <button className="game">게임</button>
-            </Link>
-            <Link to="/choosemusic">
-              <button className="sing">노래방</button>
-            </Link>
-            <Link to="/message">
-              <button className="call">편지</button>
-            </Link>
+          <div className="menulist">
+            <div className="karaoke">
+              <p>▪ 체조</p>
+            </div>
+            <div className="quiz">
+              <p>▪ 퀴즈</p>
+              </div>
+            <div className="gym">
+              <p>▪ 노래방</p>
+              </div>
+            <div className="message">
+              <p>▪ 편지</p>
+              </div>
           </div>
         </div>
       </MainBlock>
@@ -99,14 +81,15 @@ export default Main;
 const MainBlock = styled.div`
   h3 {
     margin: 0;
-    font-size: 1.5rem;
+    padding: 0;
+    font-size: 3.5rem;
     font-family: "BMEULJIRO";
   }
   p {
     margin: 0;
-    font-size: 1.5rem;
+    padding: 0;
+    font-size: 3rem;
     font-family: "BMEULJIRO";
-    text-align: center;
   }
   .book {
     width: 95%;
@@ -118,63 +101,46 @@ const MainBlock = styled.div`
     justify-content: flex-end;
     align-items: center;
   }
-  .call {
-    border: 15px solid #ff7b7b;
-    background-color: #ffffff;
-    border-radius: 10px;
-    width: 70%;
-    height: 100%;
-    font-size: 5rem;
-    font-family: "BMEULJIRO";
-  }
-  .sing {
-      border: 15px solid #ffba7b;
-      background-color: #ffffff;
-      border-radius: 10px;
-      width: 70%;
-      height: 100%;
-      font-size: 5rem;
-      font-family: "BMEULJIRO";
-    }
-  .game {
-    border: 15px solid #ffe27b;
-    background-color: #ffffff;
-    border-radius: 10px;
-    width: 70%;
-    height: 100%;
-    font-size: 5rem;
-    font-family: "BMEULJIRO";
-  }
-  .gym {
-    border: 15px solid #00FFFF;
-    background-color: #ffffff;
-    border-radius: 10px;
-    width: 70%;
-    height: 100%;
-    font-size: 5rem;
-    font-family: "BMEULJIRO";
-  }
-  .info_video {
-    width: 70%;
-    height: 90%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .btn {
+  .menulist {
     height: 90%;
     width: 30%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    /* border: 3px solid red; */
+    justify-content: space-around;
   }
-  a {
-    height: 15%;
-    text-align: center;
+  .message {
+    font-family: "BMEULJIRO";
+  }
+  .quiz {
+    font-family: "BMEULJIRO";
+  }
+  .gym {
+    font-family: "BMEULJIRO";
+  }
+  .info {
+    width: 60%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .info_video {
+    height: 55%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .info_ment {
+    height: 20%;
+    width: 100%;
+    display: flex;
+    align-items: end;
+    justify-content: center;
   }
   video {
-    height: 90%;
+    height: 100%;
   }
   display: flex;
   align-items: center;
