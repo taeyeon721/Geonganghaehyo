@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface ManagerMapper {
     int register(Manager manager);
-    Manager userLogin(String email);
+    Manager login(String email);
     int idCheck(String email);
     Manager get(String email);
     int update(Manager manager);

@@ -14,4 +14,5 @@ public class LoginSetTopRequest {
     public LoginSetTopRequest(String setTopId) {
         this.setTopId = setTopId;
     }
+
 }

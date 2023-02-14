@@ -16,6 +16,13 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- DROP DATABASE IF EXISTS
+--
+DROP DATABASE if EXISTS springboot;
+CREATE DATABASE springboot;
+USE springboot;
+
+--
 -- Table structure for table `accident_archive`
 --
 

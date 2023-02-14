@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.example.main.Manager.dto.Auth;
 import com.example.main.Manager.dto.ROLE;
+import com.example.main.SetTop.dto.SETTOP_ROLE;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -52,6 +53,8 @@ public class JwtTokenProvider {
     /**
      * SecretKey 암호화 하면서 초기화
      */
+
+
     public JwtTokenProvider() {
         this.key = Keys.hmacShaKeyFor(this.secretKey.getBytes());
     }
@@ -68,6 +71,18 @@ public class JwtTokenProvider {
     }
 
     /**
+     * 셋탑용 AccessToken 생성
+     *
+     * @param email 발급할 사용자의 아이디
+     * @param setTopId  사용자의 셋탑 아이디
+     * @param role  사용자에게 허용할 권한
+     * @return AccessToken
+     */
+    public String createAccessToken(String email, String name, String setTopId, SETTOP_ROLE role) {
+        return generateToken(email, name, setTopId, role, Long.parseLong(accessTokenValidMilSecond));
+    }
+
+    /**
      * RefreshToken 생성
      *
      * @param email 발급할 사용자의 아이디
@@ -76,6 +91,18 @@ public class JwtTokenProvider {
      */
     public String createRefreshToken(String email, String name, ROLE role) {
         return generateToken(email, name, role, Long.parseLong(refreshTokenValidMilSecond));
+    }
+
+    /**
+     * 셋탑용 RefreshToken 생성
+     *
+     * @param email 발급할 사용자의 아이디
+     * @param setTopId  사용자의 셋탑 아이디
+     * @param role  사용자에게 허용할 권한
+     * @return AccessToken
+     */
+    public String createRefreshToken(String email, String name, String setTopId, SETTOP_ROLE role) {
+        return generateToken(email, name, setTopId, role, Long.parseLong(refreshTokenValidMilSecond));
     }
 
     /**
@@ -91,6 +118,28 @@ public class JwtTokenProvider {
         return Jwts.builder()
                 .claim("email", email)
                 .claim("name", name)
+                .claim("role", role)
+                .setIssuedAt(now)
+                .setExpiration(new Date(now.getTime() + tokenValidMilSecond))
+                .signWith(this.key, SignatureAlgorithm.HS256)
+                .compact();
+    }
+
+    /**
+     * 셋탑용 JWTToken 생성
+     *
+     * @param email              발급할 사용자의 아이디
+     * @param setTopId           사용자의 셋탑 아이디
+     * @param role               사용자에게 허용할 권한
+     * @param tokenValidMilSecond 토큰 유효시간
+     * @return AccessToken
+     */
+    protected String generateToken(String email, String name, String setTopId, SETTOP_ROLE role, long tokenValidMilSecond) {
+        Date now = new Date();
+        return Jwts.builder()
+                .claim("email", email)
+                .claim("name", name)
+                .claim("setTopId", setTopId)
                 .claim("role", role)
                 .setIssuedAt(now)
                 .setExpiration(new Date(now.getTime() + tokenValidMilSecond))

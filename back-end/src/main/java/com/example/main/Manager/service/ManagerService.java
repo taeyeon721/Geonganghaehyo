@@ -46,8 +46,8 @@ public class ManagerService {
     }
 
     @Transactional
-    public TokensDto userLogin(LoginManagerRequest loginManager){
-        Manager manager = managerMapper.userLogin(loginManager.getEmail());
+    public TokensDto login(LoginManagerRequest loginManager){
+        Manager manager = managerMapper.login(loginManager.getEmail());
         try{
             passwordEncoder.matches(loginManager.getPassword(), manager.getPassword());
 

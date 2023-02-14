@@ -89,20 +89,20 @@ public class ManagerController {
 
 	}
 	
-	@PostMapping("idCheck")
-	public ResponseEntity<String> idCheck(@RequestBody Map<String, String> map) throws Exception {
-		String userId = map.get("userId");
-		
-		Pattern idPattern = Pattern.compile("^[A-Za-z[0-9]]{3,15}$");
-		Matcher idMatcher = idPattern.matcher(userId);
-		if (!idMatcher.find()) {
-	    	return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("양식에 맞지 않습니다.");
-	    }
-		
-		int check = managerService.emailCheck(userId);
-		if (check == 0) return ResponseEntity.ok("아이디 사용가능합니다.");
-		else return ResponseEntity.ok("아이디 중복입니다.");
-	}
+//	@PostMapping("idCheck")
+//	public ResponseEntity<String> idCheck(@RequestBody Map<String, String> map) throws Exception {
+//		String userId = map.get("userId");
+//
+//		Pattern idPattern = Pattern.compile("^[A-Za-z[0-9]]{3,15}$");
+//		Matcher idMatcher = idPattern.matcher(userId);
+//		if (!idMatcher.find()) {
+//	    	return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("양식에 맞지 않습니다.");
+//	    }
+//
+//		int check = managerService.emailCheck(userId);
+//		if (check == 0) return ResponseEntity.ok("아이디 사용가능합니다.");
+//		else return ResponseEntity.ok("아이디 중복입니다.");
+//	}
 	
 	@PostMapping("emailCheck")
 	public ResponseEntity<String> emailCheck(@RequestBody Map<String, String> map) throws Exception {
@@ -123,7 +123,7 @@ public class ManagerController {
 	
 	@PostMapping("login")
 	public ResponseEntity<?> login(@RequestBody LoginManagerRequest manager, HttpServletResponse response) throws Exception {
-		TokensDto tokens = managerService.userLogin(manager);
+		TokensDto tokens = managerService.login(manager);
 		if (tokens != null) {
 			setToken(response, tokens);
 			return ResponseEntity.ok(new TokenResponse(manager.getEmail() + "님 환영합니다.", tokens.getAccessToken()));
