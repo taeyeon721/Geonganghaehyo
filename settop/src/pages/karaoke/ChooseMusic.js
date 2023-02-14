@@ -3,11 +3,13 @@ import { Link, useNavigate } from "react-router-dom";
 import { useSpeechRecognition } from "react-speech-kit";
 import styled from "styled-components";
 import BookImg from "assets/img/book_red.png";
+import BubbleImg from "assets/img/bubble.png";
 import Character from "assets/img/dango.png";
 import "assets/font/font.css";
 import PlayMusic from "./PlayMusic.js"
 
 function ChooseMusic() {
+    
     // STT
     const [isValue, setValue] = useState("");
     const navigate = useNavigate();
@@ -26,6 +28,11 @@ function ChooseMusic() {
             navigate('/playmusic');
             stop();
         }
+
+        else if (isValue.includes("뒤로")) {
+            navigate('/main');
+            stop();
+        }
     }
 
     useEffect(() => {
@@ -38,7 +45,11 @@ function ChooseMusic() {
         <>
         <Container>
             <Book>
-                {(isValue.includes("틀어 줘") ? (<PlayMusic musicName={isValue}/>) : < CharacterBox/>)}
+                {(isValue.includes("틀어 줘") ? (<PlayMusic musicName={isValue}/>) 
+                : <MainBox>
+                    <CharacterBox/>
+                    <Bubble/>
+                </MainBox>)}
             </Book>
         </Container>
         </>
@@ -66,9 +77,27 @@ const Book = styled.div`
     align-items: center;
 `
 
+const MainBox = styled.div`
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-left: 10%;
+`
+
+const Bubble = styled.div`
+    width: 910px;
+    height: 530px;
+    background-image: url(${BubbleImg});
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+`
+
 const CharacterBox = styled.div`
-    width: 327px;
-    height: 557px;
+    width: 200px;
+    height: 331px;
     background-image: url(${Character});
     background-repeat: no-repeat;
     background-size: 100% 100%;
