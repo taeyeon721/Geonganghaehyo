@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Login, LoginSelect, MainPage, Signup, UserProfile, Quizmanage, MakeQuiz, Notfound, Messagepage } from "./pages";
+import { Login, LoginSelect, MainPage, Signup, UserProfile, Quizmanage, MakeQuiz, Notfound, Messagepage, LastMsg } from "./pages";
 import styled from "styled-components";
 import BackgroundImage from "assets/img/background.png";
 
@@ -28,6 +28,7 @@ function App() {
             <Route path="/makequiz" element={<MakeQuiz />}></Route>
             <Route path="/messagepage" element={<Messagepage />}></Route>
             <Route path="/*" element={<Notfound />}></Route>
+            {/* <Route path="/lastmsg" element={<LastMsg />}></Route> */}
           </Routes>
         </BrowserRouter>
       </Container>

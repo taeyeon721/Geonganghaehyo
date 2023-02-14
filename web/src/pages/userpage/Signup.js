@@ -1,5 +1,6 @@
 import Note from "components/note";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
 
@@ -14,6 +15,9 @@ const Signup = () => {
   const [Name, setName] = useState("");
   const [Password, setPassword] = useState("");
   const [UserName, setUserName] = useState("");
+  const [Gender, setGender] = useState("");
+  const [Age, setAge] = useState("");
+  const [TelNo, setTelNo] = useState("");
 
   // 2단계 - Eventhandler 부착
   const onEmailHandler = (event) => {
@@ -27,6 +31,15 @@ const Signup = () => {
   };
   const onUserNameHandler = (event) => {
     setUserName(event.currentTarget.value);
+  };
+  const onUserGenderHandler = (event) => {
+    setGender(event.currentTarget.value);
+  };
+  const onUserAgeHandler = (event) => {
+    setAge(event.currentTarget.value);
+  };
+  const onUserTelNoHandler = (event) => {
+    setTelNo(event.currentTarget.value);
   };
 
   //버튼 입력 시, 제출하는 코드
@@ -50,12 +63,15 @@ const Signup = () => {
       // 모든 input이 입력되어 있으면, signupValue에 값을 담아
       // 서버로 POST 요청을 보낸다.
       const signupValue = {
-        "email": Email,
-        "name": Name,
-        "password": Password,
-        "userName": UserName,
-      }
-      console.log(signupValue)
+        email: Email,
+        name: Name,
+        password: Password,
+        userName: UserName,
+        gender: Gender,
+        age: Age,
+        telNo: TelNo,
+      };
+      console.log(signupValue);
       axios
         .post(
           "http://localhost:9999/manager/register",
@@ -67,8 +83,7 @@ const Signup = () => {
           }
         )
         .then(function (res) {
-          console.log(res.data)
-
+          console.log(res.data);
         })
         .catch(function (error) {
           console.log(error);
@@ -77,56 +92,112 @@ const Signup = () => {
     }
   };
 
+  const idCheck = async (event) => {
+    event.preventDefault();
+
+    const jwt = localStorage.getItem("jwt");
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${jwt}`,
+      },
+    };
+
+    try {
+      await axios.post("http://localhost:9999/manager/idCheck", Email, config);
+      alert("중복된 이메일이 없습니다!");
+    } catch (error) {
+      console.error(error);
+      alert("중복된 아이디가 있습니다. 다시 시도하세요.");
+    }
+};
   return (
     <>
       <Note>
-        <form action="" onSubmit={onSubmitHandler}>
-          <span>
-            <h3>이메일</h3>
-            <Inputbox
-              type="text"
-              name="email"
-              placeholder="이메일을 입력하세요"
-              onChange={onEmailHandler}
-            />
-          </span>
-          <span>
-            <h3>보호자 이름</h3>
-            <Inputbox type="text" name="name" placeholder="당신의 이름을 입력하세요" 
-            onChange={onNameHandler}
-            />
-          </span>
-          <br />
-          <span>
-            <h3>PW</h3>
-            <Inputbox
-              type="text"
-              name="password"
-              placeholder="비밀 번호를 입력하세요"
-              onChange={onPasswordHandler}
-            />
-          </span>
-          <span>
-            <h3>PW확인</h3>
-            <Inputbox
-              type="text"
-              name="passwordcheck"
-              placeholder="비밀 번호를 입력하세요"
-            />
-          </span>
-          <span>
-            <h3>UserName</h3>
-            <Inputbox
-              type="text"
-              name="username"
-              placeholder="사용자의 이름을 입력하세요"
-              onChange={onUserNameHandler}
-            />
-            
-          </span>
-          <br />
-          <button> 회원가입 </button>
-        </form>
+          <form action="" onSubmit={onSubmitHandler}>
+            <span>
+              <h3>이메일</h3>
+              <Inputbox
+                type="text"
+                name="email"
+                placeholder="이메일을 입력하세요"
+                onChange={onEmailHandler}
+              />
+              <button onClick={idCheck}>중복 확인</button>
+            </span>
+            <span>
+              <h3>비밀 번호</h3>
+              <Inputbox
+                type="text"
+                name="password"
+                placeholder="비밀 번호를 입력하세요"
+                onChange={onPasswordHandler}
+              />
+            </span>
+            <span>
+              <h3>비밀번호 확인</h3>
+              <Inputbox
+                type="text"
+                name="passwordcheck"
+                placeholder="비밀 번호를 입력하세요"
+              />
+            </span>
+            <span>
+              <h3>보호자 이름</h3>
+              <Inputbox
+                type="text"
+                name="name"
+                placeholder="당신의 이름을 입력하세요"
+                onChange={onNameHandler}
+              />
+            </span>
+            <br />
+            <span>
+              <h3>보호자 연락처</h3>
+              <Inputbox
+                type="text"
+                name="telno"
+                placeholder="보호자 연락처를 입력하세요"
+                onChange={onUserTelNoHandler}
+              />
+            </span>
+            <br />
+            <span>
+              <h3>사용자 이름</h3>
+              <Inputbox
+                type="text"
+                name="username"
+                placeholder="사용자의 이름을 입력하세요"
+                onChange={onUserNameHandler}
+              />
+            </span>
+            <br />
+            <span>
+              <h3>사용자 성별</h3>
+              <Inputbox
+                type="text"
+                name="gender"
+                placeholder="사용자의 성별을 입력하세요"
+                onChange={onUserGenderHandler}
+              />
+            </span>
+            <br />
+            <span>
+              <h3>사용자 나이</h3>
+              <Inputbox
+                type="text"
+                name="age"
+                placeholder="사용자의 나이를 입력하세요"
+                onChange={onUserAgeHandler}
+              />
+            </span>
+            <br />
+            <Link to="/">
+              <button> 처음으로 </button>
+            </Link>
+            <button> 회원가입 </button>
+          </form>
       </Note>
     </>
   );

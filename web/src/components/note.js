@@ -15,6 +15,24 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  button {
+    background-color: #00CEEF;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 15px 25px;
+    // margin: 10px;
+    letter-spacing: 1px;
+  }
+  input{
+    // background: #eee;
+    padding: 16px;
+    margin: 10px;
+    width: 50%;
+    border: 0;
+    border-radius: 20px;
+    // box-shadow: inset 7px 2px 10px #babebc, inset -5px -5px 12px #fff;
+  }
 `;
 
 const Note = ({ children }) => {
