@@ -28,7 +28,7 @@ public class SetTopController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("관리자 권한이 아닙니다.");
         } else{
             UUID setTopId = UUID.randomUUID();
-            int check = setTopService.register(new SetTop(setTop.getSetTopID(), setTop.getName(), setTop.getTelNo()));
+            int check = setTopService.register(new SetTop(setTop.getSetTopID(), setTop.getName(), setTop.getTelNo(), auth.getEmail()));
             if (check == 1) return ResponseEntity.ok("새 셋탑박스 정보를 등록하였습니다.");
             else{
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("정보 등록에 실패하였습니다.");

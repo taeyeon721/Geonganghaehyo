@@ -69,13 +69,13 @@ public class RegisterManagerRequest {
 		this.age = age;
 	}
 
-	public RegisterManagerRequest(String email, String password, String name, String userName) {
-		super();
-		this.email = email;
-		this.password = password;
-		this.name = name;
-		this.userName = userName;
-	}
+//	public RegisterManagerRequest(String email, String password, String name, String userName) {
+//		super();
+//		this.email = email;
+//		this.password = password;
+//		this.name = name;
+//		this.userName = userName;
+//	}
 
 	public RegisterManagerRequest(String email, String password, String userName, String name, String telNo, String gender, Integer age) {
 		this.email = email;

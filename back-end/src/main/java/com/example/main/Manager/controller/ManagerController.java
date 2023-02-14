@@ -73,14 +73,15 @@ public class ManagerController {
 	    	return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("양식에 맞지 않습니다.");
 	    }
 
-		Manager newManager = new Manager(manager.getEmail(), manager.getPassword(), manager.getName(), manager.getUserName(), ROLE.MANAGER);
+		Manager newManager = new Manager(manager.getEmail(), manager.getPassword(), manager.getName(),
+				manager.getGender(), manager.getAge(), manager.getTelNo(), manager.getUserName(), ROLE.MANAGER);
 	    int check = managerService.register(newManager);
-		int count = setTopService.isExist(newManager);
-		if (count == 0){
+		int valid = managerService.isValid(newManager);
+		if (valid == 0){
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("가입하지 않은 회원입니다");
-		} else if (count > 1){
+		} else if (valid > 1){
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("이미 존재하는 회원입니다.");
-		} if (count == 1 && check > 0) {
+		} if (valid == 1 && check > 0) {
 	    	return ResponseEntity.ok("회원가입을 성공하였습니다.");
 	    } else {
 	    	return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("회원가입을 실패하였습니다.");
@@ -121,7 +122,7 @@ public class ManagerController {
 	
 	@PostMapping("login")
 	public ResponseEntity<?> login(@RequestBody LoginManagerRequest manager, HttpServletResponse response) throws Exception {
-		TokensDto tokens = managerService.login(manager);
+		TokensDto tokens = managerService.userLogin(manager);
 		if (tokens != null) {
 			setToken(response, tokens);
 			return ResponseEntity.ok(new TokenResponse(manager.getEmail() + "님 환영합니다.", tokens.getAccessToken()));
@@ -162,7 +163,8 @@ public class ManagerController {
 	
 	@PostMapping("update")
 	public ResponseEntity<?> update(@AuthenticationPrincipal Auth auth, @RequestBody RegisterManagerRequest manager) {
-		int check = managerService.update(new Manager(auth.getEmail(), manager.getPassword(), manager.getName(), manager.getUserName()));
+		int check = managerService.update(new Manager(auth.getEmail(), manager.getPassword(), manager.getName(),
+				manager.getGender(), manager.getAge(), manager.getTelNo(), manager.getUserName()) );
 		System.out.println(check);
 		if (check == 1) return ResponseEntity.ok("회원 정보를 수정하였습니다.");
 		else return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("회원 정보 수정에 실패하였습니다.");
@@ -215,10 +217,5 @@ public class ManagerController {
 		if (auth.getRole() == ROLE.ADMIN) return true;
 		else return false;
 	}
-	
-//	@GetMapping("isBroker")
-//	public boolean isBroker(@AuthenticationPrincipal Auth auth) throws Exception {
-//		if (auth.getRole() == ROLE.BROKER) return true;
-//		else return false;
-//	}
+
 }

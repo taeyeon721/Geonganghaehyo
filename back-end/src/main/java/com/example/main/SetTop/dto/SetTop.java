@@ -4,6 +4,7 @@ public class SetTop {
     private String setTopID;
     private String name;
     private String telNo;
+    private String email;
 
     public String getSetTopID() {
         return setTopID;
@@ -29,9 +30,18 @@ public class SetTop {
         this.telNo = telNo;
     }
 
-    public SetTop(String setTopID, String name, String telNo) {
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public SetTop(String setTopID, String name, String telNo, String email) {
         this.setTopID = setTopID;
         this.name = name;
         this.telNo = telNo;
+        this.email = email;
     }
 }

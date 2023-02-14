@@ -24,21 +24,14 @@ public class Manager {
 
     private ROLE role;
 
-    public Manager(String email, String password, String name, String userName) {
-        super();
+    public Manager(String email, String password, String name, String gender, Integer age, String telNo, String userName) {
         this.email = email;
         this.password = password;
         this.name = name;
+        this.gender = gender;
+        this.age = age;
+        this.telNo = telNo;
         this.userName = userName;
-    }
-    public Manager(String email, String password, String name, String userName, ROLE role) {
-        super();
-        this.email = email;
-        this.password = password;
-        this.name = name;
-        this.userName = userName;
-
-        this.role = role;
     }
 
     @Override

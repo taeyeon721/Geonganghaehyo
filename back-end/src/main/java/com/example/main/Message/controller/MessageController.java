@@ -6,8 +6,6 @@ import com.example.main.Message.controller.response.MessageResponse;
 import com.example.main.Message.dto.Message;
 import com.example.main.Message.dto.MsgType;
 import com.example.main.Message.service.MessageService;
-import com.example.main.UserQuiz.controller.UserQuizController;
-import com.example.main.UserQuiz.controller.response.UserQuizResponse;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -19,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
+
 
 @RestController
 @RequestMapping("message")
@@ -41,22 +40,26 @@ public class MessageController {
         return message;
     }
 
-    @PostMapping("count")
-    public int msgCount(@AuthenticationPrincipal Auth auth, MsgType msgType){
+    @PostMapping("count/{msgType}")
+    public int msgCount(@AuthenticationPrincipal Auth auth, @PathVariable(value="msgType") MsgType msgType){
         logger.info("message/count called");
         logger.info("msgType : " + msgType);
-        return messageService.msgCount(auth.getEmail(), msgType);
+        boolean isSound = msgType.name().equals("FROM_MANAGER");
+        return messageService.msgCount(auth.getEmail(), isSound);
     }
 
-    @PostMapping("latestList/{num}")
-    public ResponseEntity<?> latestList(@AuthenticationPrincipal Auth auth, @PathVariable(value="num") int num, @RequestBody MsgType msgType){
-        logger.info("userQuiz/randExt called");
+    @PostMapping("latestList/{msgType}/{num}")
+    public ResponseEntity<?> latestList(@AuthenticationPrincipal Auth auth, @PathVariable(value="num") int num, @PathVariable(value="msgType") MsgType msgType){
+        logger.info("message/latestList called");
         logger.info("num : " + num);
-        num = messageService.msgCount(auth.getEmail(), msgType) >= num ? num : messageService.msgCount(auth.getEmail(), msgType);
-        if(num > messageService.msgCount(auth.getEmail(), msgType)){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageResponse(num, messageService.latestList(num, msgType)) );
+        logger.info("msgType : " + msgType);
+        boolean isSound = msgType.name().equals("FROM_MANAGER") ? true : false;
+        logger.info("isSound : " + isSound);
+        num = messageService.msgCount(auth.getEmail(), isSound) >= num ? num : messageService.msgCount(auth.getEmail(), isSound);
+        if(num > messageService.msgCount(auth.getEmail(), isSound)){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageResponse(num, messageService.latestList(auth.getEmail(), num, isSound)) );
         } else {
-            return ResponseEntity.ok( new MessageResponse(num, messageService.latestList(num, msgType)));
+            return ResponseEntity.ok( new MessageResponse(num, messageService.latestList(auth.getEmail(), num, isSound)));
         }
     }
 

@@ -16,8 +16,5 @@ import org.springframework.transaction.annotation.Transactional;
 public class SetTopService {
     private final SetTopMapper setTopMapper;
 
-    public int isExist(Manager manager){
-        return setTopMapper.isExist(manager);
-    }
     public int register(SetTop setTop) { return setTopMapper.register(setTop); };
 }

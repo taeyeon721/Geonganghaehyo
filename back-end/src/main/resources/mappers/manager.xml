@@ -5,10 +5,10 @@
 
 <mapper namespace="com.example.main.Manager.dao.ManagerMapper">
     <insert id="register" parameterType="Manager">
-        insert into manager(email,name,password, user_name, role) values(#{email},#{name},#{password},#{userName},#{role})
+        insert into manager(email,name,password, user_name, gender, age, tel_no, role) values(#{email},#{name},#{password},#{userName}, #{gender}, #{age}, #{telNo}, #{role})
     </insert>
 
-    <select id="login" resultType="ManagerDto" parameterType="String">
+    <select id="userLogin" resultType="ManagerDto" parameterType="String">
         select email, password, role from manager where email=#{email}
     </select>
 
@@ -30,6 +30,10 @@
 
     <select id="getPassword" parameterType="String">
         select password from manager where email=#{email}
+    </select>
+
+    <select id="isValid" resultType="int">
+        select count(*) from set_top where email=#{email}
     </select>
 
     <insert id="updateRefreshToken" parameterType="TokenDto">

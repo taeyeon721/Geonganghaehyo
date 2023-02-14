@@ -46,8 +46,8 @@ public class ManagerService {
     }
 
     @Transactional
-    public TokensDto login(LoginManagerRequest loginManager){
-        ManagerDto manager = managerMapper.login(loginManager.getEmail());
+    public TokensDto userLogin(LoginManagerRequest loginManager){
+        Manager manager = managerMapper.userLogin(loginManager.getEmail());
         try{
             passwordEncoder.matches(loginManager.getPassword(), manager.getPassword());
 
@@ -82,6 +82,10 @@ public class ManagerService {
         String accessToken = authTokenProvider.createAccessToken(manager.getEmail(), manager.getName(), manager.getRole());
 
         return new TokensDto(accessToken, refreshToken);
+    }
+
+    public int isValid(Manager manager) {
+        return managerMapper.isValid(manager);
     }
     // emailcheck 부분 생각하기
 }
