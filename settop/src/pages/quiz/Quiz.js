@@ -5,6 +5,7 @@ import { useState, useEffect, useRef } from "react"; // react hook 을 사용하
 import { useNavigate } from "react-router-dom";
 import Timer from "components/Timer/index.js";
 
+
 const myData = [
   //임시로 만들어놓은 데이터로, 추후 backend와 API통신 시 지움
   {
@@ -107,11 +108,17 @@ const Game = () => {
     // }
     // console.log(randomanswer);
   }, []);
-
+  
+  const posecount = setInterval(
+    function() {
+      console.log('세션에 저장된 값',sessionStorage)
+    }
+    , 800);
   useEffect(() => {
     if (questionnumber === 5) {
       console.log("실행됨");
     }
+
   }, [questionnumber]);
 
   function correct() {
@@ -160,6 +167,10 @@ const Game = () => {
   // 오답 클릭 시 점수 유지 및 다음페이지 렌더링
   // 모든 문제 풀 시 gameResult.js 페이지 제공
   // 정답 위에 마우스 호버할 시 호버 된 것 표시
+
+  // const valueFromContext = useContext(MyContext);
+  // console.log(valueFromContext)
+
   return (
     <>
       <MainBlock>

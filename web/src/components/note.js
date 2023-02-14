@@ -11,6 +11,11 @@ const Container = styled.div`
     background-repeat: no-repeat;
     margin-top: 100px;
     display: flex;
+    flex-direction: column;
+  }
+  .noteblank {
+    width: 100%;
+    height: 70px;
   }
   display: flex;
   align-items: center;
@@ -21,6 +26,7 @@ const Note = ({ children }) => {
   return (
     <Container>
       <div className="noteimage">
+        <div className="noteblank"></div>
         {children}
       </div>
     </Container>
