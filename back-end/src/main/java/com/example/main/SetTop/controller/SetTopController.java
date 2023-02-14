@@ -4,6 +4,7 @@ import com.example.main.Manager.controller.request.LoginManagerRequest;
 import com.example.main.Manager.controller.response.TokenResponse;
 import com.example.main.Manager.dto.Auth;
 import com.example.main.Manager.dto.TokensDto;
+import com.example.main.SetTop.controller.request.LoginSetTopRequest;
 import com.example.main.SetTop.controller.request.RegisterSetTopRequest;
 import com.example.main.SetTop.dto.SetTop;
 import com.example.main.SetTop.service.SetTopService;
@@ -29,7 +30,7 @@ public class SetTopController {
 
     private void setToken(HttpServletResponse response, TokensDto tokens) {
         ResponseCookie cookie = ResponseCookie.from("refreshToken", tokens.getRefreshToken())
-                .maxAge(1209600000)
+                .maxAge(26784000)
                 .path("/")
                 .secure(false)
                 .httpOnly(true)
@@ -52,14 +53,14 @@ public class SetTopController {
         }
     }
 
-//    @PostMapping("login")
-//    public ResponseEntity<?> setTopLogin(@RequestBody SetTop setTop, HttpServletResponse response) throws Exception {
-//        TokensDto tokens = setTopService.setTopLogin(setTop);
-//        if (tokens != null) {
-//            setToken(response, tokens);
-//            return ResponseEntity.ok(new TokenResponse(setTop.getEmail() + "님 환영합니다.", tokens.getAccessToken()));
-//        } else {
-//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("로그인을 실패하였습니다.");
-//        }
-//    }
+    @PostMapping("login")
+    public ResponseEntity<?> setTopLogin(@RequestBody LoginSetTopRequest setTop, HttpServletResponse response) throws Exception {
+        TokensDto tokens = setTopService.setTopLogin(setTop.getSetTopId());
+        if (tokens != null) {
+            setToken(response, tokens);
+            return ResponseEntity.ok(new TokenResponse(setTop.getEmail() + "님 환영합니다.", tokens.getAccessToken()));
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("로그인을 실패하였습니다.");
+        }
+    }
 }
