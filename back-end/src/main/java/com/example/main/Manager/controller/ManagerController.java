@@ -106,6 +106,7 @@ public class ManagerController {
 	
 	@PostMapping("emailCheck")
 	public ResponseEntity<String> emailCheck(@RequestBody Map<String, String> map) throws Exception {
+		logger.info("emailCheck called, map :" + map.toString());
 		String email = map.get("email");
 		
 		Pattern emPattern = Pattern.compile("^[_a-z0-9-]+(.[_a-z0-9-]+)*@(?:\\w+\\.)+\\w+$");

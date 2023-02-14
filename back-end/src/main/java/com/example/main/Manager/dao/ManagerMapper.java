@@ -16,7 +16,7 @@ public interface ManagerMapper {
     int delete(String email);
     String getPassword(String email);
     void updateRefreshToken(TokenDto token);
-    int emailCheck(String userId);
+    int emailCheck(String email);
 
     int isValid(Manager manager);
 }

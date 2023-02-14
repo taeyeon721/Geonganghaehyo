@@ -61,7 +61,7 @@ public class ManagerService {
         }
     }
 
-    public int emailCheck(String email){ return managerMapper.idCheck(email);}
+    public int emailCheck(String email){ return managerMapper.emailCheck(email);}
 
     public Manager get(String email){ return managerMapper.get(email);}
 

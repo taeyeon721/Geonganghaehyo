@@ -1,11 +1,15 @@
 package com.example.main.SetTop.controller;
 
+import com.example.main.Manager.controller.request.LoginManagerRequest;
+import com.example.main.Manager.controller.response.TokenResponse;
 import com.example.main.Manager.dto.Auth;
+import com.example.main.Manager.dto.TokensDto;
 import com.example.main.SetTop.controller.request.RegisterSetTopRequest;
 import com.example.main.SetTop.dto.SetTop;
 import com.example.main.SetTop.service.SetTopService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.UUID;
 
 
@@ -21,6 +26,17 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class SetTopController {
     private final SetTopService setTopService;
+
+    private void setToken(HttpServletResponse response, TokensDto tokens) {
+        ResponseCookie cookie = ResponseCookie.from("refreshToken", tokens.getRefreshToken())
+                .maxAge(1209600000)
+                .path("/")
+                .secure(false)
+                .httpOnly(true)
+                .build();
+
+        response.setHeader("Set-Cookie", cookie.toString());
+    }
 
     @PostMapping("update")
     public ResponseEntity<?> update(@AuthenticationPrincipal Auth auth, @RequestBody RegisterSetTopRequest setTop) {
@@ -36,5 +52,14 @@ public class SetTopController {
         }
     }
 
-
+//    @PostMapping("login")
+//    public ResponseEntity<?> setTopLogin(@RequestBody SetTop setTop, HttpServletResponse response) throws Exception {
+//        TokensDto tokens = setTopService.setTopLogin(setTop);
+//        if (tokens != null) {
+//            setToken(response, tokens);
+//            return ResponseEntity.ok(new TokenResponse(setTop.getEmail() + "님 환영합니다.", tokens.getAccessToken()));
+//        } else {
+//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("로그인을 실패하였습니다.");
+//        }
+//    }
 }
