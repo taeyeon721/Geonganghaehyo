@@ -3,15 +3,34 @@
 // 추후 내 MM으로 보낸 링크 활용하여 로그인 기능 있는 페이지 구현,
 // css 손볼 것.
 
-// localstorage
-
 import Note from "components/note";
 import { useState } from "react";
-import { useNavigate } from 'react-router-dom'; 
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import styled from "styled-components";
+
+const Textdiv = styled.div`
+  width: 100%;
+  height: 60px;
+  font-size: larger;
+`;
+
+const Styledinput = styled.input`
+  width: 90%;
+  height: 60px;
+  opacity: 50%;
+  border: none;
+  border-bottom: solid 1px #ccc;
+  padding: 20px 0px 5px 0px;
+  font-size: 14pt;
+`;
+
+const Loginbuttonbox = styled.div`
+
+`
 
 const Login = () => {
-const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const [Id, setId] = useState("");
   const [Password, setPassword] = useState("");
@@ -53,7 +72,7 @@ const navigate = useNavigate()
           if (res.data.accessToken) {
             localStorage.setItem("jwt", res.data.accessToken);
             console.log(localStorage);
-            navigate("/")
+            navigate("/");
           }
         })
         .catch(function (error) {
@@ -72,8 +91,11 @@ const navigate = useNavigate()
         <div>
           <form action="" onSubmit={onSubmitHandler}>
             <span>
-              <h3>아이디</h3>
-              <input
+              <Textdiv></Textdiv>
+              <Textdiv>
+                <h2>아이디</h2>
+              </Textdiv>
+              <Styledinput
                 type="id"
                 value={Id}
                 placeholder="Id를 입력하세요"
@@ -81,8 +103,10 @@ const navigate = useNavigate()
               />
             </span>
             <span>
-              <h3>패스워드</h3>
-              <input
+              <Textdiv>
+                <h2>패스워드</h2>
+              </Textdiv>
+              <Styledinput
                 type="text"
                 value={Password}
                 placeholder="비밀 번호를 입력하세요"
@@ -90,11 +114,13 @@ const navigate = useNavigate()
               />
             </span>
             <br />
+            <div>
+              <button> 로그인 </button>
+            </div>
             <span>
               {/* <a href="#">회원가입</a>
               <a href="#">ID/비밀번호 찾기</a> */}
             </span>
-            <button formAction="#"> 로그인 </button>
           </form>
         </div>
       </Note>
