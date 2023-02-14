@@ -34,7 +34,7 @@ const Messagepage = () => {
         },
       };
       axios
-        .post("http://localhost:9999/message/save", SendMessage, config)
+        .post("http://localhost:8080/message/save", SendMessage, config)
         .then(console.log("메시지 보내기에 성공했습니다"))
         .catch(function (error) {
           console.error(error);
@@ -53,7 +53,7 @@ const Messagepage = () => {
     };
 
     axios
-      .post("http://localhost:9999/message/list", {}, config)
+      .post("http://localhost:8080/message/list", {}, config)
       .then((response) => {
         setMessageList(response.data);
         console.log(response.data);

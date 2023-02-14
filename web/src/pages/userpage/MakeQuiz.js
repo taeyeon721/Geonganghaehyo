@@ -14,7 +14,6 @@ const QuizForm = () => {
       ...quiz,
       [event.target.name]: event.target.value,
     }); //이 부분 이해가 안됨.
-    
   };
 
   const handleSubmit = async (event) => {
@@ -30,7 +29,7 @@ const QuizForm = () => {
     };
 
     try {
-      await axios.post("http://localhost:9999/quiz/create", quiz, config);
+      await axios.post("http://localhost:8080/quiz/create", quiz, config);
       alert("퀴즈가 성공적으로 만들어졌습니다!");
     } catch (error) {
       console.error(error);
