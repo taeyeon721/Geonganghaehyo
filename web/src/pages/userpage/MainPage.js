@@ -15,6 +15,7 @@ const Board = styled.div`
     margin-bottom: 50px;
   }
   display: flex;
+  text-align: center;
   align-items: center;
   justify-content: center;
 `;
