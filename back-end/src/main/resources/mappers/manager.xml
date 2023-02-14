@@ -8,7 +8,7 @@
         insert into manager(email,name,password, user_name, gender, age, tel_no, role) values(#{email},#{name},#{password},#{userName}, #{gender}, #{age}, #{telNo}, #{role})
     </insert>
 
-    <select id="userLogin" resultType="ManagerDto" parameterType="String">
+    <select id="userLogin" resultType="Manager" parameterType="String">
         select email, password, role from manager where email=#{email}
     </select>
 
