@@ -33,8 +33,8 @@ const Main = (props) => {
       stop();
     }
     if (value.includes("편지")) {
-      navigate("/message");
       stop();
+      navigate("/message");
     }
   }
 
