@@ -6,10 +6,13 @@ import "assets/font/font.css";
 import { useSpeechRecognition } from "react-speech-kit";
 import Slider from "pages/message/swiper.js";
 
-const messageData = [];
-
 function Message() {
   const [value, setValue] = useState("");
+  const [textData, setTextData] = useState("");
+  const [letter, setLetter] = useState({
+    content: "",
+  });
+  let [isRec, setIsRec] = useState(false);
   const navigate = useNavigate();
   const { listen, stop } = useSpeechRecognition({
     onResult: (result) => {
@@ -17,28 +20,63 @@ function Message() {
       console.log(result);
     },
   });
+  useEffect(() => {
+    if (isRec === true) {
+      console.log(value);
+      setTextData((textData) => `${textData} ${value}`);
+    }
+  }, [value]);
 
   function realListen() {
     listen({ interimResults: false });
     console.log("start recognition");
     if (value.includes("편지 쓸래")) {
-      // 녹음 기능 추가하기
-      stop();
+      setIsRec(true);
+      // stop();
     }
-    if (value.includes("편지 보낼래")) {
+    if (textData && (value.includes("편지 보낼래"))) {
       // 서버랑 연동하기
-      stop();
+      // stop();
+      setIsRec(false);
+      setLetter({
+        ...letter,
+        content: textData,
+      });
     }
     if (value.includes("다 썼어")) {
       navigate("/main");
       stop();
     }
   }
-
   useEffect(() => {
+    console.log("rendered");
     realListen();
-    setInterval(() => realListen, 5000);
+    // setInterval(() => realListen, 5000);
   });
+
+  // useEffect(() => {
+  //   const onSubmitHandler = (event) => {
+  //     //버튼에 대한 함수 정의
+  //     // 버튼만 누르면 리로드 되는것을 막아줌
+  //     event.preventDefault();
+  //     if (!SendMessage) {
+  //       return alert("메시지를 입력하세요.");
+  //     } else {
+  //       const config = {
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           Authorization: `Bearer ${jwt}`,
+  //         },
+  //       };
+  //       axios
+  //         .post("http://localhost:9999/message/save", SendMessage, config)
+  //         .then(console.log("메시지 보내기에 성공했습니다"))
+  //         .catch(function (error) {
+  //           console.error(error);
+  //         });
+  //     }
+  //   };
+  // },[letter]);
 
   return (
     <>
@@ -100,7 +138,7 @@ const MainBlock = styled.div`
     align-items: flex-start;
   }
   .carousel.slide {
-   width: 90%;
+    width: 90%;
   }
   .btn {
     display: flex;
