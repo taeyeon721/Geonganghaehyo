@@ -9,7 +9,7 @@
     </insert>
 
     <select id="login" resultType="Manager" parameterType="String">
-        select email, password, role from manager where email=#{email}
+        select email, password, role from manager where email=#{email} and password=#{password}
     </select>
 
     <select id="get" resultType="Manager" parameterType="String">
