@@ -1,5 +1,6 @@
 package com.example.main.SetTop.dto;
 
+import com.example.main.Manager.dto.ROLE;
 import com.example.main.SetTop.dto.SETTOP_ROLE;
 import lombok.*;
 
@@ -13,7 +14,7 @@ public class SetTop {
     private String name;
     private String telNo;
     private String email;
-    private SETTOP_ROLE role;
+    private ROLE role;
 
     public SetTop(String setTopId, String name, String telNo, String email) {
         this.setTopId = setTopId;

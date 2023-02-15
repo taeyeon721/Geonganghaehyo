@@ -4,7 +4,6 @@ package com.example.main.Manager.service;
 import com.example.main.Manager.controller.request.LoginManagerRequest;
 import com.example.main.Manager.dao.ManagerMapper;
 import com.example.main.Manager.dto.Manager;
-import com.example.main.Manager.dto.ManagerDto;
 import com.example.main.Manager.dto.TokenDto;
 import com.example.main.Manager.dto.TokensDto;
 import com.example.main.jwt.JwtTokenProvider;
@@ -35,7 +34,6 @@ public class ManagerService {
 //        System.out.println(passwordEncoder.encode(manager.getPassword()));
 //        System.out.println(pw);
         String pw = passwordEncoder.encode(manager.getPassword());
-        logger.info(pw);
         manager.setPassword(pw);
         return managerMapper.register(manager);
     }
@@ -51,9 +49,9 @@ public class ManagerService {
         try{
             passwordEncoder.matches(loginManager.getPassword(), manager.getPassword());
 
-            String accessToken = authTokenProvider.createAccessToken(manager.getEmail(), manager.getName(), manager.getRole());
-            String refreshToken = authTokenProvider.createRefreshToken(manager.getEmail(), manager.getName(), manager.getRole());
-            managerMapper.updateRefreshToken(new TokenDto(manager.getEmail(), refreshToken));
+            String accessToken = authTokenProvider.createAccessToken(manager.getEmail(), manager.getName(), "web", manager.getRole());
+            String refreshToken = authTokenProvider.createRefreshToken(manager.getEmail(), manager.getName(), "web", manager.getRole());
+            managerMapper.updateRefreshToken(new TokenDto(manager.getEmail(), false, refreshToken));
 
             return new TokensDto(accessToken, refreshToken);
         } catch(NullPointerException e){
@@ -79,7 +77,7 @@ public class ManagerService {
     public TokensDto refresh(String refreshToken){
         String refreshEmail = authTokenProvider.getUserId(authTokenProvider.getClaimsFromToken(refreshToken));
         Manager manager = get(refreshEmail);
-        String accessToken = authTokenProvider.createAccessToken(manager.getEmail(), manager.getName(), manager.getRole());
+        String accessToken = authTokenProvider.createAccessToken(manager.getEmail(), manager.getName(), "setTop", manager.getRole());
 
         return new TokensDto(accessToken, refreshToken);
     }

@@ -44,8 +44,8 @@ public class MessageController {
     public int msgCount(@AuthenticationPrincipal Auth auth, @PathVariable(value="msgType") MsgType msgType){
         logger.info("message/count called");
         logger.info("msgType : " + msgType);
-        boolean isSound = msgType.name().equals("FROM_MANAGER");
-        return messageService.msgCount(auth.getEmail(), isSound);
+        String location = msgType.name().equals("FROM_MANAGER") ? "setTop" : "web";
+        return messageService.msgCount(auth.getEmail(), location);
     }
 
     @PostMapping("latestList/{msgType}/{num}")
@@ -53,13 +53,13 @@ public class MessageController {
         logger.info("message/latestList called");
         logger.info("num : " + num);
         logger.info("msgType : " + msgType);
-        boolean isSound = msgType.name().equals("FROM_MANAGER") ? true : false;
-        logger.info("isSound : " + isSound);
-        num = messageService.msgCount(auth.getEmail(), isSound) >= num ? num : messageService.msgCount(auth.getEmail(), isSound);
-        if(num > messageService.msgCount(auth.getEmail(), isSound)){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageResponse(num, messageService.latestList(auth.getEmail(), num, isSound)) );
+        String location = msgType.name().equals("FROM_MANAGER") ? "setTop" : "web";
+        logger.info("location : " + location);
+        num = messageService.msgCount(auth.getEmail(), location) >= num ? num : messageService.msgCount(auth.getEmail(), location);
+        if(num > messageService.msgCount(auth.getEmail(), location)){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageResponse(num, messageService.latestList(auth.getEmail(), num, location)) );
         } else {
-            return ResponseEntity.ok( new MessageResponse(num, messageService.latestList(auth.getEmail(), num, isSound)));
+            return ResponseEntity.ok( new MessageResponse(num, messageService.latestList(auth.getEmail(), num, location)));
         }
     }
 
@@ -72,17 +72,9 @@ public class MessageController {
     // 보낸 메세지를 DB에 저장, uuid
     @PostMapping("save")
     public int insertMsg(@AuthenticationPrincipal Auth auth, @RequestBody RegisterMsg content){
+        logger.info("auth : "+auth.toString());
         UUID msgId = UUID.randomUUID();
-
-        boolean isSound;
-
-        if(content.getContent().contains("https")){
-            isSound = true;
-        }else {
-            isSound = false;
-        }
-        Message message = new Message(msgId.toString(), auth.getEmail(), isSound, content.getContent(), LocalDateTime.now());
-        System.out.println(message.toString());
+        Message message = new Message(msgId.toString(), auth.getEmail(), auth.getLocation(), content.getContent(), LocalDateTime.now());
         int res= messageService.insertMsg(message);
         return res;
     }

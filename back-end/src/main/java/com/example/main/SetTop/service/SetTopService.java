@@ -5,8 +5,6 @@ import com.example.main.Manager.dto.TokensDto;
 import com.example.main.SetTop.controller.request.LoginSetTopRequest;
 import com.example.main.SetTop.dao.SetTopMapper;
 import com.example.main.SetTop.dto.SetTop;
-import com.example.main.SetTop.dto.SetTopTokenDto;
-import com.example.main.SetTop.dto.SetTopTokensDto;
 import com.example.main.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
@@ -29,15 +27,15 @@ public class SetTopService {
     public int register(SetTop setTop) { return setTopMapper.register(setTop); };
 
     public TokensDto setTopLogin(LoginSetTopRequest loginSetTop) {
-        logger.info("SetTopService.setTopLogin() called");
+        logger.info("SetTopService.setTopLogin() called, loginSetTop info : "+loginSetTop.getSetTopId());
         SetTop setTop = setTopMapper.setTopLogin(loginSetTop.getSetTopId());
         logger.info("setTop object : " + setTop.toString());
         try {
             logger.info("setTopLogin try-catch");
-            String accessToken = authTokenProvider.createAccessToken(setTop.getEmail(), setTop.getName(), setTop.getSetTopId(), setTop.getRole());
-            String refreshToken = authTokenProvider.createRefreshToken(setTop.getEmail(), setTop.getName(), setTop.getSetTopId(), setTop.getRole());
+            String accessToken = authTokenProvider.createAccessToken(setTop.getEmail(), setTop.getName(), "setTop", setTop.getRole());
+            String refreshToken = authTokenProvider.createRefreshToken(setTop.getEmail(), setTop.getName(), "setTop", setTop.getRole());
             logger.info("accessToken : " + accessToken.toString() + "\nrefreshToken : " + refreshToken.toString());
-            setTopMapper.updateRefreshToken(new TokenDto(setTop.getEmail(), refreshToken));
+            setTopMapper.updateRefreshToken(new TokenDto(setTop.getEmail(), true, refreshToken));
 
             return new TokensDto(accessToken, refreshToken);
 

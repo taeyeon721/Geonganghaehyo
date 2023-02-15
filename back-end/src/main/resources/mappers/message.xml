@@ -5,15 +5,15 @@
 <mapper namespace="com.example.main.Message.dao.MessageMapper">
 
     <select id="userLastMsg" resultType="Message">
-        select * from message where email=#{email} and is_sound is false order by time desc limit 1
+        select * from message where email=#{email} and location=#{location} order by time desc limit 1
     </select>
 
     <select id="managerLastMsg" resultType="Message">
-        select * from message where email=#{email} and is_sound is true order by time desc limit 1
+        select * from message where email=#{email} and location=#{location} order by time desc limit 1
     </select>
 
     <select id="msgCount" resultType="int">
-        select count(*) from message where email=#{email} and is_sound=#{isSound}
+        select count(*) from message where email=#{email} and location=#{location}
     </select>
 
     <select id="msgList" resultType="Message">
@@ -21,11 +21,11 @@
     </select>
 
     <insert id="insertMsg" parameterType="Message">
-        insert into message(msg_id, email, is_sound, content, time) values(#{msgId}, #{email}, #{isSound}, #{content}, #{time})
+        insert into message(msg_id, email, location, content, time) values(#{msgId}, #{email}, #{location}, #{content}, #{time})
     </insert>
 
     <select id="latestList" resultType="Message">
-        select * from message where email=#{email} and is_sound=#{isSound} order by time desc limit #{num}
+        select * from message where email=#{email} and location=#{location} order by time desc limit #{num}
     </select>
 
 

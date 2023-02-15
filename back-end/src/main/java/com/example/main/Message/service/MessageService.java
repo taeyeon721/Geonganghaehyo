@@ -27,10 +27,10 @@ public class MessageService {
         return messageMapper.managerLastMsg(email);
     }
 
-    public int msgCount(String email, boolean isSound){ return messageMapper.msgCount(email, isSound); }
+    public int msgCount(String email, String location){ return messageMapper.msgCount(email, location); }
 
-    public List<Message> latestList(String email, int num, boolean isSound){
-        return messageMapper.latestList(email, num, isSound);
+    public List<Message> latestList(String email, int num, String location){
+        return messageMapper.latestList(email, num, location);
     }
 
     public List<Message> msgList(String email){

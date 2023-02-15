@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 public class Message {
     private String msgId;
     private String email;
-    private boolean isSound;
+    private String location;
     private String content;
     private LocalDateTime time;
 }
