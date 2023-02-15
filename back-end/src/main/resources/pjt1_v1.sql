@@ -2,7 +2,11 @@
 --
 -- Host: 127.0.0.1    Database: springboot
 -- ------------------------------------------------------
--- Server version	10.6.11-MariaDB
+-- Server version	10.6.11-
+-- reset database schema
+drop database if exists springboot;
+create database springboot;
+use springboot;
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
