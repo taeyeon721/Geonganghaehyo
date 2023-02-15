@@ -61,7 +61,7 @@ const Login = () => {
       const testjson = JSON.stringify(test);
       console.log(testjson);
       axios
-        .post("http://localhost:9999/manager/login", JSON.stringify(test), {
+        .post("http://localhost:8080/manager/login", JSON.stringify(test), {
           headers: {
             "Content-Type": "application/json",
           },

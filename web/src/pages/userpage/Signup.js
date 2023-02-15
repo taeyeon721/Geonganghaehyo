@@ -58,7 +58,7 @@ const Signup = () => {
       console.log(signupValue)
       axios
         .post(
-          "http://localhost:9999/manager/register",
+          "http://localhost:8080/manager/register",
           JSON.stringify(signupValue),
           {
             headers: {

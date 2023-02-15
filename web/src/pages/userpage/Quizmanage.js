@@ -23,7 +23,7 @@ const Quizmanage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.post("http://localhost:9999/quiz/list", {}, config);
+        const response = await axios.post("http://localhost:8080/quiz/list", {}, config);
         console.log(response.data);
         const myquiz = response.data;
         setquizstate(myquiz);
