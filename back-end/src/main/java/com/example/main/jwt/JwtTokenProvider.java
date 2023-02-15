@@ -91,7 +91,7 @@ public class JwtTokenProvider {
      */
     protected String generateToken(String email, String name, String location, ROLE role, long tokenValidMilSecond) {
         Date now = new Date();
-        System.out.println("generateToken location : "+location);
+//        System.out.println("generateToken location : "+location);
         return Jwts.builder()
                 .claim("email", email)
                 .claim("name", name)

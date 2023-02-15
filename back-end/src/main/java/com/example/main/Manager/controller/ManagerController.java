@@ -75,13 +75,17 @@ public class ManagerController {
 
 		Manager newManager = new Manager(manager.getEmail(), manager.getPassword(), manager.getName(),
 				manager.getGender(), manager.getAge(), manager.getTelNo(), manager.getUserName(), ROLE.MANAGER);
-	    int check = managerService.register(newManager);
+
 		int valid = managerService.isValid(newManager);
 		if (valid == 0){
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("가입하지 않은 회원입니다");
 		} else if (valid > 1){
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("이미 존재하는 회원입니다.");
-		} if (valid == 1 && check > 0) {
+		}
+
+		int check = managerService.register(newManager);
+
+		if (valid == 1 && check > 0) {
 	    	return ResponseEntity.ok("회원가입을 성공하였습니다.");
 	    } else {
 	    	return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("회원가입을 실패하였습니다.");
@@ -124,6 +128,7 @@ public class ManagerController {
 	@PostMapping("login")
 	public ResponseEntity<?> login(@RequestBody LoginManagerRequest manager, HttpServletResponse response) throws Exception {
 		TokensDto tokens = managerService.login(manager);
+		System.out.println("tokens : " + tokens);
 		if (tokens != null) {
 			setToken(response, tokens);
 			return ResponseEntity.ok(new TokenResponse(manager.getEmail() + "님 환영합니다.", tokens.getAccessToken()));

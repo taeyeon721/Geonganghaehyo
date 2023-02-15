@@ -47,13 +47,19 @@ public class ManagerService {
     public TokensDto login(LoginManagerRequest loginManager){
         Manager manager = managerMapper.login(loginManager.getEmail());
         try{
-            passwordEncoder.matches(loginManager.getPassword(), manager.getPassword());
+            logger.info("loginmanager pw : " + loginManager.getPassword());
+            logger.info("loginmanager pw : " + loginManager.getPassword() + "\nmanager pw : " + manager.getPassword());
+            logger.info("ManagerService pematches : " + passwordEncoder.matches(loginManager.getPassword(), manager.getPassword()));
+            if(passwordEncoder.matches(loginManager.getPassword(), manager.getPassword()) ){
+                String accessToken = authTokenProvider.createAccessToken(manager.getEmail(), manager.getName(), "web", manager.getRole());
+                String refreshToken = authTokenProvider.createRefreshToken(manager.getEmail(), manager.getName(), "web", manager.getRole());
+                managerMapper.updateRefreshToken(new TokenDto(manager.getEmail(), false, refreshToken));
 
-            String accessToken = authTokenProvider.createAccessToken(manager.getEmail(), manager.getName(), "web", manager.getRole());
-            String refreshToken = authTokenProvider.createRefreshToken(manager.getEmail(), manager.getName(), "web", manager.getRole());
-            managerMapper.updateRefreshToken(new TokenDto(manager.getEmail(), false, refreshToken));
+                return new TokensDto(accessToken, refreshToken);
+            } else{
+                return null;
+            }
 
-            return new TokensDto(accessToken, refreshToken);
         } catch(NullPointerException e){
             return null;
         }
