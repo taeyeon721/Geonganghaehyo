@@ -71,6 +71,14 @@ const myData = [
   },
 ];
 
+const _ = require("lodash");
+const numbers = _.range(0, 2);
+const randomanswer = []; //randomanswer: 0 또는 1이 5개 담긴 배열, 0일 경우 왼쪽이 정답, 1일 경우 오른쪽이 정답
+// 해당 코드는 컴포넌트 마운트 시 실행됨.
+for (let index = 0; index < 5; index++) {
+  randomanswer.push(_.sampleSize(numbers, 1)[0]);
+}
+
 /* 로직
 0,1 랜덤으로 뽑음
 0일 경우, 왼쪽이 정답. 1일 경우, 오른쪽이 정답
@@ -81,22 +89,14 @@ const Game = () => {
   const init = useRef(window.init);
   const end = useRef(window.end);
   const navigate = useNavigate(); // useNavigate를 사용하기 위한 할당
-  const _ = require("lodash");
-  const numbers = _.range(0, 2);
-  const randomanswer = []; //randomanswer: 0 또는 1이 5개 담긴 배열, 0일 경우 왼쪽이 정답, 1일 경우 오른쪽이 정답
-  // 해당 코드는 컴포넌트 마운트 시 실행됨.
+
   const [raisehand, setRaisehand] = useState("no_pose"); //left_hand, right_hand, no_pose
 
   // 컴포넌트 렌더링 시 변수 초기화: useEffect hook 사용
 
   const [gamedata, setGamedata] = useState(myData[0]);
-  let [questionnumber, setQuestionnumber] = useState(1);
-  let [score, setScore] = useState(0);
-  if (randomanswer.length !== 5) {
-    for (let index = 0; index < 5; index++) {
-      randomanswer.push(_.sampleSize(numbers, 1)[0]);
-    }
-  }
+  const [questionnumber, setQuestionnumber] = useState(1);
+  const [score, setScore] = useState(0);
 
   // const onIncrease = () => {
   //   console.log('실행 전', score)
@@ -105,9 +105,9 @@ const Game = () => {
   // };
 
   useEffect(() => {
-    console.log("컴포넌트 마운트 됨");
+    // console.log("컴포넌트 마운트 됨");
 
-    console.log(MainBlock);
+    // console.log(MainBlock);
 
     init.current();
     setQuestionnumber(1);
@@ -154,19 +154,32 @@ const Game = () => {
     //정답을 골랐을 때
     // onIncrease();
     console.log(randomanswer);
-    setScore(score + 20);
-    setQuestionnumber(questionnumber + 1);
-    setGamedata(myData[questionnumber]);
+    //
 
-    console.log("정답 눌림");
-    console.log(questionnumber, "문제번호", score);
-    if (questionnumber === 5) {
-      end.current();
-      console.log("모든 문제 소모");
-      console.log(questionnumber, "문제번호", score);
-      score += 20;
-      navigate(`/quizresult`, { state: { score } });
+    if (randomanswer[questionnumber - 1] === 0) {
+      document.querySelector(".left").style.outline = "0.5rem solid green";
+    } else {
+      document.querySelector(".right").style.outline = "0.5rem solid green";
     }
+    // //
+    setScore(score + 20);
+    
+    setTimeout(() => {
+      setQuestionnumber(questionnumber + 1);
+      setGamedata(myData[questionnumber]);
+
+      console.log("정답 눌림");
+      console.log(questionnumber, "문제번호", score);
+      document.querySelector(".right").style.outline = 0
+      document.querySelector(".left").style.outline = 0
+      if (questionnumber === 5) {
+        end.current();
+        console.log("모든 문제 소모");
+        console.log(questionnumber, "문제번호", score);
+        setScore(score + 20);
+        navigate(`/quizresult`, { state: { score } });
+      }
+    }, 3000);
 
     // 만약 카운트 5 이상인 경우, 결과창 출력
     // if (questionnumber === 5) {
@@ -178,14 +191,25 @@ const Game = () => {
 
   function incorrect() {
     //오답을 골랐을 때
-    console.log(randomanswer);
-    setQuestionnumber(questionnumber + 1);
-    setGamedata(myData[questionnumber]);
-    if (questionnumber === 5) {
-      end.current();
-      console.log("모든 문제 소모");
-      navigate(`/quizresult`, { state: { score } });
+
+    if (randomanswer[questionnumber - 1] === 0) {
+      document.querySelector(".left").style.outline = "0.5rem solid green";
+    } else {
+      document.querySelector(".right").style.outline = "0.5rem solid green";
     }
+    
+    setTimeout(() => {
+      setQuestionnumber(questionnumber + 1);
+      console.log(randomanswer);
+      setGamedata(myData[questionnumber]);
+      document.querySelector(".right").style.outline = 0
+      document.querySelector(".left").style.outline = 0
+      if (questionnumber === 5) {
+        end.current();
+        console.log("모든 문제 소모");
+        navigate(`/quizresult`, { state: { score } });
+      }
+    }, 3000);
   }
 
   // 변한 state에 대해 렌더링
@@ -199,8 +223,9 @@ const Game = () => {
 
   // const valueFromContext = useContext(MyContext);
   // console.log(valueFromContext)
-  console.log(randomanswer.length);
+
   console.log(randomanswer);
+
   return (
     <>
       <MainBlock>

@@ -44,10 +44,10 @@ const RenderTime = ({ remainingTime }) => {
 };
 
 function App(props) {
-  const [questionnumber, setQuestionnumber] = useState(0);
+  const [myquestionnumber, setmyQuestionnumber] = useState(0);
   const { correct, incorrect } = props; //props 비구조화 할당
   const randomanswer = props.randomanswer;
-  let answer = randomanswer[questionnumber];
+  const answer = randomanswer[myquestionnumber];
 
   return (
     <div className="App">
@@ -64,22 +64,22 @@ function App(props) {
               // 0일 경우 왼쪽이 정답, 1일 경우 오른쪽이 정답
               correct();
               console.log("맞았습니다");
-              setQuestionnumber(questionnumber + 1);
+              setmyQuestionnumber(myquestionnumber + 1);
             } else if (
               sessionStorage.getItem("result") === "right_hand" &&
               answer === 1
             ) {
               correct();
               console.log("맞았습니다");
-              setQuestionnumber(questionnumber + 1);
+              setmyQuestionnumber(myquestionnumber + 1);
             } else {
               incorrect();
               console.log(
                 "틀렸습니다",
                 sessionStorage["result"],
-                randomanswer[questionnumber]
+                randomanswer[myquestionnumber]
               );
-              setQuestionnumber(questionnumber + 1);
+              setmyQuestionnumber(myquestionnumber + 1);
             }
             return {
               shouldRepeat: true,
@@ -95,3 +95,4 @@ function App(props) {
 }
 
 export default App;
+
