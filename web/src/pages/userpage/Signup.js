@@ -17,7 +17,7 @@ const Signup = () => {
     password: "",
     userName: "",
     gender: "",
-    age: "",
+    age: 0,
     telNo: "",
   });
   // const [Email, setEmail] = useState("");
@@ -124,11 +124,10 @@ const Signup = () => {
       )
       .then(function (res) {
         console.log(res);
-        alert("중복된 이메일이 없습니다!");
+        alert(res.data);
       })
       .catch(function (error) {
         console.log(error);
-        alert("중복된 이메일이 있습니다!");
       });
   };
 
@@ -180,7 +179,7 @@ const Signup = () => {
             <h3>보호자 연락처</h3>
             <Inputbox
               type="text"
-              name="telno"
+              name="telNo"
               placeholder="보호자 연락처를 입력하세요"
               value={signupValue.telNo}
               onChange={onChangeHandler}
@@ -191,7 +190,7 @@ const Signup = () => {
             <h3>사용자 이름</h3>
             <Inputbox
               type="text"
-              name="username"
+              name="userName"
               placeholder="사용자의 이름을 입력하세요"
               value={signupValue.userName}
               onChange={onChangeHandler}

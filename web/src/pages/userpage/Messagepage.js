@@ -36,6 +36,7 @@ const Messagepage = () => {
       axios
         .post("http://localhost:8080/message/save", SendMessage, config)
         .then(console.log("메시지 보내기에 성공했습니다"))
+        setSendMessage("")
         .catch(function (error) {
           console.error(error);
         });

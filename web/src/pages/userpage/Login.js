@@ -36,8 +36,8 @@ const navigate = useNavigate()
       return alert("Password를 입력하세요.");
     } else {
       const test = {
-        email: "test@naver.com",
-        password: "test",
+        email: Id,
+        password: Password,
       };
       const testjson = JSON.stringify(test);
       console.log(testjson);
@@ -83,7 +83,7 @@ const navigate = useNavigate()
             <span>
               <h3>패스워드</h3>
               <input
-                type="text"
+                type="password"
                 value={Password}
                 placeholder="비밀 번호를 입력하세요"
                 onChange={onPasswordHandler}

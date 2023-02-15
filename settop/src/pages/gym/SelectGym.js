@@ -31,7 +31,7 @@ function SelectGym() {
       navigate('/gym',{state:{gymName: gymBody}});
       stop();
     }
-    if (value.includes("뇌튼튼")) {
+    if (value.includes("뇌튼튼")) { // 뇌튼튼이 인식이 잘 안됨
       navigate('/gym',{state:{gymName: gymBrain}});
       stop();
     }

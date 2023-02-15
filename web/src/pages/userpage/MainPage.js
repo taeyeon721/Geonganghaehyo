@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import Boardimage from "./../../assets/img/board.png";
 import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 // 아무 입력이나 하면 로그인 페이지로 이동
 
@@ -19,21 +21,27 @@ const Board = styled.div`
   justify-content: center;
 `;
 
+
+
 const MainPage = () => {
   const [isLogin, setIsLogin] = useState(false);
   const jwt = localStorage.getItem("jwt");
 
+
   useEffect(() => {
     if (jwt !== null) {
       setIsLogin(true);
+    } else {
+      setIsLogin(false);
     }
-  }, []);
+  }, [jwt]);
 
-  console.log(jwt);
 
-  // function Logout() {
-
-  // }
+  function Logout() {
+   
+    window.localStorage.removeItem('jwt')
+    alert('로그아웃 되었습니다')
+  }
 
   return (
     <>
