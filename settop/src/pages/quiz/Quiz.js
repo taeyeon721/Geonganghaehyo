@@ -5,6 +5,7 @@ import { useState, useEffect, useRef } from "react"; // react hook 을 사용하
 import { useNavigate } from "react-router-dom";
 import Timer from "components/Timer/index.js";
 
+// myData: 임시 데이터셋, 추후 API 통신을 통해 받아오는 것으로 반드시 대체
 
 const myData = [
   //임시로 만들어놓은 데이터로, 추후 backend와 API통신 시 지움
@@ -80,16 +81,22 @@ const Game = () => {
   const init = useRef(window.init);
   const end = useRef(window.end);
   const navigate = useNavigate(); // useNavigate를 사용하기 위한 할당
-  // const _ = require("lodash");
-  // const numbers = _.range(0, 2);
-  const randomanswer = []; //randomanswer: 0 또는 1이 10개 담긴 배열, 0일 경우 왼쪽이 정답, 1일 경우 오른쪽이 정답
+  const _ = require("lodash");
+  const numbers = _.range(0, 2);
+  const randomanswer = []; //randomanswer: 0 또는 1이 5개 담긴 배열, 0일 경우 왼쪽이 정답, 1일 경우 오른쪽이 정답
   // 해당 코드는 컴포넌트 마운트 시 실행됨.
+  const [raisehand, setRaisehand] = useState("no_pose"); //left_hand, right_hand, no_pose
 
   // 컴포넌트 렌더링 시 변수 초기화: useEffect hook 사용
 
   const [gamedata, setGamedata] = useState(myData[0]);
   let [questionnumber, setQuestionnumber] = useState(1);
   let [score, setScore] = useState(0);
+  if (randomanswer.length !== 5) {
+    for (let index = 0; index < 5; index++) {
+      randomanswer.push(_.sampleSize(numbers, 1)[0]);
+    }
+  }
 
   // const onIncrease = () => {
   //   console.log('실행 전', score)
@@ -100,25 +107,47 @@ const Game = () => {
   useEffect(() => {
     console.log("컴포넌트 마운트 됨");
 
+    console.log(MainBlock);
+
     init.current();
     setQuestionnumber(1);
     setScore(0);
-    // for (let index = 0; index < 5; index++) {
-    //   randomanswer.push(_.sampleSize(numbers, 1)[0]);
-    // }
-    // console.log(randomanswer);
   }, []);
-  
-  const posecount = setInterval(
-    function() {
-      console.log('세션에 저장된 값',sessionStorage)
-    }
-    , 800);
-  useEffect(() => {
-    if (questionnumber === 5) {
-      console.log("실행됨");
-    }
 
+  setInterval(function () {
+    // 선택된 것 콘솔로그에 찍어주며, sessionStorage에 있는 변수를 특정 간격마다 raisehand 변수에 넣어줌 => 바로 아래의 useeffect 함수를 통해 변화를 감지.
+    console.log();
+    console.log("세션에 저장된 값", sessionStorage["result"]);
+    setRaisehand(sessionStorage["result"]);
+  }, 500); // 실시간으로 변화값 반영
+
+  // 이하는 손 든거 감지하여 변경하는 함수
+  // sessionStorage의 변화를 반영하는 raisehand 변수를 사용, 해당 변수의 변화에 따라 결정
+
+  useEffect(() => {
+    if (raisehand === "right_hand") {
+      // 오른손을 든 경우
+      // CSS 수정
+      document.querySelector(".right").style.border = "1rem solid red"; // 선택된 것 가시성 좋게 표시 : 자세를 유지하라는 것
+      document.querySelector(".left").style.border = "1px solid black";
+    } else if (raisehand === "left_hand") {
+      // 왼손을 든 경우
+      document.querySelector(".left").style.border = "1rem solid red";
+      document.querySelector(".right").style.border = "1px solid black";
+    } //no_pose 인 경우, 원래대로 수정
+    else {
+      document.querySelector(".right").style.border = "1px solid black";
+      document.querySelector(".left").style.border = "1px solid black";
+    }
+  }, [raisehand]);
+
+  // 이하는 문제 읽어주는 함수
+
+  useEffect(() => {
+    const msg = new SpeechSynthesisUtterance();
+
+    msg.text = myData[questionnumber - 1]["question"];
+    window.speechSynthesis.speak(msg);
   }, [questionnumber]);
 
   function correct() {
@@ -139,8 +168,8 @@ const Game = () => {
       navigate(`/quizresult`, { state: { score } });
     }
 
-    // 만약 카운트 10 이상인 경우, 결과창 출력
-    // if (questionnumber === 10) {
+    // 만약 카운트 5 이상인 경우, 결과창 출력
+    // if (questionnumber === 5) {
     //   // console.log("모든 문제 소모");
     //   // console.log({ score });
     //   ;
@@ -170,14 +199,19 @@ const Game = () => {
 
   // const valueFromContext = useContext(MyContext);
   // console.log(valueFromContext)
-
+  console.log(randomanswer.length);
+  console.log(randomanswer);
   return (
     <>
       <MainBlock>
         <div className="book">
           <div className="title">
             <div className="timer">
-              <Timer correct={correct} />
+              <Timer
+                correct={correct}
+                incorrect={incorrect}
+                randomanswer={randomanswer}
+              />
             </div>
             <div className="question">
               <h3>{gamedata["question"]}</h3>

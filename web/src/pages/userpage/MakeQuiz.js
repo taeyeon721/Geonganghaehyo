@@ -13,7 +13,8 @@ const QuizForm = () => {
     setQuiz({
       ...quiz,
       [event.target.name]: event.target.value,
-    }); //이 부분 이해가 안됨.
+    }); 
+    
   };
 
   const handleSubmit = async (event) => {

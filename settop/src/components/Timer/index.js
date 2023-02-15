@@ -3,7 +3,6 @@ import { CountdownCircleTimer } from "react-countdown-circle-timer";
 
 import "./styles.css";
 
-
 const RenderTime = ({ remainingTime }) => {
   const currentTime = useRef(remainingTime);
   const prevTime = useRef(null);
@@ -45,21 +44,48 @@ const RenderTime = ({ remainingTime }) => {
 };
 
 function App(props) {
-  const correct = props.correct
+  const [questionnumber, setQuestionnumber] = useState(0);
+  const { correct, incorrect } = props; //props 비구조화 할당
+  const randomanswer = props.randomanswer;
+  let answer = randomanswer[questionnumber];
+
   return (
     <div className="App">
       <div className="timer-wrapper">
         <CountdownCircleTimer
           isPlaying
-          duration={15}
+          duration={5}
           colors={["#E91616"]}
-          onComplete={()=> {
-            correct()
-            return {
-              shouldRepeat: true, delay: 1.5
+          onComplete={() => {
+            if (
+              sessionStorage.getItem("result") === "left_hand" &&
+              answer === 0
+            ) {
+              // 0일 경우 왼쪽이 정답, 1일 경우 오른쪽이 정답
+              correct();
+              console.log("맞았습니다");
+              setQuestionnumber(questionnumber + 1);
+            } else if (
+              sessionStorage.getItem("result") === "right_hand" &&
+              answer === 1
+            ) {
+              correct();
+              console.log("맞았습니다");
+              setQuestionnumber(questionnumber + 1);
+            } else {
+              incorrect();
+              console.log(
+                "틀렸습니다",
+                sessionStorage["result"],
+                randomanswer[questionnumber]
+              );
+              setQuestionnumber(questionnumber + 1);
             }
-          }
-          }
+            return {
+              shouldRepeat: true,
+              delay: 3,
+            };
+          }}
         >
           {RenderTime}
         </CountdownCircleTimer>
