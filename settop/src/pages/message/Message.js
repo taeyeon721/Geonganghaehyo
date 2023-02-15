@@ -4,7 +4,7 @@ import Book from "assets/img/book_red.png";
 import { useNavigate } from "react-router-dom";
 import "assets/font/font.css";
 import { useSpeechRecognition } from "react-speech-kit";
-import Slider from "pages/message/swiper.js";
+import Slider from "components/Slider.js";
 
 function Message() {
   const [value, setValue] = useState("");
@@ -23,7 +23,9 @@ function Message() {
   useEffect(() => {
     if (isRec === true) {
       console.log(value);
-      setTextData((textData) => `${textData} ${value}`);
+      if (value.includes("편지 보낼래") === false) {
+        setTextData((textData) => `${textData} ${value}`);
+      }
     }
   }, [value]);
 
@@ -34,7 +36,7 @@ function Message() {
       setIsRec(true);
       // stop();
     }
-    if (textData && (value.includes("편지 보낼래"))) {
+    if (textData && value.includes("편지 보낼래")) {
       // 서버랑 연동하기
       // stop();
       setIsRec(false);
@@ -44,8 +46,10 @@ function Message() {
       });
     }
     if (value.includes("다 썼어")) {
-      navigate("/main");
-      stop();
+      if (isRec !== false) {
+        navigate("/main");
+        stop();
+      }
     }
   }
   useEffect(() => {
@@ -83,16 +87,7 @@ function Message() {
       <MainBlock>
         <div className="book">
           <div className="content">
-            {/* <div className="title">
-                <h3>○○○이 보낸 메시지입니다.</h3>
-            </div>
-            <div className="date">
-                <p>2022.02.06 11:02:40</p>
-            </div>
-            <div className="letter">
-                <p>대박!!! 저도 할머니가 해주신 음식이 제일 맛있어요!</p>
-            </div> */}
-            <Slider />
+            {isRec ? <div className="letter">{textData}</div> : <Slider />}
           </div>
           <div className="btn">
             <button className="write">편지 쓸래</button>
@@ -139,6 +134,12 @@ const MainBlock = styled.div`
   }
   .carousel.slide {
     width: 90%;
+  }
+  .letter {
+    width: 90%;
+    height: 100%;
+    font-size: 3rem;
+    font-family: "BMEULJIRO";
   }
   .btn {
     display: flex;
