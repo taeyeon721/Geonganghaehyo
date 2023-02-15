@@ -9,7 +9,7 @@ import { useSpeechRecognition } from "react-speech-kit";
 
 
 
-const gymData = [{ name: "몸튼튼" }, { name: "뇌튼튼" }];
+const gymData = [{ name: "신체 운동" }, { name: "두뇌 운동" }];
 
 function SelectGym() {
   
@@ -27,12 +27,16 @@ function SelectGym() {
   function realListen() {
     listen({ interimResults: false});
     console.log("start recognition");
-    if (value.includes("몸튼튼")) {
+    if (value.includes("신체운동")) {
       navigate('/gym',{state:{gymName: gymBody}});
       stop();
     }
-    if (value.includes("뇌튼튼")) { // 뇌튼튼이 인식이 잘 안됨
+    if (value.includes("두뇌운동")) { // 뇌튼튼이 인식이 잘 안됨
       navigate('/gym',{state:{gymName: gymBrain}});
+      stop();
+    }
+    if (value.includes("뒤로")) {
+      navigate("/main");
       stop();
     }
   }
@@ -48,7 +52,7 @@ function SelectGym() {
         <div className="book">
           <div className="content">
             <div className="title">
-              <h3>하고 싶은 체조를 말씀해주세요!</h3>
+              <h3>원하는 체조를 말씀해주세요.</h3>
             </div>
             <div className="selection">
                 <div className="body">
@@ -75,6 +79,11 @@ export default SelectGym;
       color: #1f3995;
       font-size: 5rem;
       font-family: "BMEULJIRO";
+      text-shadow: 0 1px 0 #CCC,
+                0 2px 0 #CCC,
+                0 3px 0 #CCC,
+                0 4px 0 #CCC,
+                0 10px 10px rgba(0, 0, 0, .4);
     }
     p {
       margin: 0;

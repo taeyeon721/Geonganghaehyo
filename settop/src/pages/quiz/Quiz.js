@@ -290,6 +290,11 @@ const MainBlock = styled.div`
     font-size: 5rem;
     font-family: "BMEULJIRO";
     text-align: center;
+    text-shadow: 0 1px 0 #CCC,
+                0 2px 0 #CCC,
+                0 3px 0 #CCC,
+                0 4px 0 #CCC,
+                0 10px 10px rgba(0, 0, 0, .4);
   }
   p {
     margin: 0;
