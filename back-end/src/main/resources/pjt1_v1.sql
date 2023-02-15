@@ -16,13 +16,6 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- DROP DATABASE IF EXISTS
---
-DROP DATABASE if EXISTS springboot;
-CREATE DATABASE springboot;
-USE springboot;
-
---
 -- Table structure for table `accident_archive`
 --
 
@@ -190,7 +183,7 @@ DROP TABLE IF EXISTS `message`;
 CREATE TABLE `message` (
                            `msg_id` varchar(50) NOT NULL,
                            `email` varchar(50) NOT NULL,
-                           `is_sound` tinyint(1) DEFAULT NULL,
+                           `location` varchar(10) DEFAULT 'web',
                            `content` text DEFAULT NULL,
                            `time` datetime DEFAULT NULL,
                            PRIMARY KEY (`msg_id`,`email`),
@@ -205,7 +198,7 @@ CREATE TABLE `message` (
 
 LOCK TABLES `message` WRITE;
 /*!40000 ALTER TABLE `message` DISABLE KEYS */;
-INSERT INTO `message` VALUES ('0f72a053-057b-4c91-b28f-efe68e070127','test@naver.com',1,'https://www.naver.com','2023-02-14 10:58:02'),('1fe46bbb-7a07-460c-96c1-1e1d06b494b3','test@naver.com',0,'테스트 보내기','2023-02-14 10:57:46'),('9a73036a-7f9c-4bb2-a82c-40c5a5ff5cf8','test@naver.com',0,'김규리','2023-02-14 10:58:22'),('a7f15d0c-1984-4b70-b54c-f8d436098c40','test@naver.com',1,'https://www.gogole.com','2023-02-14 10:58:12'),('bcabf6c4-09a8-4164-b002-745fde2a421f','test@naver.com',0,'김태연','2023-02-14 10:58:30'),('df01c0bf-d46b-4798-a767-dc6b9c62eeed','test@naver.com',0,'김승준','2023-02-14 10:58:27');
+INSERT INTO `message` VALUES ('02a9fd05-5e08-4395-a32f-9e53cdf98ae7','scv74502@naver.com','0','48546545645645665','2023-02-15 14:47:57'),('0f72a053-057b-4c91-b28f-efe68e070127','test@naver.com','1','https://www.naver.com','2023-02-14 10:58:02'),('18e9f06c-f675-4350-9dd3-666561bf94d2','scv74502@naver.com','setTop','48546545645645665','2023-02-15 16:01:56'),('1fe46bbb-7a07-460c-96c1-1e1d06b494b3','test@naver.com','0','테스트 보내기','2023-02-14 10:57:46'),('4941399b-16cb-42fc-ba49-81322410755f','scv74502@naver.com','0','48546545645645665','2023-02-15 15:25:18'),('51690f77-1adc-4e33-936a-72f3e62e4edb','test@naver.com','0','48546545645645665','2023-02-15 14:41:07'),('696b8635-0c3b-4cfb-9b16-98d691a166b9','scv74502@naver.com','0','48546545645645665','2023-02-15 14:47:09'),('7b75d50f-49ab-4283-b37e-109d0b352406','scv74502@naver.com','0','48546545645645665','2023-02-15 15:38:11'),('812a3ca4-f51c-49bb-b421-98d9033b32ea','scv74502@naver.com','0','48546545645645665','2023-02-15 14:31:13'),('9434a635-202f-499e-9778-9a510a5593a5','scv74502@naver.com','0','48546545645645665','2023-02-15 14:40:40'),('9a73036a-7f9c-4bb2-a82c-40c5a5ff5cf8','test@naver.com','0','김규리','2023-02-14 10:58:22'),('9b0aca4c-e207-4b96-ae12-8d5cab25d8a6','scv74502@naver.com','0','48546545645645665','2023-02-15 14:32:04'),('a3280756-d09f-42ac-aabc-0926868257c7','scv74502@naver.com',NULL,'48546545645645665','2023-02-15 15:59:51'),('a7f15d0c-1984-4b70-b54c-f8d436098c40','test@naver.com','1','https://www.gogole.com','2023-02-14 10:58:12'),('bcabf6c4-09a8-4164-b002-745fde2a421f','test@naver.com','0','김태연','2023-02-14 10:58:30'),('c1198756-c5c4-4243-84d7-6c35e98bc93e','scv74502@naver.com','0','48546545645645665','2023-02-15 15:31:17'),('d42e5e7f-5d89-46fc-85ca-0905aafd17f6','scv74502@naver.com','setTop',NULL,'2023-02-15 16:03:35'),('df01c0bf-d46b-4798-a767-dc6b9c62eeed','test@naver.com','0','김승준','2023-02-14 10:58:27'),('f4303d4c-7f87-491e-958b-e5c1862712c3','scv74502@naver.com',NULL,'48546545645645665','2023-02-15 15:50:48'),('f4e1d61a-6c26-4ebd-ad56-91a88b62807e','scv74502@naver.com','0','48546545645645665','2023-02-15 14:31:32'),('f5794b6d-a99d-47f2-9853-0ec26e51a3f1','scv74502@naver.com','0','48546545645645665','2023-02-15 15:25:55');
 /*!40000 ALTER TABLE `message` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -247,6 +240,7 @@ CREATE TABLE `set_top` (
                            `name` varchar(20) NOT NULL,
                            `tel_no` varchar(30) NOT NULL,
                            `email` varchar(50) DEFAULT NULL,
+                           `role` varchar(45) DEFAULT NULL,
                            PRIMARY KEY (`set_top_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -257,7 +251,7 @@ CREATE TABLE `set_top` (
 
 LOCK TABLES `set_top` WRITE;
 /*!40000 ALTER TABLE `set_top` DISABLE KEYS */;
-INSERT INTO `set_top` VALUES ('48546545645645665','pkw','01055554444','scv74502@naver.com'),('sdfsdfr2434','pkw','01055554444','admin02@ssafy.com');
+INSERT INTO `set_top` VALUES ('48546545645645665','pkw','01055554444','scv74502@naver.com','MANAGER'),('sdfsdfr2434','pkw','01055554444','admin02@ssafy.com','ADIMIN');
 /*!40000 ALTER TABLE `set_top` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -270,7 +264,8 @@ DROP TABLE IF EXISTS `token`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `token` (
                          `email` varchar(50) NOT NULL,
-                         `refreshtoken` varchar(500) NOT NULL,
+                         `refreshtoken_manager` varchar(500) DEFAULT 'asfafsadfdsf',
+                         `refreshtoken_set_top` varchar(500) DEFAULT 'sdfsdf',
                          PRIMARY KEY (`email`),
                          CONSTRAINT `FK_manager_TO_token_1` FOREIGN KEY (`email`) REFERENCES `manager` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
@@ -282,7 +277,7 @@ CREATE TABLE `token` (
 
 LOCK TABLES `token` WRITE;
 /*!40000 ALTER TABLE `token` DISABLE KEYS */;
-INSERT INTO `token` VALUES ('admin02@ssafy.com','eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImFkbWluMDJAc3NhZnkuY29tIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNjc2MzYwNDA0LCJleHAiOjE2Nzc1NzAwMDR9.1h2FFeKte8LYzZJ_x6jfqdASws6zv1wlsbvFFl4k0zA'),('test@naver.com','eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InRlc3RAbmF2ZXIuY29tIiwicm9sZSI6Ik1BTkFHRVIiLCJpYXQiOjE2NzYzMzk4MTksImV4cCI6MTY3NzU0OTQxOX0.a8HEFNncDKK2CS0d4jQwuI9x_LzsOLazHzy9oJX1m1c');
+INSERT INTO `token` VALUES ('admin02@ssafy.com','',''),('scv74502@naver.com','eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InNjdjc0NTAyQG5hdmVyLmNvbSIsImxvY2F0aW9uIjoid2ViIiwicm9sZSI6Ik1BTkFHRVIiLCJpYXQiOjE2NzY0NDQ2MzYsImV4cCI6MTY3NzY1NDIzNn0.ZKGMBBMYrDdEROIgYkxegWDw510HVNTg6BtQI7lU9u0','eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InNjdjc0NTAyQG5hdmVyLmNvbSIsIm5hbWUiOiJwa3ciLCJsb2NhdGlvbiI6InNldFRvcCIsInJvbGUiOiJNQU5BR0VSIiwiaWF0IjoxNjc2NDQ0MzY3LCJleHAiOjE2Nzc2NTM5Njd9.ToqTxxE2uRkFt-m-FVubAzCNuVmWfHdsgKahHsAiCdY'),('test@naver.com','','');
 /*!40000 ALTER TABLE `token` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -325,4 +320,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-02-14 17:45:02
+-- Dump completed on 2023-02-15 16:05:06
