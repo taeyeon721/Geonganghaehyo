@@ -1,5 +1,6 @@
 package com.example.main.SetTop.service;
 
+import com.example.main.Manager.dto.TokenDto;
 import com.example.main.Manager.dto.TokensDto;
 import com.example.main.SetTop.controller.request.LoginSetTopRequest;
 import com.example.main.SetTop.dao.SetTopMapper;
@@ -27,14 +28,18 @@ public class SetTopService {
 
     public int register(SetTop setTop) { return setTopMapper.register(setTop); };
 
-    public SetTopTokensDto setTopLogin(LoginSetTopRequest loginSetTop) {
+    public TokensDto setTopLogin(LoginSetTopRequest loginSetTop) {
+        logger.info("SetTopService.setTopLogin() called");
         SetTop setTop = setTopMapper.setTopLogin(loginSetTop.getSetTopId());
+        logger.info("setTop object : " + setTop.toString());
         try {
+            logger.info("setTopLogin try-catch");
             String accessToken = authTokenProvider.createAccessToken(setTop.getEmail(), setTop.getName(), setTop.getSetTopId(), setTop.getRole());
             String refreshToken = authTokenProvider.createRefreshToken(setTop.getEmail(), setTop.getName(), setTop.getSetTopId(), setTop.getRole());
-            setTopMapper.updateRefreshSetTopToken(new SetTopTokenDto(setTop.getEmail(), setTop.getSetTopId(), refreshToken));
+            logger.info("accessToken : " + accessToken.toString() + "\nrefreshToken : " + refreshToken.toString());
+            setTopMapper.updateRefreshToken(new TokenDto(setTop.getEmail(), refreshToken));
 
-            return new SetTopTokensDto(accessToken, refreshToken);
+            return new TokensDto(accessToken, refreshToken);
 
         } catch (NullPointerException e){
             return null;

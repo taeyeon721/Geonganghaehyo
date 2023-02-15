@@ -37,6 +37,6 @@
     </select>
 
     <insert id="updateRefreshToken" parameterType="TokenDto">
-        insert into token(email, refreshtoken) values(#{email},#{refreshToken}) on duplicate key update refreshtoken = #{refreshToken}
+        insert into token(email, refreshtoken_manager) values(#{email},#{refreshToken}) on duplicate key update refreshtoken_manager = #{refreshToken}
     </insert>
 </mapper>

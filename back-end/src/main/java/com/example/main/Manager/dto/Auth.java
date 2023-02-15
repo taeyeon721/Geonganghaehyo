@@ -12,6 +12,10 @@ public class Auth {
 		this.role = role;
 	}
 
+	public Auth() {
+
+	}
+
 	public ROLE getRole() {
 		return role;
 	}

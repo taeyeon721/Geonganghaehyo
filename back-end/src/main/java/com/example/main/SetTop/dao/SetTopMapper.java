@@ -14,5 +14,5 @@ public interface SetTopMapper {
 
     SetTop setTopLogin(String setTopId);
 
-    void updateRefreshSetTopToken(SetTopTokenDto token);
+    void updateRefreshToken(TokenDto token);
 }

@@ -11,7 +11,11 @@ public class LoginSetTopRequest {
         this.setTopId = setTopId;
     }
 
+    public LoginSetTopRequest() {
+    }
+
     public LoginSetTopRequest(String setTopId) {
+        super();
         this.setTopId = setTopId;
     }
 

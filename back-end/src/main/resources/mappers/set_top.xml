@@ -12,15 +12,15 @@
         select count(*) from set_top where set_top_id=#{setTopId};
     </select>
 
-    <select id="login" resultType="SetTop" parameterType="String">
-        select * from set_top where set_top_id=#{setTopId} and email=#{email}
+    <select id="setTopLogin" resultType="SetTop" parameterType="String">
+        select * from set_top where set_top_id=#{setTopId}
     </select>
 
     <delete id="delete" parameterType="String">
         delete from set_top where set_top_id=#{setTopId}
     </delete>
 
-    <insert id="updateRefreshToken" parameterType="SetTopTokenDto">
-        insert into token(email, refreshtoken) values(#{email},#{refreshToken}) on duplicate key update refreshtoken = #{refreshToken}
+    <insert id="updateRefreshToken" parameterType="TokenDto">
+        insert into token(email, refreshtoken_set_top) values(#{email},#{refreshToken}) on duplicate key update refreshtoken_set_top = #{refreshToken}
     </insert>
 </mapper>
