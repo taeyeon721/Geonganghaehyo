@@ -46,7 +46,7 @@ function Message() {
       });
     }
     if (value.includes("다 썼어")) {
-      if (isRec !== false) {
+      if (isRec === false) {
         navigate("/main");
         stop();
       }
