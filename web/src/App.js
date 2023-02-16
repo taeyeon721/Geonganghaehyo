@@ -1,7 +1,18 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Login, LoginSelect, MainPage, Signup, UserProfile, Quizmanage, MakeQuiz, Notfound, Messagepage, LastMsg } from "./pages";
+import { useEffect } from "react";
+import {
+  Login,
+  MainPage,
+  Signup,
+  UserProfile,
+  Quizmanage,
+  MakeQuiz,
+  Notfound,
+  Messagepage,
+} from "./pages";
 import styled from "styled-components";
 import BackgroundImage from "assets/img/background.png";
+import Header from "components/Header";
 
 // https://leftday.tistory.com/40
 // npm install react-device-detect를 통해 모바일/데스크톱 페이지 구분가능
@@ -14,14 +25,24 @@ import BackgroundImage from "assets/img/background.png";
 // <Container> 태그는 모바일 사이즈에 맞는 규격을 만드는 컴포넌트.
 
 function App() {
+  function setScreenSize() {
+    let vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty("--vh", `${vh}px`);
+  }
+  useEffect(() => {
+    setScreenSize();
+  });
   return (
     <div className="App">
       <Container>
+        <div className="header">
+
+        <Header />
+        </div>
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<MainPage />}></Route>
             <Route path="/login" element={<Login />}></Route>
-            <Route path="/loginselect" element={<LoginSelect />}></Route>
             <Route path="/signup" element={<Signup />}></Route>
             <Route path="/userprofile" element={<UserProfile />}></Route>
             <Route path="/quizmanage" element={<Quizmanage />}></Route>
@@ -37,11 +58,21 @@ function App() {
 }
 
 const Container = styled.div`
-  display: grid; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   width: 720px;
-  height: 1280px;
+  height: calc(var(--vh, 1vh) * 100);
   background: url(${BackgroundImage});
   background-size: cover;
+  .header {
+    width: 100%;
+    height: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 `;
 
 export default App;

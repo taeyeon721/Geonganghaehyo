@@ -1,14 +1,8 @@
 import Note from "components/note";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
-
-
-const Inputbox = styled.input`
-  width: 300px;
-  height: 30px;
-`;
 
 const Signup = () => {
   // 1단계 - usestate 변수 선언
@@ -94,10 +88,9 @@ const Signup = () => {
           "Content-Type": "application/json",
         },
       };
-      console.log(signupValue)
+
       try {
-        
-        axios
+        await axios
           .post("http://localhost:8080/manager/register", signupValue, config)
           .then(function (res) {
             console.log(res.data);
@@ -130,106 +123,265 @@ const Signup = () => {
       })
       .catch(function (error) {
         console.log(error);
-        
       });
   };
 
   return (
     <>
       <Note>
-        <form action="" onSubmit={onSubmitHandler}>
-          <span>
-            <h3>이메일</h3>
-            <Inputbox
-              type="text"
-              name="email"
-              placeholder="이메일을 입력하세요"
-              value={signupValue.email}
-              onChange={onChangeHandler}
-            />
-            <button onClick={idCheck}>중복 확인</button>
-          </span>
-          <span>
-            <h3>비밀 번호</h3>
-            <Inputbox
-              type="password"
-              name="password"
-              placeholder="비밀 번호를 입력하세요"
-              value={signupValue.password}
-              onChange={onChangeHandler}
-            />
-          </span>
-          <span>
-            <h3>비밀번호 확인</h3>
-            <Inputbox
-              type="password"
-              name="passwordcheck"
-              placeholder="비밀 번호를 입력하세요"
-            />
-          </span>
-          <span>
-            <h3>보호자 이름</h3>
-            <Inputbox
-              type="text"
-              name="name"
-              placeholder="당신의 이름을 입력하세요"
-              value={signupValue.name}
-              onChange={onChangeHandler}
-            />
-          </span>
-          <br />
-          <span>
-            <h3>보호자 연락처</h3>
-            <Inputbox
-              type="text"
-              name="telNo"
-              placeholder="보호자 연락처를 입력하세요"
-              value={signupValue.telNo}
-              onChange={onChangeHandler}
-            />
-          </span>
-          <br />
-          <span>
-            <h3>사용자 이름</h3>
-            <Inputbox
-              type="text"
-              name="userName"
-              placeholder="사용자의 이름을 입력하세요"
-              value={signupValue.userName}
-              onChange={onChangeHandler}
-            />
-          </span>
-          <br />
-          <span>
-            <h3>사용자 성별</h3>
-            <Inputbox
-              type="text"
-              name="gender"
-              placeholder="사용자의 성별을 입력하세요"
-              value={signupValue.gender}
-              onChange={onChangeHandler}
-            />
-          </span>
-          <br />
-          <span>
-            <h3>사용자 나이</h3>
-            <Inputbox
-              type="number"
-              name="age"
-              placeholder="사용자의 나이를 입력하세요"
-              value={signupValue.age}
-              onChange={onChangeHandler}
-            />
-          </span>
-          <br />
-          <Link to="/">
-            <button> 처음으로 </button>
-          </Link>
-          <button type="submit"> 회원가입 </button>
-        </form>
+        <MainBlock>
+          <form action="" onSubmit={onSubmitHandler}>
+            <h1>회원 가입</h1>
+            <div className="email">
+              <h3>이메일</h3>
+              <div className="input">
+                <Inputbox
+                  type="text"
+                  name="email"
+                  placeholder="이메일을 입력하세요"
+                  value={signupValue.email}
+                  onChange={onChangeHandler}
+                />
+                <button className="button_email" style={{ display: "inline" }} onClick={idCheck}>
+                  중복 확인
+                </button>
+              </div>
+            </div>
+            <div className="pw">
+              <h3>비밀 번호</h3>
+              <div className="input">
+                <Inputbox
+                  type="password"
+                  name="password"
+                  placeholder="비밀 번호를 입력하세요"
+                  value={signupValue.password}
+                  onChange={onChangeHandler}
+                />
+              </div>
+            </div>
+            <div className="pw_check">
+              <h3>비밀번호 확인</h3>
+              <div className="input">
+                <Inputbox
+                  type="password"
+                  name="passwordcheck"
+                  placeholder="비밀 번호를 입력하세요"
+                />
+              </div>
+            </div>
+            <div className="name">
+              <h3>보호자 이름</h3>
+              <div className="input">
+                <Inputbox
+                  type="text"
+                  name="name"
+                  placeholder="당신의 이름을 입력하세요"
+                  value={signupValue.name}
+                  onChange={onChangeHandler}
+                />
+              </div>
+            </div>
+            <div className="tel_no">
+              <h3>보호자 연락처</h3>
+              <div className="input">
+                <Inputbox
+                  type="text"
+                  name="telNo"
+                  placeholder="보호자 연락처를 입력하세요"
+                  value={signupValue.telNo}
+                  onChange={onChangeHandler}
+                />
+              </div>
+            </div>
+            <div className="user_name">
+              <h3>사용자 이름</h3>
+              <div className="input">
+                <Inputbox
+                  type="text"
+                  name="userName"
+                  placeholder="사용자의 이름을 입력하세요"
+                  value={signupValue.userName}
+                  onChange={onChangeHandler}
+                />
+              </div>
+            </div>
+            <div className="user_gender">
+              <h3>사용자 성별</h3>
+              <div className="input">
+                <Inputbox
+                  type="text"
+                  name="gender"
+                  placeholder="사용자의 성별을 입력하세요"
+                  value={signupValue.gender}
+                  onChange={onChangeHandler}
+                />
+              </div>
+            </div>
+            <div className="user_age">
+              <h3>사용자 나이</h3>
+              <div className="input">
+                <Inputbox
+                  type="text"
+                  name="age"
+                  placeholder="사용자의 나이를 입력하세요"
+                  value={signupValue.age}
+                  onChange={onChangeHandler}
+                />
+              </div>
+            </div>
+            <div className="btn">
+              <Link to="/">
+                <button className="tomain"> 처음으로 </button>
+              </Link>
+              <button className="signup" type="submit"> 회원가입 </button>
+            </div>
+          </form>
+        </MainBlock>
       </Note>
     </>
   );
 };
 
 export default Signup;
+
+const Inputbox = styled.input`
+  border: 1px solid black;
+  width: 75%;
+  height: 70%;
+  border-radius: 10px;
+`;
+
+const MainBlock = styled.div`
+  /* .email {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  } */
+  form {
+    width: 90%;
+    height: 95%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-end;
+  }
+  width: 100%;
+  height: 99%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  h3 {
+    margin: 0;
+    height: 40%;
+    font-size: 2rem;
+    font-family: "Korail Round Gothic Bold";
+  }
+  h1 {
+    margin: 0;
+    height: 10%;
+    width: 100%;
+    font-size: 2.5rem;
+    font-family: "Korail Round Gothic Bold";
+    display: flex;
+    align-items: center;
+  }
+  .btn {
+    height: 10%;
+    width: 45%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .input {
+    height: 50%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .email {
+    height: 10%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .pw {
+    height: 10%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .pw_check {
+    height: 10%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .name {
+    height: 10%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .tel_no {
+    height: 10%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .user_name {
+    height: 10%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .user_gender {
+    height: 10%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .user_age {
+    height: 10%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .button_email {
+    background-color: #CECECE;
+    height: 85%;
+    width: 20%;
+    font-size: 1.5rem;
+    border-radius: 10px;
+    font-family: "Korail Round Gothic Bold";
+  }
+  a {
+    height: 45%;
+    width: 45%;
+  }
+  .tomain {
+    background-color: #FD6262;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    font-size: 1.5rem;
+    font-family: "Korail Round Gothic Bold";
+  }
+  .signup {
+    background-color: #CECECE;
+    height: 45%;
+    width: 45%;
+    font-size: 1.5rem;
+    border-radius: 10px;
+    font-family: "Korail Round Gothic Bold";
+  }
+`;

@@ -25,21 +25,20 @@ const Board = styled.div`
 
 const MainPage = () => {
   const [isLogin, setIsLogin] = useState(false);
-  const jwt = localStorage.getItem("jwt");
+  let jwt = localStorage.getItem("jwt");
 
 
   useEffect(() => {
     if (jwt !== null) {
       setIsLogin(true);
-    } else {
-      setIsLogin(false);
     }
-  }, [jwt]);
+  }, [isLogin]);
 
 
   function Logout() {
    
     window.localStorage.removeItem('jwt')
+    setIsLogin(false)
     alert('로그아웃 되었습니다')
   }
 

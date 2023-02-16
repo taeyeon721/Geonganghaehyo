@@ -9,15 +9,16 @@ import Note from "components/note";
 import { useState } from "react";
 import { useNavigate } from 'react-router-dom'; 
 import axios from "axios";
+import styled from "styled-components";
 
 const Login = () => {
 const navigate = useNavigate()
 
-  const [Email, setEmail] = useState("");
+  const [Id, setId] = useState("");
   const [Password, setPassword] = useState("");
 
-  const onEmailHandler = (event) => {
-    setEmail(event.currentTarget.value);
+  const onIdHandler = (event) => {
+    setId(event.currentTarget.value);
   };
   const onPasswordHandler = (event) => {
     setPassword(event.currentTarget.value);
@@ -27,16 +28,16 @@ const navigate = useNavigate()
     // 버튼만 누르면 리로드 되는것을 막아줌
     event.preventDefault();
 
-    console.log("Email", Email);
+    console.log("Id", Id);
     console.log("Password", Password);
 
-    if (!Email) {
-      return alert("이메일을 입력하세요.");
+    if (!Id) {
+      return alert("ID를 입력하세요.");
     } else if (!Password) {
       return alert("Password를 입력하세요.");
     } else {
       const test = {
-        email: Email,
+        email: Id,
         password: Password,
       };
       const testjson = JSON.stringify(test);
@@ -66,40 +67,53 @@ const navigate = useNavigate()
 
   return (
     <>
-      <div>건강해효</div>
-
-      <Note>
-        <div>
-          <form action="" onSubmit={onSubmitHandler}>
-            <span>
-              <h3>이메일</h3>
-              <input
-                type="id"
-                value={Email}
-                placeholder="이메일을 입력하세요"
-                onChange={onEmailHandler}
-              />
-            </span>
-            <span>
-              <h3>패스워드</h3>
-              <input
-                type="password"
-                value={Password}
-                placeholder="비밀 번호를 입력하세요"
-                onChange={onPasswordHandler}
-              />
-            </span>
-            <br />
-            <span>
-              {/* <a href="#">회원가입</a>
-              <a href="#">ID/비밀번호 찾기</a> */}
-            </span>
-            <button formAction="#"> 로그인 </button>
-          </form>
-        </div>
-      </Note>
+        <Note>
+      <MainBlock>
+          <div>
+            <form action="" onSubmit={onSubmitHandler}>
+              <span>
+                <h3>아이디</h3>
+                <input
+                  type="id"
+                  value={Id}
+                  placeholder="Id를 입력하세요"
+                  onChange={onIdHandler}
+                />
+              </span>
+              <span>
+                <h3>패스워드</h3>
+                <input
+                  type="password"
+                  value={Password}
+                  placeholder="비밀 번호를 입력하세요"
+                  onChange={onPasswordHandler}
+                />
+              </span>
+              <br />
+              <span>
+                {/* <a href="#">회원가입</a>
+                <a href="#">ID/비밀번호 찾기</a> */}
+              </span>
+              <button formAction="#"> 로그인 </button>
+            </form>
+          </div>
+      </MainBlock>
+        </Note>
     </>
   );
 };
 
 export default Login;
+
+const MainBlock = styled.div`
+  
+  border: 1px solid black;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  h3 {
+    font-size: 2rem;
+  }
+`;
