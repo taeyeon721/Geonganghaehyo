@@ -1,8 +1,9 @@
 import Note from "components/note";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
+
 
 const Inputbox = styled.input`
   width: 300px;
@@ -93,9 +94,10 @@ const Signup = () => {
           "Content-Type": "application/json",
         },
       };
-
+      console.log(signupValue)
       try {
-        await axios
+        
+        axios
           .post("http://localhost:8080/manager/register", signupValue, config)
           .then(function (res) {
             console.log(res.data);
@@ -128,6 +130,7 @@ const Signup = () => {
       })
       .catch(function (error) {
         console.log(error);
+        
       });
   };
 
@@ -211,7 +214,7 @@ const Signup = () => {
           <span>
             <h3>사용자 나이</h3>
             <Inputbox
-              type="text"
+              type="number"
               name="age"
               placeholder="사용자의 나이를 입력하세요"
               value={signupValue.age}

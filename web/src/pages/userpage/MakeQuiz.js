@@ -30,7 +30,7 @@ const QuizForm = () => {
     };
 
     try {
-      await axios.post("http://localhost:8080/quiz/create", quiz, config);
+      await axios.post("http://localhost:8080/userQuiz/create", quiz, config);
       alert("퀴즈가 성공적으로 만들어졌습니다!");
     } catch (error) {
       console.error(error);
