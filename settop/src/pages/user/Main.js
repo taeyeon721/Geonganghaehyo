@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { useSpeechRecognition } from "react-speech-kit";
 import styled from "styled-components";
 import Book from "assets/img/book_green.png";
+import DangoImg from "assets/img/DoctorDango.png";
+import Bubble2Img from "assets/img/bubble2.png";
 import "assets/font/font.css";
 
 const Main = (props) => {
@@ -49,9 +51,8 @@ const Main = (props) => {
       <MainBlock>
         <div className="book">
           <div className="info">
-            <div className="info_video">
-              <video src="/videos/sample.mp4" autoPlay muted loop></video>
-            </div>
+            <Bubble2/>
+            <Dango/>
             <div className="info_ment">
               <div className="ment">
                 {/* 선택할 메뉴를 말씀해주세요. */}
@@ -152,13 +153,6 @@ const MainBlock = styled.div`
     justify-content: center;
     padding-left: 5%;
   }
-  .info_video {
-    height: 60%;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
   .info_ment {
     height: 15%;
     width: 100%;
@@ -219,4 +213,30 @@ const MainBlock = styled.div`
   video {
     height: 80%;
   }
+`
+
+const Dango = styled.div`
+  width: 70%;
+  height: 60%;
+  background-image: url(${DangoImg});
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  animation: motion 0.7s linear 0s infinite alternate;
+    @keyframes motion {
+        0% {margin-top: 0px;}
+	    100% {margin-top: 20px;}
+    }
+`
+
+const Bubble2 = styled.div`
+  width: 335px;
+  height: 291px;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-image: url(${Bubble2Img});
+  z-index: 1;
+  position: absolute;
+  top: 10%;
+  left: 53%;
+  
 `

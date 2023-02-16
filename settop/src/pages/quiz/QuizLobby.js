@@ -6,6 +6,9 @@ import Book from "assets/img/book_orange2.png";
 import "assets/font/font.css";
 import { useSpeechRecognition } from "react-speech-kit";
 import QuitImg from "assets/img/quittext.png";
+import NextImg from "assets/img/next.png";
+import DangoImg from "assets/img/DoctorDango.png";
+import GuideImg from "assets/img/guide.gif";
 
 const GameLobby = () => {
   //const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -45,13 +48,11 @@ const GameLobby = () => {
             <Quit/>
           </div>
           <div className="content">
-            <video src="/videos/sample.mp4" autoPlay muted loop></video>
-            <div className="explain">
-            <br></br><br></br>
-              바로 시작하려면<br></br><br></br>
-              "넘어가"라고<br></br><br></br>
-              말씀해주세요!
-              </div>
+            <Explain></Explain>
+            <Img>
+              <Dango/>
+              <Next/>
+            </Img>
           </div>
         </div>
       </MainBlock>
@@ -86,10 +87,11 @@ const MainBlock = styled.div`
   }
   .content {
     display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    width: 95%;
-    margin: 0%
+    justify-content: space-around;
+    width: 100%;
+    height: 50%;
+    padding-left: 13%;
+}
   }
   video {
     display: flex;
@@ -111,9 +113,10 @@ const MainBlock = styled.div`
   align-items: center;
   justify-content: center;
 `;
+
 const Quit = styled.div`
     width: 460px;
-    height: 85px;
+    height: 100px;
     background-repeat: no-repeat;
     background-size: 100% 100%;
     background-image: url(${QuitImg});
@@ -121,4 +124,47 @@ const Quit = styled.div`
     position: absolute;
     top: 11%;
     left: 14%;
+`
+
+const Explain = styled.div`
+  width: 100%;
+  height: 100%;
+  background-image: url(${GuideImg});
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  
+`
+
+const Img = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  width: 100%;
+  height: 100%;
+  margin: 0%
+`
+
+const Next = styled.div`
+  width: 34%;
+  height: 50%;
+  background-image: url(${NextImg});
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  z-index: 1;
+  position: absolute;
+  top: 10%;
+  left: 58%;
+`
+
+const Dango = styled.div`
+  width: 290px;
+  height: 273px;
+  background-image: url(${DangoImg});
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  animation: motion 0.7s linear 0s infinite alternate;
+    @keyframes motion {
+        0% {margin-top: 0px;}
+	    100% {margin-top: 20px;}
+    }
 `

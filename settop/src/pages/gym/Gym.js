@@ -144,7 +144,7 @@ const MainBlock = styled.div`
 
 const Quit = styled.div`
     width: 460px;
-    height: 85px;
+    height: 100px;
     background-repeat: no-repeat;
     background-size: 100% 100%;
     background-image: url(${QuitImg});

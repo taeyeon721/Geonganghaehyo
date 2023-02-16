@@ -4,7 +4,7 @@ import { useSpeechRecognition } from "react-speech-kit";
 import styled from "styled-components";
 import BookImg from "assets/img/book_red.png";
 import BubbleImg from "assets/img/bubble.png";
-import Character from "assets/img/dango.png";
+import DangoImg from "assets/img/DoctorDango.png";
 import "assets/font/font.css";
 import PlayMusic from "./PlayMusic.js"
 
@@ -80,25 +80,24 @@ const Book = styled.div`
 const MainBox = styled.div`
     width: 100%;
     height: 100%;
+    padding-left: 10%;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding-left: 10%;
 `
 
 const Bubble = styled.div`
-    width: 910px;
-    height: 530px;
+    width: 783px;
+    height: 755px;
     background-image: url(${BubbleImg});
     background-repeat: no-repeat;
     background-size: 100% 100%;
 `
 
 const CharacterBox = styled.div`
-    width: 200px;
-    height: 331px;
-    background-image: url(${Character});
+    width: 517px;
+    height: 474px;
+    background-image: url(${DangoImg});
     background-repeat: no-repeat;
     background-size: 100% 100%;
     animation: motion 0.7s linear 0s infinite alternate;
