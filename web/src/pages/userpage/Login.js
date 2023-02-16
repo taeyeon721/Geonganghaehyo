@@ -13,11 +13,11 @@ import axios from "axios";
 const Login = () => {
 const navigate = useNavigate()
 
-  const [Id, setId] = useState("");
+  const [Email, setEmail] = useState("");
   const [Password, setPassword] = useState("");
 
-  const onIdHandler = (event) => {
-    setId(event.currentTarget.value);
+  const onEmailHandler = (event) => {
+    setEmail(event.currentTarget.value);
   };
   const onPasswordHandler = (event) => {
     setPassword(event.currentTarget.value);
@@ -27,16 +27,16 @@ const navigate = useNavigate()
     // 버튼만 누르면 리로드 되는것을 막아줌
     event.preventDefault();
 
-    console.log("Id", Id);
+    console.log("Email", Email);
     console.log("Password", Password);
 
-    if (!Id) {
-      return alert("ID를 입력하세요.");
+    if (!Email) {
+      return alert("이메일을 입력하세요.");
     } else if (!Password) {
       return alert("Password를 입력하세요.");
     } else {
       const test = {
-        email: Id,
+        email: Email,
         password: Password,
       };
       const testjson = JSON.stringify(test);
@@ -72,12 +72,12 @@ const navigate = useNavigate()
         <div>
           <form action="" onSubmit={onSubmitHandler}>
             <span>
-              <h3>아이디</h3>
+              <h3>이메일</h3>
               <input
                 type="id"
-                value={Id}
-                placeholder="Id를 입력하세요"
-                onChange={onIdHandler}
+                value={Email}
+                placeholder="이메일을 입력하세요"
+                onChange={onEmailHandler}
               />
             </span>
             <span>

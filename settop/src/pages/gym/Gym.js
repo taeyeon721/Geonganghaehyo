@@ -52,7 +52,7 @@ function Gym() {
             </div>
             <div className="video_frame">
               <div className="v_gym">
-              <YouTube videoId={(gymName == "신체 운동") ? "aSPIO3zGiDU" : "QcD_wg8YKF0"} opts={opts}
+              <YouTube videoId={(gymName === "신체 운동") ? "aSPIO3zGiDU" : "QcD_wg8YKF0"} opts={opts}
                 style={{
                   width: "100%",
                   height: "521px",

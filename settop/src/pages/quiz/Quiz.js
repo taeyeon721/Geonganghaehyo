@@ -4,72 +4,125 @@ import "assets/font/font.css";
 import { useState, useEffect, useRef } from "react"; // react hook 을 사용하기 위한 import
 import { useNavigate } from "react-router-dom";
 import Timer from "components/Timer/index.js";
+import axios from "axios";
 
-// myData: 임시 데이터셋, 추후 API 통신을 통해 받아오는 것으로 반드시 대체
+// myData: 임시 데이터셋, 추후 API 통신을 통해 받아오는 것으로 반드시 대체 > 대체완료. 필요시 활용
 
-const myData = [
+const mydata = [
   //임시로 만들어놓은 데이터로, 추후 backend와 API통신 시 지움
   {
     id: 1,
     question: "누가김승준일까요",
     answer: "김규리",
-    notanswer: "김승준",
+    decoy: "김승준",
   },
   {
     id: 2,
     question: "누가임영웅일까요2",
     answer: "임영웅2",
-    notanswer: "강승현2",
+    decoy: "강승현2",
   },
   {
     id: 3,
     question: "누가임영웅일까요3",
     answer: "임영웅3",
-    notanswer: "강승현3",
+    decoy: "강승현3",
   },
   {
     id: 4,
     question: "누가임영웅일까요4",
     answer: "임영웅4",
-    notanswer: "강승현4",
+    decoy: "강승현4",
   },
   {
     id: 5,
     question: "누가임영웅일까요5",
     answer: "임영웅5",
-    notanswer: "강승현5",
+    decoy: "강승현5",
   },
   {
     id: 6,
     question: "누가임영웅일까요6",
     answer: "임영웅6",
-    notanswer: "강승현6",
+    decoy: "강승현6",
   },
   {
     id: 7,
     question: "누가임영웅일까요7",
     answer: "임영웅7",
-    notanswer: "강승현7",
+    decoy: "강승현7",
   },
   {
     id: 8,
     question: "누가임영웅일까요8",
     answer: "임영웅8",
-    notanswer: "강승현8",
+    decoy: "강승현8",
   },
   {
     id: 9,
     question: "누가임영웅일까요9",
     answer: "임영웅9",
-    notanswer: "강승현9",
+    decoy: "강승현9",
   },
   {
     id: 10,
     question: "누가임영웅일까요10",
     answer: "임영웅10",
-    notanswer: "강승현10",
+    decoy: "강승현10",
   },
 ];
+
+// 이 부분에 jwt 토큰을 받아오는 코드가 들어갑니다.
+// 이하: if 문을 실행, jwt 토큰이 로컬스토리지에 없거나 인증이 되지 않으면 받아오도록 합니다.
+// 로컬스토리지에 저장되는 jwt 토큰의 유효기간은 1달입니다.
+// 보안상 문제가 있다는 것은 인지하고 있음. 추후 비슷한 프로젝트를 만든다면 개선할 예정.
+
+const settopid = "1234567890"; // 출고 시 지정되는 아이디, 어디 저장할지 정하기// 임시로 적어둔 것.
+// 해당 아이디는 SQL로 회원 이메일 / 전화번호와 함께 데이터베이스에 "직접" 등록. =>
+// 데이터베이스에 등록된 이메일, 전화번호를 기입해야만 회원가입이 가능하다.
+
+// 셋탑 ID를 통해 JWT를 받아오는 코드
+// 유효성 검증: 임시로 활용.. 메시지 리스트를 보내보고 응답이 오면 유효한 JWT로 취급
+
+axios
+  .post(
+    "http://localhost:8080/set-top/login",
+    { setTopId: settopid },
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  )
+  .then((response) => {
+    window.localStorage.setItem("jwt", response.data.accessToken);
+  })
+  .catch((err) => {console.log(err)
+  console.log('셋탑 로그인에 실패했습니다. 서버와의 연결을 확인하세요.')
+  });
+
+  //여기까지. 
+const jwt = localStorage.getItem("jwt");
+
+const config = {
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${jwt}`,
+  },
+};
+
+axios
+  .post("http://localhost:8080/userQuiz/list", {}, config)
+  .then((response) => {
+    // console.log(response.data)
+    
+    sessionStorage.setItem('quizlist', JSON.stringify(response.data)); //key, value 형태로 저장하기 때문에, 문자열 형식으로 저장하고
+    // json.parse를 사용해 꺼내와야함. 주의! 세션스토리지엔 object 타입 저장이 안된다.
+    // console.log(JSON.parse(sessionStorage.getItem(('quizlist'))))
+  })
+  .catch((error) => {
+    console.log(error);
+  });
 
 const _ = require("lodash");
 const numbers = _.range(0, 2);
@@ -85,7 +138,10 @@ for (let index = 0; index < 5; index++) {
 삼항연산자를 사용하여 렌더링.
 
 */
+let score = 0
+
 const Game = () => {
+  const myData = JSON.parse(sessionStorage.getItem("quizlist"))
   const init = useRef(window.init);
   const end = useRef(window.end);
   const navigate = useNavigate(); // useNavigate를 사용하기 위한 할당
@@ -96,7 +152,7 @@ const Game = () => {
 
   const [gamedata, setGamedata] = useState(myData[0]);
   const [questionnumber, setQuestionnumber] = useState(1);
-  const [score, setScore] = useState(0);
+  
 
   // const onIncrease = () => {
   //   console.log('실행 전', score)
@@ -111,13 +167,12 @@ const Game = () => {
 
     init.current();
     setQuestionnumber(1);
-    setScore(0);
   }, []);
 
   setInterval(function () {
     // 선택된 것 콘솔로그에 찍어주며, sessionStorage에 있는 변수를 특정 간격마다 raisehand 변수에 넣어줌 => 바로 아래의 useeffect 함수를 통해 변화를 감지.
     console.log();
-    console.log("세션에 저장된 값", sessionStorage["result"]);
+    // console.log("세션에 저장된 값", sessionStorage["result"]);
     setRaisehand(sessionStorage["result"]);
   }, 500); // 실시간으로 변화값 반영
 
@@ -154,6 +209,7 @@ const Game = () => {
     //정답을 골랐을 때
     // onIncrease();
     console.log(randomanswer);
+    console.log('현재 점수는', score)
     //
 
     if (randomanswer[questionnumber - 1] === 0) {
@@ -162,21 +218,20 @@ const Game = () => {
       document.querySelector(".right").style.outline = "0.5rem solid green";
     }
     // //
-    setScore(score + 20);
-    
+    score += 20
+
     setTimeout(() => {
       setQuestionnumber(questionnumber + 1);
       setGamedata(myData[questionnumber]);
 
       console.log("정답 눌림");
       console.log(questionnumber, "문제번호", score);
-      document.querySelector(".right").style.outline = 0
-      document.querySelector(".left").style.outline = 0
+      document.querySelector(".right").style.outline = 0;
+      document.querySelector(".left").style.outline = 0;
       if (questionnumber === 5) {
         end.current();
         console.log("모든 문제 소모");
         console.log(questionnumber, "문제번호", score);
-        setScore(score + 20);
         navigate(`/quizresult`, { state: { score } });
       }
     }, 3000);
@@ -197,13 +252,13 @@ const Game = () => {
     } else {
       document.querySelector(".right").style.outline = "0.5rem solid green";
     }
-    
+
     setTimeout(() => {
       setQuestionnumber(questionnumber + 1);
       console.log(randomanswer);
       setGamedata(myData[questionnumber]);
-      document.querySelector(".right").style.outline = 0
-      document.querySelector(".left").style.outline = 0
+      document.querySelector(".right").style.outline = 0;
+      document.querySelector(".left").style.outline = 0;
       if (questionnumber === 5) {
         end.current();
         console.log("모든 문제 소모");
@@ -219,12 +274,12 @@ const Game = () => {
   // 정답 컴포넌트 클릭시 점수 증가 및 다음페이지 렌더링
   // 오답 클릭 시 점수 유지 및 다음페이지 렌더링
   // 모든 문제 풀 시 gameResult.js 페이지 제공
-  // 정답 위에 마우스 호버할 시 호버 된 것 표시
+  // 정답 위에 마우스 호버할 시 호버 된 것 표시 >> 마우스 호버 대신, 들고있는 손을 표시해 주는 쪽으로 수정.
 
   // const valueFromContext = useContext(MyContext);
   // console.log(valueFromContext)
 
-  console.log(randomanswer);
+  // console.log(randomanswer);
 
   return (
     <>
@@ -258,7 +313,7 @@ const Game = () => {
             >
               {randomanswer[questionnumber - 1] === 0
                 ? gamedata["answer"]
-                : gamedata["notanswer"]}
+                : gamedata["decoy"]}
             </button>
             <button
               className="right"
@@ -271,7 +326,7 @@ const Game = () => {
               }}
             >
               {randomanswer[questionnumber - 1] === 0
-                ? gamedata["notanswer"]
+                ? gamedata["decoy"]
                 : gamedata["answer"]}
             </button>
           </div>
@@ -290,11 +345,8 @@ const MainBlock = styled.div`
     font-size: 5rem;
     font-family: "BMEULJIRO";
     text-align: center;
-    text-shadow: 0 1px 0 #CCC,
-                0 2px 0 #CCC,
-                0 3px 0 #CCC,
-                0 4px 0 #CCC,
-                0 10px 10px rgba(0, 0, 0, .4);
+    text-shadow: 0 1px 0 #ccc, 0 2px 0 #ccc, 0 3px 0 #ccc, 0 4px 0 #ccc,
+      0 10px 10px rgba(0, 0, 0, 0.4);
   }
   p {
     margin: 0;
