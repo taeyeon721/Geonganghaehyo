@@ -1,0 +1,19 @@
+@font-face {
+    font-family: "BMEULJIRO";
+    src: url("../font/BMEULJIROTTF.ttf");
+}
+
+@font-face {
+    font-family: "DdangBold";
+    src: url(../font/DdangBold.ttf);
+}
+
+@font-face {
+    font-family: "DdangLight";
+    src: url(../font/DdangLight.ttf);
+}
+
+@font-face {
+    font-family: "DdangMedium";
+    src: url(../font/DdangMedium.ttf);
+}

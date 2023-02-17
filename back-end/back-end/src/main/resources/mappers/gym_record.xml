@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.main.GymRecord.dao.GymRecordMapper">
+    <insert id="insertWorkout" parameterType="GymRecord">
+        insert into gym_record(email, gym_name, gym_time) values(#{email}, #{gymName}, #{time})
+    </insert>
+
+    <select id="dailyWorkout" resultType="int">
+        select count(gym_time) as dailyWorkout from gym_record where email=#{email} and gym_name=#{gymName} and date_format(gym_time, '%Y-%m-%d') = date_format(#{time}, '%Y-%m-%d')
+    </select>
+</mapper>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.main.Message.dao.MessageMapper">
+
+    <select id="userLastMsg" resultType="Message">
+        select * from message where email=#{email} and location=#{location} order by time desc limit 1
+    </select>
+
+    <select id="managerLastMsg" resultType="Message">
+        select * from message where email=#{email} and location=#{location} order by time desc limit 1
+    </select>
+
+    <select id="msgCount" resultType="int">
+        select count(*) from message where email=#{email} and location=#{location}
+    </select>
+
+    <select id="msgList" resultType="Message">
+        select * from message where email=#{email} order by time desc
+    </select>
+
+    <insert id="insertMsg" parameterType="Message">
+        insert into message(msg_id, email, location, content, time) values(#{msgId}, #{email}, #{location}, #{content}, #{time})
+    </insert>
+
+    <select id="latestList" resultType="Message">
+        select * from message where email=#{email} and location=#{location} order by time desc limit #{num}
+    </select>
+
+
+</mapper>
