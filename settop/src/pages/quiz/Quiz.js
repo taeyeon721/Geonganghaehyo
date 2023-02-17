@@ -46,12 +46,14 @@ for (let index = 0; index < 5; index++) {
 삼항연산자를 사용하여 렌더링.
 
 */
-let score = 0
+
 
 const Game = () => {
   const myData = JSON.parse(sessionStorage.getItem("quizlist"))
   const init = useRef(window.init);
   const end = useRef(window.end);
+  let [score, setScore] = useState(0)
+
   const navigate = useNavigate(); // useNavigate를 사용하기 위한 할당
 
   const [raisehand, setRaisehand] = useState("no_pose"); //left_hand, right_hand, no_pose
@@ -117,6 +119,7 @@ const Game = () => {
     //정답을 골랐을 때
     // onIncrease();
     console.log(randomanswer);
+    console.log(questionnumber,'qu')
     //
 
     if (randomanswer[questionnumber - 1] === 0) {
@@ -125,20 +128,21 @@ const Game = () => {
       document.querySelector(".right").style.outline = "0.5rem solid green";
     }
     // //
-    score += 20
+    setScore(score+20)
 
     setTimeout(() => {
       setQuestionnumber(questionnumber + 1);
       setGamedata(myData[questionnumber]);
 
       console.log("정답 눌림");
-      console.log(questionnumber, "문제번호", score);
+      console.log(questionnumber, "문제번호");
+      score += 20
       document.querySelector(".right").style.outline = 0;
       document.querySelector(".left").style.outline = 0;
       if (questionnumber === 5) {
         end.current();
         console.log("모든 문제 소모");
-        console.log(questionnumber, "문제번호", score);
+        console.log(questionnumber, "문제번호", );
         navigate(`/quizresult`, { state: { score } });
       }
     }, 3000);

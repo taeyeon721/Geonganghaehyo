@@ -65,6 +65,7 @@ const Messagepage = () => {
   }, []);
 
   return (
+    <>
     <Container>
       <div className="flexbox">
       {messageList.map((message) => {
@@ -83,6 +84,7 @@ const Messagepage = () => {
         
       })}
       </div>
+      </Container>
       <form onSubmit={onSubmitHandler}> 
         <input
           type="text"
@@ -92,7 +94,7 @@ const Messagepage = () => {
         />
         <button>전송</button>
       </form>
-    </Container>
+      </>
   );
 };
 

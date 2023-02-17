@@ -35,8 +35,8 @@ function IndividualIntervalsExample() {
       <Carousel.Item interval={1000}>
         <Contents>
           <h3>{mymsg[0]["content"]}</h3>
-          <p>{mymsg[0]["time"]}</p>
-          <p>{mymsg[0]["email"]}</p>
+          <p>2023-02-17 11:27</p>
+          <p>발신자 : 박건우</p>
         </Contents>
       </Carousel.Item>
       <Carousel.Item interval={15000}>
