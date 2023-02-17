@@ -8,100 +8,8 @@ import axios from "axios";
 
 // myData: 임시 데이터셋, 추후 API 통신을 통해 받아오는 것으로 반드시 대체 > 대체완료. 필요시 활용
 
-const mydata = [
-  //임시로 만들어놓은 데이터로, 추후 backend와 API통신 시 지움
-  {
-    id: 1,
-    question: "누가김승준일까요",
-    answer: "김규리",
-    decoy: "김승준",
-  },
-  {
-    id: 2,
-    question: "누가임영웅일까요2",
-    answer: "임영웅2",
-    decoy: "강승현2",
-  },
-  {
-    id: 3,
-    question: "누가임영웅일까요3",
-    answer: "임영웅3",
-    decoy: "강승현3",
-  },
-  {
-    id: 4,
-    question: "누가임영웅일까요4",
-    answer: "임영웅4",
-    decoy: "강승현4",
-  },
-  {
-    id: 5,
-    question: "누가임영웅일까요5",
-    answer: "임영웅5",
-    decoy: "강승현5",
-  },
-  {
-    id: 6,
-    question: "누가임영웅일까요6",
-    answer: "임영웅6",
-    decoy: "강승현6",
-  },
-  {
-    id: 7,
-    question: "누가임영웅일까요7",
-    answer: "임영웅7",
-    decoy: "강승현7",
-  },
-  {
-    id: 8,
-    question: "누가임영웅일까요8",
-    answer: "임영웅8",
-    decoy: "강승현8",
-  },
-  {
-    id: 9,
-    question: "누가임영웅일까요9",
-    answer: "임영웅9",
-    decoy: "강승현9",
-  },
-  {
-    id: 10,
-    question: "누가임영웅일까요10",
-    answer: "임영웅10",
-    decoy: "강승현10",
-  },
-];
 
-// 이 부분에 jwt 토큰을 받아오는 코드가 들어갑니다.
-// 이하: if 문을 실행, jwt 토큰이 로컬스토리지에 없거나 인증이 되지 않으면 받아오도록 합니다.
-// 로컬스토리지에 저장되는 jwt 토큰의 유효기간은 1달입니다.
-// 보안상 문제가 있다는 것은 인지하고 있음. 추후 비슷한 프로젝트를 만든다면 개선할 예정.
 
-const settopid = "1234567890"; // 출고 시 지정되는 아이디, 어디 저장할지 정하기// 임시로 적어둔 것.
-// 해당 아이디는 SQL로 회원 이메일 / 전화번호와 함께 데이터베이스에 "직접" 등록. =>
-// 데이터베이스에 등록된 이메일, 전화번호를 기입해야만 회원가입이 가능하다.
-
-// 셋탑 ID를 통해 JWT를 받아오는 코드
-// 유효성 검증: 임시로 활용.. 메시지 리스트를 보내보고 응답이 오면 유효한 JWT로 취급
-
-axios
-  .post(
-    "http://localhost:8080/set-top/login",
-    { setTopId: settopid },
-    {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  )
-  .then((response) => {
-    window.localStorage.setItem("jwt", response.data.accessToken);
-  })
-  .catch((err) => {console.log(err)
-  console.log('셋탑 로그인에 실패했습니다. 서버와의 연결을 확인하세요.')
-  });
-
-  //여기까지. 
 const jwt = localStorage.getItem("jwt");
 
 const config = {
@@ -209,7 +117,6 @@ const Game = () => {
     //정답을 골랐을 때
     // onIncrease();
     console.log(randomanswer);
-    console.log('현재 점수는', score)
     //
 
     if (randomanswer[questionnumber - 1] === 0) {

@@ -42,7 +42,7 @@ const navigate = useNavigate()
       const testjson = JSON.stringify(test);
       console.log(testjson);
       axios
-        .post("http://localhost:8080/manager/login", JSON.stringify(test), {
+        .post("http://localhost:8080/manager/login", test, {
           headers: {
             "Content-Type": "application/json",
           },
