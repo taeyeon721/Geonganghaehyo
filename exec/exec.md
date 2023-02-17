@@ -5,6 +5,8 @@
 - Back-end : Spring boot 2.7.8
 - Front-end : React 18.2.0
 - DB : MariaDB 10.6
+- BE IDE : Intellij Ultimate 2022.3.2
+- FE IDE : VS CODE 1.75.1
 
 ## 배포사항 정보
 EC2 내부의 Docker 컨테이너로 배포되어 있음
