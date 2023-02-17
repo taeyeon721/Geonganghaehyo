@@ -1,8 +1,12 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import "assets/font/font.css";
 
 export default function Header () {
+  const locationNow = useLocation();
+
+  if (locationNow.pathname === "/") return null;
   return (
     <div>
       <MainBlock>

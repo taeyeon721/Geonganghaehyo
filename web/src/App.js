@@ -35,11 +35,10 @@ function App() {
   return (
     <div className="App">
       <Container>
-        <div className="header">
-
-        <Header />
-        </div>
         <BrowserRouter>
+        <div className="header">
+          <Header />
+        </div>
           <Routes>
             <Route path="/" element={<MainPage />}></Route>
             <Route path="/login" element={<Login />}></Route>

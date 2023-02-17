@@ -7,12 +7,12 @@
 
 import Note from "components/note";
 import { useState } from "react";
-import { useNavigate } from 'react-router-dom'; 
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
 
 const Login = () => {
-const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const [Id, setId] = useState("");
   const [Password, setPassword] = useState("");
@@ -54,7 +54,7 @@ const navigate = useNavigate()
           if (res.data.accessToken) {
             localStorage.setItem("jwt", res.data.accessToken);
             console.log(localStorage);
-            navigate("/")
+            navigate("/");
           }
         })
         .catch(function (error) {
@@ -67,38 +67,40 @@ const navigate = useNavigate()
 
   return (
     <>
-        <Note>
-      <MainBlock>
-          <div>
-            <form action="" onSubmit={onSubmitHandler}>
-              <span>
-                <h3>아이디</h3>
-                <input
-                  type="id"
-                  value={Id}
-                  placeholder="Id를 입력하세요"
-                  onChange={onIdHandler}
-                />
-              </span>
-              <span>
-                <h3>패스워드</h3>
-                <input
-                  type="password"
-                  value={Password}
-                  placeholder="비밀 번호를 입력하세요"
-                  onChange={onPasswordHandler}
-                />
-              </span>
-              <br />
-              <span>
-                {/* <a href="#">회원가입</a>
-                <a href="#">ID/비밀번호 찾기</a> */}
-              </span>
-              <button formAction="#"> 로그인 </button>
-            </form>
-          </div>
-      </MainBlock>
-        </Note>
+      <Note>
+        <MainBlock>
+          <form action="" onSubmit={onSubmitHandler}>
+            <div className="title">
+              <h1>로그인</h1>
+            </div>
+            <div className="id">
+              <h3>아이디</h3>
+              <br/>
+              <input
+                type="id"
+                value={Id}
+                placeholder="Id를 입력하세요"
+                onChange={onIdHandler}
+              />
+            </div>
+            <div className="pw">
+              <h3>패스워드</h3>
+              <br/>
+              <input
+                type="password"
+                value={Password}
+                placeholder="비밀 번호를 입력하세요"
+                onChange={onPasswordHandler}
+              />
+            </div>
+            {/* <span>
+                <a href="#">회원가입</a>
+                <a href="#">ID/비밀번호 찾기</a>
+              </span> */}
+            <button formAction="#"> 로그인 </button>
+          </form>
+        </MainBlock>
+      </Note>
     </>
   );
 };
@@ -106,14 +108,63 @@ const navigate = useNavigate()
 export default Login;
 
 const MainBlock = styled.div`
-  
-  border: 1px solid black;
   width: 100%;
-  height: 100%;
+  height: 99%;
   display: flex;
   justify-content: center;
   align-items: flex-end;
   h3 {
+    margin: 0;
     font-size: 2rem;
+    font-family: "Korail Round Gothic Bold";
+  }
+  h1 {
+    margin: 0;
+    font-size: 2.5rem;
+    font-family: "Korail Round Gothic Bold";
+    display: flex;
+    align-items: center;
+  }
+  form {
+    height: 95%;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+  .title {
+    width: 100%;
+    height: 10%;
+    display: flex;
+    align-items: center;
+  }
+  .id {
+    width: 100%;
+    height: 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+  }
+  .pw {
+    width: 100%;
+    height: 20%;
+    display: flex;
+    flex-direction: column;
+
+  }
+  input {
+    border: 1px solid black;
+    width: 60%;
+    height: 20%;
+  };
+  button {
+    border: 1px solid black;
+    width: 25%;
+    height: 5%;
+    border-radius: 10px;
+    background-color: #CECECE;
+    font-size: 1.5rem;
+    font-family: "Korail Round Gothic Bold";
   }
 `;

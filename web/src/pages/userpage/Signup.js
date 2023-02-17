@@ -260,14 +260,14 @@ const MainBlock = styled.div`
   } */
   form {
     width: 90%;
-    height: 95%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: flex-end;
   }
   width: 100%;
-  height: 99%;
+  height: 95%;
   display: flex;
   justify-content: center;
   align-items: flex-end;
