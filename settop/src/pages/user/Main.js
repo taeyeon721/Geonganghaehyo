@@ -6,6 +6,34 @@ import Book from "assets/img/book_green.png";
 import DangoImg from "assets/img/DoctorDango.png";
 import Bubble2Img from "assets/img/bubble2.png";
 import "assets/font/font.css";
+import axios from "axios";
+
+const settopid = "1234567890"; // 출고 시 지정되는 아이디, 어디 저장할지 정하기// 임시로 적어둔 것.
+// 해당 아이디는 SQL로 회원 이메일 / 전화번호와 함께 데이터베이스에 "직접" 등록. =>
+// 데이터베이스에 등록된 이메일, 전화번호를 기입해야만 회원가입이 가능하다.
+
+// 셋탑 ID를 통해 JWT를 받아오는 코드
+// 유효성 검증: 임시로 활용.. 메시지 리스트를 보내보고 응답이 오면 유효한 JWT로 취급
+
+axios
+  .post(
+    "http://localhost:8080/set-top/login",
+    { setTopId: settopid },
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  )
+  .then((response) => {
+    console.log('jwt를 가져옴')
+    window.localStorage.setItem("jwt", response.data.accessToken);
+  })
+  .catch((err) => {
+    console.log(err);
+    console.log("셋탑 로그인에 실패했습니다. 서버와의 연결을 확인하세요.");
+  });
+
 
 const Main = (props) => {
   // 음성인식 기능

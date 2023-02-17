@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import styled from "styled-components";
 import Book from "assets/img/book_red.png";
 import { useNavigate } from "react-router-dom";
 import "assets/font/font.css";
 import { useSpeechRecognition } from "react-speech-kit";
 import Slider from "components/Slider.js";
+import axios from "axios";
 
 function Message() {
+  console.log('재렌더링')
   const [value, setValue] = useState("");
   const [textData, setTextData] = useState("");
-  const [letter, setLetter] = useState({
-    content: "",
-  });
+ 
   let [isRec, setIsRec] = useState(false);
   const navigate = useNavigate();
   const { listen, stop } = useSpeechRecognition({
@@ -20,10 +20,10 @@ function Message() {
       console.log(result);
     },
   });
-  useEffect(() => {
+  useMemo(() => {
     if (isRec === true) {
       console.log(value);
-      if (value.includes("편지 보낼래") === false) {
+      if (value.includes("보낼래") === false) {
         setTextData((textData) => `${textData} ${value}`);
       }
     }
@@ -36,14 +36,28 @@ function Message() {
       setIsRec(true);
       // stop();
     }
-    if (textData && value.includes("편지 보낼래")) {
+    if (textData && value.includes("보낼래")) {
       // 서버랑 연동하기
       // stop();
       setIsRec(false);
-      setLetter({
-        ...letter,
-        content: textData,
-      });
+      const letter = textData
+      // 이 부분이 POST 요청 보내는 코드
+      const jwt = localStorage.getItem('jwt')
+        const config = {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${jwt}`,
+          },
+        };
+        axios
+          .post("http://localhost:8080/message/save", letter, config)
+          .then(console.log("메시지 보내기에 성공했습니다"))
+          .catch(function (error) {
+            console.error(error);
+          });
+
+      ////
+      setValue('')
     }
     if (value.includes("다 썼어")) {
       if (isRec === false) {
@@ -58,28 +72,18 @@ function Message() {
     // setInterval(() => realListen, 5000);
   });
 
-  // useEffect(() => {
-  //   const onSubmitHandler = (event) => {
-  //     //버튼에 대한 함수 정의
-  //     // 버튼만 누르면 리로드 되는것을 막아줌
-  //     event.preventDefault();
-  //     if (!SendMessage) {
-  //       return alert("메시지를 입력하세요.");
-  //     } else {
-  //       const config = {
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //           Authorization: `Bearer ${jwt}`,
-  //         },
-  //       };
-  //       axios
-  //         .post("http://localhost:9999/message/save", SendMessage, config)
-  //         .then(console.log("메시지 보내기에 성공했습니다"))
-  //         .catch(function (error) {
-  //           console.error(error);
-  //         });
-  //     }
-  //   };
+  // useMemo(() => {
+
+  // //   const onSubmitHandler = (event) => {
+  // //     //버튼에 대한 함수 정의
+  // //     // 버튼만 누르면 리로드 되는것을 막아줌
+  // //     event.preventDefault();
+  // //     if (!SendMessage) {
+  // //       return alert("메시지를 입력하세요.");
+  // //     } else {
+      
+  // //     }
+  // //   };
   // },[letter]);
 
   return (

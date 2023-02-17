@@ -70,7 +70,7 @@ const Messagepage = () => {
       {messageList.map((message) => {
         return (
           
-            <div>
+            message.location === "setTop" && <div>
               <Message
                 content={message.content}
                 sound={message.sound}
