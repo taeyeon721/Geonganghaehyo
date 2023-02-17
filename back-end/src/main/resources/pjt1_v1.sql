@@ -4,6 +4,13 @@
 -- ------------------------------------------------------
 -- Server version	10.6.11-MariaDB
 
+--
+-- create database
+--
+drop database if exists springboot;
+create database springboot;
+use springboot;
+
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
