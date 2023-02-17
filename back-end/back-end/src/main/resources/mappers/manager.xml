@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.main.Manager.dao.ManagerMapper">
+    <insert id="register" parameterType="Manager">
+        insert into manager(email,name,password, user_name, gender, age, tel_no, role) values(#{email},#{name},#{password},#{userName}, #{gender}, #{age}, #{telNo}, #{role})
+    </insert>
+
+    <select id="login" resultType="Manager" parameterType="String">
+        select email, password, role from manager where email=#{email}
+    </select>
+
+    <select id="get" resultType="Manager" parameterType="String">
+        select email, name, role from manager where email=#{email}
+    </select>
+
+    <update id="update" parameterType="Manager">
+        update manager set age=#{age}, name=#{name}, password=#{password}, user_name=#{userName} where email=#{email}
+    </update>
+
+    <delete id="delete" parameterType="String">
+        delete from manager where email=#{email}
+    </delete>
+
+    <select id="getPassword" parameterType="String">
+        select password from manager where email=#{email}
+    </select>
+
+    <select id="emailCheck" resultType="int">
+        select count(email) from manager where email=#{email}
+    </select>
+
+    <select id="isValid" resultType="int">
+        select count(*) from set_top where email=#{email}
+    </select>
+
+    <insert id="updateRefreshToken" parameterType="TokenDto">
+        insert into token(email, refreshtoken_manager) values(#{email},#{refreshToken}) on duplicate key update refreshtoken_manager = #{refreshToken}
+    </insert>
+</mapper>

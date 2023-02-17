@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.main.SetTop.dao.SetTopMapper">
+
+    <insert id="register" parameterType="SetTop">
+        insert into manager(email,name,password, user_name, gender, age, tel_no, role) values(#{email},#{name},#{password},#{userName}, #{gender}, #{age}, #{telNo}, #{role})
+    </insert>
+
+    <select id="isExist" resultType="int">
+        select count(*) from set_top where set_top_id=#{setTopId};
+    </select>
+
+    <select id="setTopLogin" resultType="SetTop" parameterType="String">
+        select * from set_top where set_top_id=#{setTopId}
+    </select>
+
+    <delete id="delete" parameterType="String">
+        delete from set_top where set_top_id=#{setTopId}
+    </delete>
+
+    <insert id="updateRefreshToken" parameterType="TokenDto">
+        insert into token(email, refreshtoken_set_top) values(#{email},#{refreshToken}) on duplicate key update refreshtoken_set_top = #{refreshToken}
+    </insert>
+</mapper>
